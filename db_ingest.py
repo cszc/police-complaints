@@ -34,10 +34,7 @@ def onet_to_psql(directory):
         "host='localhost' port='5432' dbname='police' user='christine' password='llc'")
     for entry in os.scandir(path=directory):
         f = open(os.path.join(directory, entry.name))
-        try:
-            process_file(conn, entry.name, f)
-        except:
-            print("something did'nt work")
+        process_file(conn, entry.name, f)
 
 if __name__ == '__main__':
     main()
