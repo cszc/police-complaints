@@ -31,7 +31,7 @@ def process_file(conn, table_name, file_object):
 
 def onet_to_psql(directory):
     conn = psycopg2.connect(
-        "host='localhost' port='5432' dbname='police' user='cszc' password='llc'")
+        "host='localhost' port='5432' dbname='police' user='christine' password='llc'")
     for entry in os.scandir(path=directory):
         f = open(os.path.join(directory, entry.name))
         try:
