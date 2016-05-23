@@ -65,7 +65,7 @@ class client:
         cur.close()
 
 if __name__ == "__main__":
-    dbClient = LobbyDBClient.client()
+    dbClient = client()
     try:            
         dbClient.openConnection()
     except Exception as e:
