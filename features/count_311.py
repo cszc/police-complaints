@@ -4,7 +4,7 @@ from psycopg2.extensions import QuotedString
 
 
 MAIN_TABLE = "311bytract"
-TABLES_TO_COUNT = ["311alleylights", "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
+TABLES_TO_COUNT = ['"311alleylights"', "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
 class client:
     def __init__(self):
@@ -41,7 +41,7 @@ class client:
         # add a geometry column to an existing 311 table table
         cur.execute('''
             ALTER TABLE %s ADD COLUMN geom geometry(POINT,4326);
-            ''', [AsIs(table311).getquoted()])
+            ''', [AsIs(table311)])
         
         # make a geopoint column from existing text lat & long columns
         # note that for some reason lat/lng are reverse from what you'd expect
