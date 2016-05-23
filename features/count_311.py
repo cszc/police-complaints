@@ -35,7 +35,7 @@ class client:
         print("Starting {}".format(table311))
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
-        cur.execute("ALTER TABLE %s ADD COLUMN geom geometry(POINT,4326);", [table311])
+        cur.execute("ALTER TABLE "%s" ADD COLUMN geom geometry(POINT,4326);", [table311])
         
         # make a geopoint column from existing text lat & long columns
         # note that for some reason lat/lng are reverse from what you'd expect
