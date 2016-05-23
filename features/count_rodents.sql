@@ -3,10 +3,8 @@ UPDATE "311rodent" SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);
 CREATE INDEX "idx_rodent_geom" ON "311rodent" USING GIST(geom);
 ALTER TABLE "311bytract" ADD rodent_count int;
 update "311bytract" 
-set rodent_count = b.cnt 
-from "311bytract" as main inner join ( 
-    select count(*) as cnt, t.tractce10 from "311rodent" as complaints 
+set rodent_count = ( 
+    select count(*) as cnt from "311rodent" as complaints 
     JOIN "tracts2010" as t 
     on ST_Contains(t.geom, complaints.geom) 
-    group by t.tractce10) as b 
-    on main.tractce10 = b.tractce10;
+    group by t.tractce10);
