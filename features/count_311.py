@@ -32,7 +32,7 @@ class client:
 
     def count_311_calls(self, table311):
         name = str(table311)
-        print("Starting {}".format(name))
+        print "Starting " + name
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
         cur.execute("ALTER TABLE (%s) ADD COLUMN geom geometry(POINT,4326);", [table311])
@@ -70,7 +70,8 @@ if __name__ == "__main__":
     try:            
         dbClient.openConnection()
     except Exception as e:
-        print("Error: {}".format(e))
+        print "Error: "
+        print e
 
     for table in TABLES_TO_COUNT:
         dbClient.count_311_calls(table)
