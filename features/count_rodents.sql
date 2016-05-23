@@ -5,8 +5,8 @@ ALTER TABLE "311bytract" ADD rodent_count int;
 update "311bytract" as a
 set a.rodent_count = b.cnt
 from ( 
-    select count(*) as cnt from "311rodent" as complaints 
+    select count(*) as cnt, t.tractce10 as tract from "311rodent" as complaints 
     JOIN "tracts2010" as t 
     on ST_Contains(t.geom, complaints.geom) 
     group by t.tractce10) as b
-where a.tractce10 = b.tractce10;
+where a.tractce10 = b.tract;
