@@ -48,8 +48,7 @@ class client:
         cur.execute("CREATE INDEX %s ON (%s) USING GIST(geom);", (index_name, table311))
         self.dbconn.commit() 
          
-        # count how many 311 rodent calls there were per census tract
-        select count(*), t.tractce10 from "311rodent" as r join "tracts2010" as t on ST_Contains(t.geom, r.geom) group by t.tractce10;
+        # count how many 311 calls there were per census tract and add that to the main table
 
         col_name = name + "_count"
         cur.execute("alter %s add %s int;", (MAIN_TABLE, col_name))
