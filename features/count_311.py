@@ -32,7 +32,7 @@ class client:
 
     def count_311_calls(self, table311):
         name = str(table311)
-        print("Starting {}".format())
+        print("Starting {}".format(table311))
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
         cur.execute("ALTER TABLE (%s) ADD COLUMN geom geometry(POINT,4326);", [table311])
