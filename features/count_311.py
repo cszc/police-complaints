@@ -1,5 +1,6 @@
 import psycopg2 as ps
 from psycopg2.extensions import AsIs
+from psycopg2.extensions import QuotedString
 
 
 MAIN_TABLE = "311bytract"
@@ -40,7 +41,7 @@ class client:
         # add a geometry column to an existing 311 table table
         cur.execute('''
             ALTER TABLE %s ADD COLUMN geom geometry(POINT,4326);
-            ''', [AsIs(table311)])
+            ''', [QuotedString(table311).getquoted()])
         
         # make a geopoint column from existing text lat & long columns
         # note that for some reason lat/lng are reverse from what you'd expect
