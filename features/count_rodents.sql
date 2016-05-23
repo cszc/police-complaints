@@ -4,7 +4,7 @@ CREATE INDEX "idx_rodent_geom" ON "311rodent" USING GIST(geom);
 ALTER TABLE "311bytract" ADD rodent_count int;
 update "311bytract" 
 set rodent_count = b.cnt 
-from "311bytract" as main join ( 
+from "311bytract" as main inner join ( 
     select count(*) as cnt, t.tractce10 from "311rodent" as complaints 
     JOIN "tracts2010" as t 
     on ST_Contains(t.geom, complaints.geom) 
