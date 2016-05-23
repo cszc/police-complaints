@@ -35,33 +35,30 @@ class client:
         print("Starting {}".format(table311))
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
-        cur.execute("ALTER TABLE (%s) ADD COLUMN geom geometry(POINT,4326);", [table311])
-        self.dbconn.commit()
+        cur.execute("ALTER TABLE %s ADD COLUMN geom geometry(POINT,4326);", [table311])
         
         # make a geopoint column from existing text lat & long columns
         # note that for some reason lat/lng are reverse from what you'd expect
-        cur.execute("UPDATE (%s) SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);", [table311])
-        self.dbconn.commit()
+        cur.execute("UPDATE %s SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);", [table311])
 
         index_name = "idx_" + name + "_geom"
         # make an index
-        cur.execute("CREATE INDEX %s ON (%s) USING GIST(geom);", (index_name, table311))
-        self.dbconn.commit() 
+        cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (index_name, table311))
          
         # count how many 311 calls there were per census tract and add that to the main table
 
         col_name = name + "_count"
         cur.execute("alter %s add %s int;", (MAIN_TABLE, col_name))
-        self.dbconn.commit()
 
         cur.execute("""
         update %s 
         set %s = b.cnt 
         from %s inner join ( 
-        select count(*) as cnt, t.tractce10 from (%s) as complaints join "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b 
+        select count(*) as cnt, t.tractce10 from %s as complaints join "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b 
         on %s.tractce10 = b.tractce10;
         """, (MAIN_TABLE, col_name, MAIN_TABLE, table311, MAIN_TABLE))
         self.dbconn.commit()
+        print("Completed {}".format(name))
         cur.close()
 
 if __name__ == "__main__":
