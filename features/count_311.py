@@ -1,6 +1,6 @@
 import psycopg2 as ps
 MAIN_TABLE = "311bytract"
-TABLES_TO_COUNT = ["311alleylights", "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
+TABLES_TO_COUNT = ['"311alleylights"', "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
 class client:
     def __init__(self):
