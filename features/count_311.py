@@ -14,25 +14,25 @@ class client:
     # open a connection to a psql database
     def openConnection(self):
         #
-        print "Opening a Connection"
+        print("Opening a Connection")
         conn = ps.connect(database=self.dbname, user=self.dbusername, password=self.dbpasswd,\
             host=self.dbhost, port=self.dbport)
         self.dbconn = conn
 
     # Close any active connection(should be able to handle closing a closed conn)
     def closeConnection(self):
-        print "Closing Connection"
+        print("Closing Connection")
 
         if self.dbconn:
             self.dbconn.close()
             self.dbconn=None
-            print "Connection closed"
+            print("Connection closed")
         else:
-            print "Connection already closed"
+            print("Connection already closed")
 
     def count_311_calls(self, table311):
         name = str(table311)
-        print "Starting " + name
+        print("Starting {}".format())
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
         cur.execute("ALTER TABLE (%s) ADD COLUMN geom geometry(POINT,4326);", [table311])
@@ -70,8 +70,7 @@ if __name__ == "__main__":
     try:            
         dbClient.openConnection()
     except Exception as e:
-        print "Error: "
-        print e
+        print("Error: {}".format(e))
 
     for table in TABLES_TO_COUNT:
         dbClient.count_311_calls(table)
