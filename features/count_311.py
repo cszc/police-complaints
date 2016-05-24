@@ -94,7 +94,7 @@ if __name__ == "__main__":
         print("Error: {}".format(e))
 
     for table in TABLES_311:
-        dbClient.add_coords(table)
+        dbClient.count_311_calls(table)
 
     dbClient.closeConnection()
 
