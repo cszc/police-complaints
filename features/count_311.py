@@ -3,7 +3,7 @@ from psycopg2.extensions import AsIs
 from psycopg2.extensions import QuotedString
 
 
-TABLES_311 = ['"311alleylights"', "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
+TABLES_311 = ["311alleylights", "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
 TABLES_TO_COUNT = ["311alleylights"]
 
