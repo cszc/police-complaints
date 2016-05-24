@@ -60,7 +60,7 @@ class client:
         sql = "alter \""+ MAIN_TABLE + "\" add "+col_name+" int;"
         cur.execute(sql)
 
-        sql = "update \""+ MAIN_TABLE+"\" set "+ col_name +" = b.cnt from (select count(*) as cnt, t.tractce10 as tract from \""+table311+"\"as complaints JOIN "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b where tractce10 = b.tract;"
+        sql = "update \""+ MAIN_TABLE+"\" set "+ col_name +" = b.cnt from (select count(*) as cnt, t.tractce10 as tract from \""+table311+"\"as complaints JOIN \"tracts2010\" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b where tractce10 = b.tract;"
         cur.execute(sql)
         self.dbconn.commit()
         print("Completed {}".format(name))
