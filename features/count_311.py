@@ -4,7 +4,9 @@ from psycopg2.extensions import QuotedString
 
 
 MAIN_TABLE = "311bytract"
-TABLES_TO_COUNT = ['"311alleylights"', "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
+# TABLES_TO_COUNT = ['311alleylights',"311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
+
+TABLES_TO_COUNT = ['311alleylights']
 
 class client:
     def __init__(self):
@@ -39,30 +41,27 @@ class client:
         print("Starting {}".format(table311))
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
-        cur.execute('''
-            ALTER TABLE %s ADD COLUMN geom geometry(POINT,4326);
-            ''', [AsIs(table311)])
+        sql = "ALTER TABLE \"" + table311 + "\" ADD COLUMN geom geometry(POINT,4326);"
+        cur.execute(sql)
         
         # make a geopoint column from existing text lat & long columns
         # note that for some reason lat/lng are reverse from what you'd expect
-        cur.execute("UPDATE %s SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);", [table311])
+        sql = "UPDATE \"" + table311 + "\" SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);"
+        cur.execute(sql)
 
         index_name = "idx_" + name + "_geom"
         # make an index
-        cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (index_name, table311))
+        "CREATE INDEX "+ index_name + " ON \""+table311+"\" USING GIST(geom);"
+        cur.execute(sql)
          
         # count how many 311 calls there were per census tract and add that to the main table
 
         col_name = name + "_count"
-        cur.execute("alter %s add %s int;", (MAIN_TABLE, col_name))
+        sql = "alter \""+ MAIN_TABLE + "\" add "+col_name+" int;"
+        cur.execute(sql)
 
-        cur.execute("""
-        update %s 
-        set %s = b.cnt 
-        from %s inner join ( 
-        select count(*) as cnt, t.tractce10 from %s as complaints join "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b 
-        on %s.tractce10 = b.tractce10;
-        """, (MAIN_TABLE, col_name, MAIN_TABLE, table311, MAIN_TABLE))
+        sql = "update \""+ MAIN_TABLE+"\" set "+ col_name +" = b.cnt from (select count(*) as cnt, t.tractce10 as tract from \""+table311+"\"as complaints JOIN "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b where tractce10 = b.tract;"
+        cur.execute(sql)
         self.dbconn.commit()
         print("Completed {}".format(name))
         cur.close()
