@@ -3,7 +3,7 @@ from psycopg2.extensions import AsIs
 from psycopg2.extensions import QuotedString
 
 
-MAIN_TABLE = "311bytract"
+MAIN_TABLE = "\"311bytract\""
 # TABLES_TO_COUNT = ['"311alleylights"', "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
 TABLES_TO_COUNT = ["\"311alleylights\""]
@@ -51,12 +51,12 @@ class client:
 
         index_name = "idx_" + name + "_geom"
         # make an index
-        cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (index_name, table311))
+        cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (AsIs(index_name), AsIs(table311)))
          
         # count how many 311 calls there were per census tract and add that to the main table
 
         col_name = name + "_count"
-        cur.execute("alter %s add %s int;", (MAIN_TABLE, col_name))
+        cur.execute("alter %s add %s int;", (AsIs(MAIN_TABLE), AsIs(col_name)))
 
         cur.execute("""
         update %s 
@@ -64,7 +64,7 @@ class client:
         from %s inner join ( 
         select count(*) as cnt, t.tractce10 from %s as complaints join "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b 
         on %s.tractce10 = b.tractce10;
-        """, (MAIN_TABLE, col_name, MAIN_TABLE, table311, MAIN_TABLE))
+        """, (AsIs(MAIN_TABLE), AsIs(col_name), AsIs(MAIN_TABLE), AsIs(table311), AsIs(MAIN_TABLE)))
         self.dbconn.commit()
         print("Completed {}".format(name))
         cur.close()
