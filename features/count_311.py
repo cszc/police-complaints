@@ -6,7 +6,7 @@ from psycopg2.extensions import QuotedString
 MAIN_TABLE = "\"311bytract\""
 # TABLES_TO_COUNT = ['"311alleylights"', "311bytract", "311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
-TABLES_TO_COUNT = ["\"311alleylights\""]
+TABLES_TO_COUNT = ["311alleylights"]
 
 class client:
     def __init__(self):
@@ -37,25 +37,25 @@ class client:
             print("Connection already closed")
 
     def count_311_calls(self, table311):
-        name = str(table311)
+        name = "\""+str(table311)+"\""
         print("Starting {}".format(table311))
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
         cur.execute('''
             ALTER TABLE %s ADD COLUMN geom geometry(POINT,4326);
-            ''', [AsIs(table311)])
+            ''', [AsIs(name)])
         
         # make a geopoint column from existing text lat & long columns
         # note that for some reason lat/lng are reverse from what you'd expect
-        cur.execute("UPDATE %s SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);", [AsIs(table311)])
+        cur.execute("UPDATE %s SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);", [AsIs(name)])
 
-        index_name = "idx_" + name + "_geom"
+        index_name = "idx_" + table311 + "_geom"
         # make an index
-        cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (AsIs(index_name), AsIs(table311)))
+        cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (AsIs(index_name), AsIs(name)))
          
         # count how many 311 calls there were per census tract and add that to the main table
 
-        col_name = name + "_count"
+        col_name = table311 + "_count"
         cur.execute("alter %s add %s int;", (AsIs(MAIN_TABLE), AsIs(col_name)))
 
         cur.execute("""
@@ -64,7 +64,7 @@ class client:
         from %s inner join ( 
         select count(*) as cnt, t.tractce10 from %s as complaints join "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b 
         on %s.tractce10 = b.tractce10;
-        """, (AsIs(MAIN_TABLE), AsIs(col_name), AsIs(MAIN_TABLE), AsIs(table311), AsIs(MAIN_TABLE)))
+        """, (AsIs(MAIN_TABLE), AsIs(col_name), AsIs(MAIN_TABLE), AsIs(name), AsIs(MAIN_TABLE)))
         self.dbconn.commit()
         print("Completed {}".format(name))
         cur.close()
