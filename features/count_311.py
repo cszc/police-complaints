@@ -54,11 +54,13 @@ class client:
         # make an index
         cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (AsIs(index_name), AsIs(name)))
         print("success #3")
+
         # count how many 311 calls there were per census tract and add that to the main table
 
         col_name = table311 + "_count"
-        cur.execute("alter %s add %s int;", (MAIN_TABLE, AsIs(col_name)))
+        cur.execute("alter %s add %s int;", (AsIs(main_name), AsIs(col_name)))
         print("success #4")
+
         cur.execute("""
         update %s 
         set %s = b.cnt 
