@@ -38,7 +38,7 @@ class client:
 
     def count_311_calls(self, table311):
         name = "\""+str(table311)+"\""
-        main_name = "\""+MAIN_TABLE+"\""
+        main_name = "\""+str(MAIN_TABLE)+"\""
         print("Starting {}".format(table311))
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
@@ -57,7 +57,7 @@ class client:
         # count how many 311 calls there were per census tract and add that to the main table
 
         col_name = table311 + "_count"
-        cur.execute("alter %s add %s int;", (AsIs(MAIN_TABLE), AsIs(col_name)))
+        cur.execute("alter %s add %s int;", (MAIN_TABLE, AsIs(col_name)))
         print("success #4")
         cur.execute("""
         update %s 
