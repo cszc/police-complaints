@@ -64,9 +64,9 @@ class client:
         cur.execute("""
         update \"311bytract\" 
         set %s = b.cnt 
-        from \"311bytract\" inner join ( 
+        from \"311bytract\" as a inner join ( 
         select count(*) as cnt, t.tractce10 from %s as complaints join "tracts2010" as t on ST_Contains(t.geom, complaints.geom) group by t.tractce10) as b 
-        on tractce10 = b.tractce10;
+        on a.tractce10 = b.tractce10;
         """, (AsIs(col_name), AsIs(name)))
         self.dbconn.commit()
         print("Completed {}".format(name))
