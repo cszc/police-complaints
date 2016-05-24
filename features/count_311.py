@@ -58,7 +58,7 @@ class client:
         # count how many 311 calls there were per census tract and add that to the main table
 
         col_name = table311 + "_count"
-        cur.execute("alter table \"311bytract\" add %s int;", [AsIs(col_name)])
+        cur.execute("alter table \"311bytract\" add %s int;", [col_name])
         print("success #4")
 
         cur.execute("""
