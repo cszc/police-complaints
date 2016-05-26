@@ -61,5 +61,11 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
+
+# Annoyingly Big Data Sets
+crimes.csv
+
+
+=======
 #api keys
 google_api_keys.txt
