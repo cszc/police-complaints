@@ -205,7 +205,7 @@ if __name__ == "__main__":
     #     dbClient.get_311_radii("test2",table,"radius311")
     allegations_table = "test2"
     out_table = "ages"
-    # dbClient.make_new_feature_table(allegations_table, out_table)
+    dbClient.make_new_feature_table(allegations_table, out_table)
     for p in PARTICIPANT_TABLES:
         # dbClient.get_311_radii(allegations_table, crime_table, out_table)
         dbClient.get_participant_age(allegations_table,p, out_table)
