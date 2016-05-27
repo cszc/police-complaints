@@ -4,7 +4,7 @@ from psycopg2.extensions import AsIs
 
 TABLES_311 = ["311alleylights","311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
-NEW_311 = ["rodents","garbage"]
+NEW_311 = ["rodents","garbage","sanitation", "alleylights", "vacantbuildings", "streetlights_all", "vehicles", "streetlights_one", "treetrims", "potholes", "graffiti"]
 
 class client:
     def __init__(self):
