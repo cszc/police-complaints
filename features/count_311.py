@@ -171,25 +171,25 @@ class client:
         print("Completed {}".format(name))
         cur.close()
 
-def get_participant_age(self, allegations, participant_table, out_table):
-    col_name = participant_table + "_age"
-    cur = self.dbconn.cursor()
+    def get_participant_age(self, allegations, participant_table, out_table):
+        col_name = participant_table + "_age"
+        cur = self.dbconn.cursor()
 
-    cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
-    print("added col {} to {}".format(col_name, out_table))
+        cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
+        print("added col {} to {}".format(col_name, out_table))
 
-    cur.execute('''
-    update %s
-    set %s = ages.age
-    (SELECT (a.crid, a.officer_id) AS allegation_id, extract(year from age(a.dateobj, b.dateobj)) as age
-    FROM %s as a
-    JOIN %s as b
-    ON a.officer_id=b.officer_id) as ages
-    where (crid, officer_id)=ages.allegation_id;
-    ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(participant_table)))
-    self.dbconn.commit()
-    print("Completed {} age".format(participant_table))
-    cur.close()
+        cur.execute('''
+        update %s
+        set %s = ages.age
+        (SELECT (a.crid, a.officer_id) AS allegation_id, extract(year from age(a.dateobj, b.dateobj)) as age
+        FROM %s as a
+        JOIN %s as b
+        ON a.officer_id=b.officer_id) as ages
+        where (crid, officer_id)=ages.allegation_id;
+        ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(participant_table)))
+        self.dbconn.commit()
+        print("Completed {} age".format(participant_table))
+        cur.close()
 
 if __name__ == "__main__":
     dbClient = client()
