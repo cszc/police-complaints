@@ -65,26 +65,26 @@ class client:
         
         for d in distances:
             for time in times:
-            print("starting {}, {} m".format(time, d))
-            
-            col_name = table311 + "_count_" + time.strip() + d + 'm'
-            cur.execute("alter table radius311 add column %s int;", [col_name])
-            print("added col {}".format(col_name))
-            
-            cur.execute(
-                '''
-                update radius311
-                set %s = agg.num_complaints
-                from
-                (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
-                FROM %s as a JOIN %s as b
-                ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
-                AND b.dateobj < a.dateobj
-                AND b.dateobj > (a.dateobj - interval '%s')
-                GROUP BY (a.crid, a.officer_id)) as agg
-                where (crid, officer_id)=agg.allegation_id;
-                ''', (col_name,allegations,table311,d,time))
-            print("Completed query")
+                print("starting {}, {} m".format(time, d))
+                
+                col_name = table311 + "_count_" + time.strip() + d + 'm'
+                cur.execute("alter table radius311 add column %s int;", [col_name])
+                print("added col {}".format(col_name))
+                
+                cur.execute(
+                    '''
+                    update radius311
+                    set %s = agg.num_complaints
+                    from
+                    (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
+                    FROM %s as a JOIN %s as b
+                    ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
+                    AND b.dateobj < a.dateobj
+                    AND b.dateobj > (a.dateobj - interval '%s')
+                    GROUP BY (a.crid, a.officer_id)) as agg
+                    where (crid, officer_id)=agg.allegation_id;
+                    ''', (col_name,allegations,table311,d,time))
+                print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(table311))
         cur.close()
