@@ -59,7 +59,7 @@ class client:
 
     def make_new_feature_table(self, allegations, out_table):
         cur = self.dbconn.cursor()
-        cur.execute("select crid, officer_id into %s from %s;",(AsIs(out_table),AsIs(allegations))
+        cur.execute("select crid, officer_id into %s from %s;",(AsIs(out_table),AsIs(allegations)))
         self.dbconn.commit()
         print("Created table".format(out_table))
         cur.close()
