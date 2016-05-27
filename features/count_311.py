@@ -94,10 +94,10 @@ class client:
                         ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
                         AND b.dateobj < a.dateobj
                         AND b.dateobj > (a.dateobj - interval '%s')
-                        WHERE b."FBI Code" == %s
+                        WHERE b."FBI Code" = %s
                         GROUP BY (a.crid, a.officer_id)) as agg
                         where (crid, officer_id)=agg.allegation_id;
-                        ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),AsIs(code)))
+                        ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),str(code)))
                     print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(crimetable))
