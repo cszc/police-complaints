@@ -83,7 +83,7 @@ class client:
                     AND b.dateobj > (a.dateobj - interval '%s')
                     GROUP BY (a.crid, a.officer_id)) as agg
                     where (crid, officer_id)=agg.allegation_id;
-                    ''', (col_name,allegations,table311,d,time))
+                    ''', (AsIs(col_name),AsIs(allegations),AsIs(table311),AsIs(d),AsIs(time)))
                 print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(table311))
