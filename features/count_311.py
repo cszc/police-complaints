@@ -78,27 +78,27 @@ class client:
         for d in distances:
             for time in times:
                 for code in FBI_CODES:
-                print("starting {}, {} m".format(time, d))
-                
-                col_name = "crimes_" + code + "_"+ time.replace(" ","") + d + 'm'
-                cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
-                print("added col {}".format(col_name))
-                
-                cur.execute(
-                    '''
-                    update %s
-                    set %s = agg.num_complaints
-                    from
-                    (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
-                    FROM %s as a JOIN %s as b
-                    ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
-                    AND b.dateobj < a.dateobj
-                    AND b.dateobj > (a.dateobj - interval '%s')
-                    WHERE b."FBI Code" == %s
-                    GROUP BY (a.crid, a.officer_id)) as agg
-                    where (crid, officer_id)=agg.allegation_id;
-                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),AsIs(code)))
-                print("Completed query")
+                    print("starting {} crimes, {}, {} m".format(code, time, d))
+                    
+                    col_name = "crimes_" + code + "_"+ time.replace(" ","") + d + 'm'
+                    cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
+                    print("added col {}".format(col_name))
+                    
+                    cur.execute(
+                        '''
+                        update %s
+                        set %s = agg.num_complaints
+                        from
+                        (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
+                        FROM %s as a JOIN %s as b
+                        ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
+                        AND b.dateobj < a.dateobj
+                        AND b.dateobj > (a.dateobj - interval '%s')
+                        WHERE b."FBI Code" == %s
+                        GROUP BY (a.crid, a.officer_id)) as agg
+                        where (crid, officer_id)=agg.allegation_id;
+                        ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),AsIs(code)))
+                    print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(crimetable))
         cur.close()
