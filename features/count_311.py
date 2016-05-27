@@ -2,9 +2,11 @@ import psycopg2 as ps
 from psycopg2.extensions import AsIs
 
 
-TABLES_311 = ["311alleylights","311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
+# TABLES_311 = ["311alleylights","311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
 NEW_311 = ["rodents","garbage","sanitation", "alleylights", "vacantbuildings", "streetlights_all", "vehicles", "streetlights_one", "treetrims", "potholes", "graffiti"]
+
+CRIMES = ["crimetest"]
 
 class client:
     def __init__(self):
@@ -55,9 +57,17 @@ class client:
 
         self.dbconn.commit()
 
-    def get_311_radii(self, allegations, table311):
+    def make_new_feature_table(self, allegations, out_table):
+        cur = self.dbconn.cursor()
+        cur.execute("select crid, officer_id into %s from %s;",(AsIs(out_table),AsIs(allegations))
+        self.dbconn.commit()
+        print("Created table".format(out_table))
+        cur.close()
+
+    def get_311_radii(self, allegations, table311, out_table):
         print("Starting {}".format(table311))
-        out_table = "radius311"
+        # out_table = "radius311"
+        # out_table = "radiuscrime"
         cur = self.dbconn.cursor()
         
         distances = ['500','1000','2000','2500', '5000']
@@ -68,12 +78,12 @@ class client:
                 print("starting {}, {} m".format(time, d))
                 
                 col_name = table311 + "_count_" + time.replace(" ","") + d + 'm'
-                cur.execute("alter table radius311 add column %s int;", [AsIs(col_name)])
+                cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
                 print("added col {}".format(col_name))
                 
                 cur.execute(
                     '''
-                    update radius311
+                    update %s
                     set %s = agg.num_complaints
                     from
                     (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
@@ -83,11 +93,13 @@ class client:
                     AND b.dateobj > (a.dateobj - interval '%s')
                     GROUP BY (a.crid, a.officer_id)) as agg
                     where (crid, officer_id)=agg.allegation_id;
-                    ''', (AsIs(col_name),AsIs(allegations),AsIs(table311),AsIs(d),AsIs(time)))
+                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(table311),AsIs(d),AsIs(time)))
                 print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(table311))
         cur.close()
+
+
 
 
     def count_311_calls(self, table311):
@@ -127,8 +139,13 @@ if __name__ == "__main__":
     # for table in TABLES_311:
     #     dbClient.count_311_calls(table)
 
-    for table in NEW_311:
-        dbClient.get_311_radii("test2",table)
+    # for table in NEW_311:
+    #     dbClient.get_311_radii("test2",table,"radius311")
+    allegations_table = "test2"
+    out_table = "radiuscrime"
+    dbClient.make_new_feature_table(allegations_table, out_table)
+    for crime_table in CRIMES:
+        dbClient.get_311_radii(allegations_table, crime_table, out_table)
 
     dbClient.closeConnection()
 
