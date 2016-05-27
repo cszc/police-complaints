@@ -10,6 +10,8 @@ CRIMES = ["crimetest"]
 
 FBI_CODES = ["18", "08A", "02", "08B", "17", "16", "03", "01B", "24", "06", "07", "19", "04A", "11", "10", "12", "05", "09", "13", "26", "01A", "14", "04B", "15", "20", "22"]
 
+PARTICIPANT_TABLES = ["officers"]
+
 class client:
     def __init__(self):
        
@@ -169,6 +171,26 @@ class client:
         print("Completed {}".format(name))
         cur.close()
 
+def get_participant_age(allegations, participant_table, out_table):
+    col_name = participant_table + "_age"
+    cur = self.dbconn.cursor()
+
+    cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
+    print("added col {} to {}".format(col_name, out_table))
+
+    cur.execute('''
+    update %s
+    set %s = ages.age
+    (SELECT (a.crid, a.officer_id) AS allegation_id, extract(year from age(a.dateobj, b.dateobj)) as age
+    FROM %s as a
+    JOIN %s as b
+    ON a.officer_id=b.officer_id) as ages
+    where (crid, officer_id)=ages.allegation_id;
+    ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(participant_table)))
+    self.dbconn.commit()
+    print("Completed {} age".format(participant_table))
+    cur.close()
+
 if __name__ == "__main__":
     dbClient = client()
     try:            
@@ -182,11 +204,11 @@ if __name__ == "__main__":
     # for table in NEW_311:
     #     dbClient.get_311_radii("test2",table,"radius311")
     allegations_table = "test2"
-    out_table = "radiuscrime"
+    out_table = "ages"
     # dbClient.make_new_feature_table(allegations_table, out_table)
-    for crime_table in CRIMES:
+    for p in PARTICIPANT_TABLES:
         # dbClient.get_311_radii(allegations_table, crime_table, out_table)
-        dbClient.get_crimes_by_radii(allegations_table,crime_table, out_table)
+        dbClient.get_participant_age(allegations_table,p, out_table)
 
     dbClient.closeConnection()
 
