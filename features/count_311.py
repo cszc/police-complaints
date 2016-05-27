@@ -8,6 +8,8 @@ NEW_311 = ["rodents","garbage","sanitation", "alleylights", "vacantbuildings", "
 
 CRIMES = ["crimetest"]
 
+FBI_CODES = ["18", "08A", "02", "08B", "17", "16", "03", "01B", "24", "06", "07", "19", "04A", "11", "10", "12", "05", "09", "13", "26", "01A", "14", "04B", "15", "20", "22"]
+
 class client:
     def __init__(self):
        
@@ -63,6 +65,44 @@ class client:
         self.dbconn.commit()
         print("Created table".format(out_table))
         cur.close()
+
+    def get_crimes_by_radii(self, allegations, crimetable, out_table):
+        print("Starting {}".format(crimetable))
+        # out_table = "radius311"
+        # out_table = "radiuscrime"
+        cur = self.dbconn.cursor()
+        
+        distances = ['1000', '2500', '5000']
+        times = ['7 days', '30 days','6 months', '1 year']
+        
+        for d in distances:
+            for time in times:
+                for code in FBI_CODES:
+                print("starting {}, {} m".format(time, d))
+                
+                col_name = "crimes_" + code + "_"+ time.replace(" ","") + d + 'm'
+                cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
+                print("added col {}".format(col_name))
+                
+                cur.execute(
+                    '''
+                    update %s
+                    set %s = agg.num_complaints
+                    from
+                    (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
+                    FROM %s as a JOIN %s as b
+                    ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
+                    AND b.dateobj < a.dateobj
+                    AND b.dateobj > (a.dateobj - interval '%s')
+                    WHERE b."FBI Code" == %s
+                    GROUP BY (a.crid, a.officer_id)) as agg
+                    where (crid, officer_id)=agg.allegation_id;
+                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),AsIs(code)))
+                print("Completed query")
+        self.dbconn.commit()
+        print("Completed counting {}".format(crimetable))
+        cur.close()
+
 
     def get_311_radii(self, allegations, table311, out_table):
         print("Starting {}".format(table311))
@@ -143,9 +183,10 @@ if __name__ == "__main__":
     #     dbClient.get_311_radii("test2",table,"radius311")
     allegations_table = "test2"
     out_table = "radiuscrime"
-    dbClient.make_new_feature_table(allegations_table, out_table)
+    # dbClient.make_new_feature_table(allegations_table, out_table)
     for crime_table in CRIMES:
-        dbClient.get_311_radii(allegations_table, crime_table, out_table)
+        # dbClient.get_311_radii(allegations_table, crime_table, out_table)
+        dbClient.get_crimes_by_radii(allegations_table,crime_table, out_table)
 
     dbClient.closeConnection()
 
