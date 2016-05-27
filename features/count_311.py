@@ -180,11 +180,10 @@ class client:
 
         cur.execute('''
         update %s
-        set %s = ages.age
-        (SELECT (a.crid, a.officer_id) AS allegation_id, extract(year from age(a.dateobj, b.dateobj)) as age
-        FROM %s as a
-        JOIN %s as b
-        ON a.officer_id=b.officer_id) as ages
+        set %s = ages.age 
+        from (SELECT (a.crid, a.officer_id) AS allegation_id, extract(year from age(a.dateobj, b.dateobj)) as age
+            FROM %s as a JOIN %s as b
+            ON a.officer_id=b.officer_id) as ages
         where (crid, officer_id)=ages.allegation_id;
         ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(participant_table)))
         self.dbconn.commit()
