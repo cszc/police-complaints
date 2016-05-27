@@ -171,7 +171,7 @@ class client:
         print("Completed {}".format(name))
         cur.close()
 
-def get_participant_age(allegations, participant_table, out_table):
+def get_participant_age(self, allegations, participant_table, out_table):
     col_name = participant_table + "_age"
     cur = self.dbconn.cursor()
 
