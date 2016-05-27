@@ -62,3 +62,7 @@ UPDATE graffiti SET geom = ST_SetSRID(ST_MakePoint(“Longitude”,”Latitude�
 CREATE INDEX idx_graffiti_geom ON graffiti USING GIST(geom);
 alter table graffiti add column dateobj TIMESTAMP;
 update graffiti set dateobj = to_timestamp(“Creation Date”, ‘MM/DD/YYYY’);
+
+#create table for loading
+drop table if exists radius311;
+select crid, officer_id into radius311 from test2;
