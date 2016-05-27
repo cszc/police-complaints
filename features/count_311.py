@@ -67,8 +67,8 @@ class client:
             for time in times:
                 print("starting {}, {} m".format(time, d))
                 
-                col_name = table311 + "_count_" + time.strip() + d + 'm'
-                cur.execute("alter table radius311 add column %s int;", [col_name])
+                col_name = table311 + "_count_" + time.replace(" ","") + d + 'm'
+                cur.execute("alter table radius311 add column %s int;", [AsIs(col_name)])
                 print("added col {}".format(col_name))
                 
                 cur.execute(
