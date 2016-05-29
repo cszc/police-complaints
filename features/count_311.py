@@ -67,7 +67,8 @@ class client:
 
     def make_new_feature_table(self, allegations, out_table):
         cur = self.dbconn.cursor()
-        cur.execute("select crid, officer_id into %s from %s;",(AsIs(out_table),AsIs(allegations)))
+        cur.execute("select crid into %s from %s;",(AsIs(out_table),AsIs(allegations)))
+        dbClient.add_index_crid(out_table)
         self.dbconn.commit()
         print("Created table".format(out_table))
         cur.close()
@@ -252,13 +253,20 @@ if __name__ == "__main__":
     #     dbClient.get_311_radii("test2",table,"radius311")
     
     #add indices
-    for t in NEW_311:
-        dbClient.add_index_crid(t)
-    for t in CRIMES:
-        dbClient.add_index_crid(t)
+    # for t in NEW_311:
+    #     print("adding index on {}".format(t))
+    #     dbClient.add_index_crid(t)
+    # for t in CRIMES:
+    #     print("adding index on {}".format(t))
 
-    for p in PARTICIPANT_TABLES:
-        dbClient.add_index_crid(p)
+    #     dbClient.add_index_crid(t)
+
+    # for p in PARTICIPANT_TABLES:
+    #     print("adding index on {}".format(p))
+
+    #     dbClient.add_index_crid(p)
+    print("adding index on allegations")
+
     dbClient.add_index_crid(ALLEGATIONS_TABLE)
 
 
