@@ -145,40 +145,40 @@ class client:
         print("Completed counting {}".format(table311))
         cur.close()
 
-def count_other_complaints(self, allegations, out_table):
-    print("Starting {}".format(allegations))
-        # out_table = "radius311"
-        # out_table = "radiuscrime"
-    cur = self.dbconn.cursor()
-    
-    distances = ['500','1000', '2500', '5000']
-    times = ['7 days', '30 days','3 months','6 months', '1 year']
-    
-    for d in distances:
-        for time in times:
-            print("starting {}, {} m".format(time, d))
-            
-            col_name = "allegationcount" + time.replace(" ","") + d + 'm'
-            cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
-            print("added col {}".format(col_name))
-            
-            cur.execute(
-                '''
-                update %s
-                set %s = agg.num_complaints
-                from
-                (SELECT a.crid, COUNT(*) as num_complaints
-                FROM %s as a JOIN %s as b
-                ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
-                AND b.dateobj < a.dateobj
-                AND b.dateobj > (a.dateobj - interval '%s')
-                GROUP BY a.crid) as agg
-                where %s.crid=agg.crid;
-                ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table)))
-            print("Completed query")
-        self.dbconn.commit()
-        print("Completed counting {}".format(allegations))
-        cur.close()
+    def count_other_complaints(self, allegations, out_table):
+        print("Starting {}".format(allegations))
+            # out_table = "radius311"
+            # out_table = "radiuscrime"
+        cur = self.dbconn.cursor()
+        
+        distances = ['500','1000', '2500', '5000']
+        times = ['7 days', '30 days','3 months','6 months', '1 year']
+        
+        for d in distances:
+            for time in times:
+                print("starting {}, {} m".format(time, d))
+                
+                col_name = "allegationcount" + time.replace(" ","") + d + 'm'
+                cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
+                print("added col {}".format(col_name))
+                
+                cur.execute(
+                    '''
+                    update %s
+                    set %s = agg.num_complaints
+                    from
+                    (SELECT a.crid, COUNT(*) as num_complaints
+                    FROM %s as a JOIN %s as b
+                    ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
+                    AND b.dateobj < a.dateobj
+                    AND b.dateobj > (a.dateobj - interval '%s')
+                    GROUP BY a.crid) as agg
+                    where %s.crid=agg.crid;
+                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table)))
+                print("Completed query")
+            self.dbconn.commit()
+            print("Completed counting {}".format(allegations))
+            cur.close()
 
 
 
@@ -258,7 +258,7 @@ if __name__ == "__main__":
         dbClient.add_index_crid(t)
 
     for p in PARTICIPANT_TABLES:
-        dbClient.add_index_crid(t)
+        dbClient.add_index_crid(p)
     dbClient.add_index_crid(ALLEGATIONS_TABLE)
 
 
