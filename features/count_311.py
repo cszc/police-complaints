@@ -229,6 +229,13 @@ def count_other_complaints(self, allegations, out_table):
         print("Completed {} age".format(participant_table))
         cur.close()
 
+    def add_index_crid(self, table):
+        cur = self.dbconn.cursor()
+        ix_name = "idx_" + table + "_crid"
+        cur.execute("CREATE INDEX %s ON %s(crid);", (AsIs(ix_name), AsIs(table)))
+        self.dbconn.commit()
+        cur.close()
+
 
 
 if __name__ == "__main__":
@@ -244,6 +251,17 @@ if __name__ == "__main__":
     # for table in NEW_311:
     #     dbClient.get_311_radii("test2",table,"radius311")
     
+    #add indices
+    for t in NEW_311:
+        dbClient.add_index_crid(t)
+    for t in CRIMES:
+        dbClient.add_index_crid(t)
+
+    for p in PARTICIPANT_TABLES:
+        dbClient.add_index_crid(t)
+    dbClient.add_index_crid(ALLEGATIONS_TABLE)
+
+
     #Count 311
     results311 = "aggregate311"
     dbClient.make_new_feature_table(ALLEGATIONS_TABLE, results311)
