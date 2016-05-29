@@ -102,8 +102,8 @@ class client:
                         AND b.dateobj > (a.dateobj - interval '%s')
                         WHERE b."FBI Code" = %s
                         GROUP BY a.crid) as agg
-                        where crid=agg.crid;
-                        ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),str(code)))
+                        where %s.crid=agg.crid;
+                        ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),str(code),AsIs(out_table)))
                     print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(crimetable))
@@ -138,8 +138,8 @@ class client:
                     AND b.dateobj < a.dateobj
                     AND b.dateobj > (a.dateobj - interval '%s')
                     GROUP BY a.crid) as agg
-                    where crid=agg.crid;
-                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(table311),AsIs(d),AsIs(time)))
+                    where %s.crid=agg.crid;
+                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(table311),AsIs(d),AsIs(time),AsIs(out_table)))
                 print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(table311))
@@ -173,8 +173,8 @@ def count_other_complaints(self, allegations, out_table):
                 AND b.dateobj < a.dateobj
                 AND b.dateobj > (a.dateobj - interval '%s')
                 GROUP BY a.crid) as agg
-                where crid=agg.crid;
-                ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time)))
+                where %s.crid=agg.crid;
+                ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table)))
             print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(allegations))
