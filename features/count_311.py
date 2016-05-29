@@ -251,7 +251,7 @@ if __name__ == "__main__":
   
 
     #Count 311
-    results311 = "aggregate311"
+    results311 = "time_distance_311"
     dbClient.make_new_feature_table(ALLEGATIONS_TABLE, results311)
     print("Created {}".format(results311))
     for table in NEW_311:
@@ -260,7 +260,7 @@ if __name__ == "__main__":
         dbClient.get_311_radii(ALLEGATIONS_TABLE, table, results311)
 
     #Count crimes
-    resultscrime = "aggregatecrime"
+    resultscrime = "time_distance_crime"
     dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscrime)
     print("Created {}".format(resultscrime))
     for table in CRIMES:
@@ -269,7 +269,7 @@ if __name__ == "__main__":
         dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
 
     #count other complaints
-    resultscomplaints = "aggregatecomplaints"
+    resultscomplaints = "time_distance_complaints"
     dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
     print("Created {}".format(resultscomplaints))
     print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
