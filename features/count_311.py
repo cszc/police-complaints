@@ -116,8 +116,8 @@ class client:
         # out_table = "radiuscrime"
         cur = self.dbconn.cursor()
         
-        distances = ['500','1000','2000','2500', '5000']
-        times = ['7 days', '14 days', '30 days', '3 months','6 months', '1 year']
+        distances = ['500','1000', '2500', '5000']
+        times = ['7 days', '30 days','3 months','6 months', '1 year']
         
         for d in distances:
             for time in times:
