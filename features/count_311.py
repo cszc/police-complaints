@@ -12,7 +12,8 @@ FBI_CODES = ["18", "08A", "02", "08B", "17", "16", "03", "01B", "24", "06", "07"
 
 PARTICIPANT_TABLES = ["officers"]
 ALLEGATIONS_TABLE = "allegations"
-
+DISTANCES = ['500','1000', '2500']
+TIMES = ['7 days', '3 months','1 year']
 
 class client:
     def __init__(self):
@@ -79,11 +80,11 @@ class client:
         # out_table = "radiuscrime"
         cur = self.dbconn.cursor()
         
-        distances = ['500','1000', '2500', '5000']
-        times = ['7 days', '30 days','3 months','6 months', '1 year']
+        # distances = ['500','1000', '2500', '5000']
+        # times = ['7 days', '30 days','3 months','6 months', '1 year']
         
-        for d in distances:
-            for time in times:
+        for d in DISTANCES:
+            for time in TIMES:
                 for code in FBI_CODES:
                     print("starting {} crimes, {}, {} m".format(code, time, d))
                     
@@ -117,11 +118,9 @@ class client:
         # out_table = "radiuscrime"
         cur = self.dbconn.cursor()
         
-        distances = ['500','1000', '2500', '5000']
-        times = ['7 days', '30 days','3 months','6 months', '1 year']
         
-        for d in distances:
-            for time in times:
+        for d in DISTANCES:
+            for time in TIMES:
                 print("starting {}, {} m".format(time, d))
                 
                 col_name = table311 + "_count_" + time.replace(" ","") + d + 'm'
@@ -152,11 +151,9 @@ class client:
             # out_table = "radiuscrime"
         cur = self.dbconn.cursor()
         
-        distances = ['500','1000', '2500', '5000']
-        times = ['7 days', '30 days','3 months','6 months', '1 year']
         
-        for d in distances:
-            for time in times:
+        for d in DISTANCES:
+            for time in TIMES:
                 print("starting {}, {} m".format(time, d))
                 
                 col_name = "allegationcount" + time.replace(" ","") + d + 'm'
@@ -251,24 +248,7 @@ if __name__ == "__main__":
 
     # for table in NEW_311:
     #     dbClient.get_311_radii("test2",table,"radius311")
-    
-    #add indices
-    # for t in NEW_311:
-    #     print("adding index on {}".format(t))
-    #     dbClient.add_index_crid(t)
-    # for t in CRIMES:
-    #     print("adding index on {}".format(t))
-
-    #     dbClient.add_index_crid(t)
-
-    # for p in PARTICIPANT_TABLES:
-    #     print("adding index on {}".format(p))
-
-    #     dbClient.add_index_crid(p)
-    print("adding index on allegations")
-
-    dbClient.add_index_crid(ALLEGATIONS_TABLE)
-
+  
 
     #Count 311
     results311 = "aggregate311"
