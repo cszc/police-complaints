@@ -11,6 +11,8 @@ CRIMES = ["crimetest"]
 FBI_CODES = ["18", "08A", "02", "08B", "17", "16", "03", "01B", "24", "06", "07", "19", "04A", "11", "10", "12", "05", "09", "13", "26", "01A", "14", "04B", "15", "20", "22"]
 
 PARTICIPANT_TABLES = ["officers"]
+ALLEGATIONS_TABLE = "allegations"
+
 
 class client:
     def __init__(self):
@@ -40,10 +42,10 @@ class client:
         else:
             print("Connection already closed")
 
-    def add_coords(self, table311):
-        name = "\""+str(table311)+"\""
+    def add_coords(self, tablename):
+        name = "\""+str(tablename)+"\""
         # main_name = "\""+str(MAIN_TABLE)+"\""
-        print("Starting {}".format(table311))
+        print("Starting {}".format(tablename))
         cur = self.dbconn.cursor()
         # add a geometry column to an existing 311 table table
         cur.execute('''
@@ -54,12 +56,14 @@ class client:
         # note that for some reason lat/lng are reverse from what you'd expect
         cur.execute("UPDATE %s SET geom = ST_SetSRID(ST_MakePoint(lng,lat),4326);", [AsIs(name)])
         print("success #2")
-        index_name = "idx_" + table311 + "_geom"
+        index_name = "idx_" + tablename + "_geom"
         # make an index
         cur.execute("CREATE INDEX %s ON %s USING GIST(geom);", (AsIs(index_name), AsIs(name)))
         print("success #3")
 
         self.dbconn.commit()
+        cur.close()
+
 
     def make_new_feature_table(self, allegations, out_table):
         cur = self.dbconn.cursor()
@@ -74,8 +78,8 @@ class client:
         # out_table = "radiuscrime"
         cur = self.dbconn.cursor()
         
-        distances = ['1000', '2500', '5000']
-        times = ['7 days', '30 days','6 months', '1 year']
+        distances = ['500','1000', '2500', '5000']
+        times = ['7 days', '30 days','3 months','6 months', '1 year']
         
         for d in distances:
             for time in times:
@@ -91,14 +95,14 @@ class client:
                         update %s
                         set %s = agg.num_complaints
                         from
-                        (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
+                        (SELECT a.crid, COUNT(*) as num_complaints
                         FROM %s as a JOIN %s as b
                         ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
                         AND b.dateobj < a.dateobj
                         AND b.dateobj > (a.dateobj - interval '%s')
                         WHERE b."FBI Code" = %s
-                        GROUP BY (a.crid, a.officer_id)) as agg
-                        where (crid, officer_id)=agg.allegation_id;
+                        GROUP BY a.crid) as agg
+                        where crid=agg.crid;
                         ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(crimetable),AsIs(d),AsIs(time),str(code)))
                     print("Completed query")
         self.dbconn.commit()
@@ -128,19 +132,53 @@ class client:
                     update %s
                     set %s = agg.num_complaints
                     from
-                    (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
+                    (SELECT a.crid, COUNT(*) as num_complaints
                     FROM %s as a JOIN %s as b
                     ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
                     AND b.dateobj < a.dateobj
                     AND b.dateobj > (a.dateobj - interval '%s')
-                    GROUP BY (a.crid, a.officer_id)) as agg
-                    where (crid, officer_id)=agg.allegation_id;
+                    GROUP BY a.crid) as agg
+                    where crid=agg.crid;
                     ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(table311),AsIs(d),AsIs(time)))
                 print("Completed query")
         self.dbconn.commit()
         print("Completed counting {}".format(table311))
         cur.close()
 
+def count_other_complaints(self, allegations, out_table):
+    print("Starting {}".format(allegations))
+        # out_table = "radius311"
+        # out_table = "radiuscrime"
+        cur = self.dbconn.cursor()
+        
+        distances = ['500','1000','2000','2500', '5000']
+        times = ['7 days', '14 days', '30 days', '3 months','6 months', '1 year']
+        
+        for d in distances:
+            for time in times:
+                print("starting {}, {} m".format(time, d))
+                
+                col_name = "allegationcount" + time.replace(" ","") + d + 'm'
+                cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
+                print("added col {}".format(col_name))
+                
+                cur.execute(
+                    '''
+                    update %s
+                    set %s = agg.num_complaints
+                    from
+                    (SELECT a.crid, COUNT(*) as num_complaints
+                    FROM %s as a JOIN %s as b
+                    ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
+                    AND b.dateobj < a.dateobj
+                    AND b.dateobj > (a.dateobj - interval '%s')
+                    GROUP BY a.crid) as agg
+                    where crid=agg.crid;
+                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time)))
+                print("Completed query")
+        self.dbconn.commit()
+        print("Completed counting {}".format(allegations))
+        cur.close()
 
 
 
@@ -171,6 +209,7 @@ class client:
         print("Completed {}".format(name))
         cur.close()
 
+
     def get_participant_age(self, allegations, participant_table, out_table):
         col_name = participant_table + "_age"
         cur = self.dbconn.cursor()
@@ -190,6 +229,8 @@ class client:
         print("Completed {} age".format(participant_table))
         cur.close()
 
+
+
 if __name__ == "__main__":
     dbClient = client()
     try:            
@@ -202,12 +243,38 @@ if __name__ == "__main__":
 
     # for table in NEW_311:
     #     dbClient.get_311_radii("test2",table,"radius311")
-    allegations_table = "test2"
-    out_table = "ages"
-    dbClient.make_new_feature_table(allegations_table, out_table)
+    
+    #Count 311
+    results311 = "aggregate311"
+    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, results311)
+    print("Created {}".format(results311))
+    for table in NEW_311:
+        print("Starting {}".format(table))
+
+        dbClient.get_311_radii(ALLEGATIONS_TABLE, table, results311)
+
+    #Count crimes
+    resultscrime = "aggregatecrime"
+    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscrime)
+    print("Created {}".format(resultscrime))
+    for table in CRIMES:
+        print("Starting {}".format(table))
+
+        dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
+
+    #count other complaints
+    resultscomplaints = "aggregatecomplaints"
+    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
+    print("Created {}".format(resultscomplaints))
+    print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
+
+    dbClient.count_other_complaints(ALLEGATIONS_TABLE, aggregatecomplaints)
+
+    #calculate ages
+    resultsage = "ages"
+    print("Starting ages")
     for p in PARTICIPANT_TABLES:
-        # dbClient.get_311_radii(allegations_table, crime_table, out_table)
-        dbClient.get_participant_age(allegations_table,p, out_table)
+        dbClient.get_participant_age(ALLEGATIONS,p, out_table)
 
     dbClient.closeConnection()
 
