@@ -322,11 +322,11 @@ if __name__ == "__main__":
 
     # count other complaints
     resultscomplaints = "time_distance_complaints"
-    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
-    print("Created {}".format(resultscomplaints))
-    print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
+    # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
+    # print("Created {}".format(resultscomplaints))
+    # print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
 
-    # dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
+    dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
 
     #calculate ages
     # resultsage = "ages"
@@ -336,10 +336,10 @@ if __name__ == "__main__":
     # for p in PARTICIPANT_TABLES:
     #     dbClient.get_participant_age(ALLEGATIONS_TABLE,p, resultsage)
 
-    results = "prior_complaints"
-    # dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, results)
-    print("Strting prior complaints")
-    dbClient.count_officer_complaints(ALLEGATIONS_TABLE, results)
+    # results = "prior_complaints"
+    # # dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, results)
+    # print("Strting prior complaints")
+    # dbClient.count_officer_complaints(ALLEGATIONS_TABLE, results)
 
     # print("Starting ages")
     
