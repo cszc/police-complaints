@@ -68,6 +68,14 @@ class client:
         cur.close()
 
 
+    def make_new_feature_table_oid(self, allegations, out_table):
+        cur = self.dbconn.cursor()
+        cur.execute("select crid, officer_id into %s from %s;",(AsIs(out_table),AsIs(allegations)))
+        dbClient.add_index_crid(out_table)
+        self.dbconn.commit()
+        print("Created table".format(out_table))
+        cur.close()
+
     def make_new_feature_table(self, allegations, out_table):
         cur = self.dbconn.cursor()
         cur.execute("select crid into %s from %s;",(AsIs(out_table),AsIs(allegations)))
@@ -319,7 +327,7 @@ if __name__ == "__main__":
 
     #calculate ages
     resultsage = "ages"
-    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultsage)
+    dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, resultsage)
 
     print("Starting ages")
     for p in PARTICIPANT_TABLES:
