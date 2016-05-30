@@ -322,9 +322,7 @@ if __name__ == "__main__":
 
     # count other complaints
     resultscomplaints = "time_distance_complaints"
-    # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
-    # print("Created {}".format(resultscomplaints))
-    # print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
+    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
 
     dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
 
