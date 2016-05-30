@@ -294,7 +294,7 @@ if __name__ == "__main__":
     print("Created {}".format(resultscomplaints))
     print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
 
-    dbClient.count_other_complaints(ALLEGATIONS_TABLE, aggregatecomplaints)
+    dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
 
     #calculate ages
     resultsage = "ages"
