@@ -320,7 +320,7 @@ if __name__ == "__main__":
 
     #     dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
 
-    count other complaints
+    # count other complaints
     resultscomplaints = "time_distance_complaints"
     dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
     print("Created {}".format(resultscomplaints))
