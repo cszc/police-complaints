@@ -16,17 +16,19 @@ def go():
                 ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
                 FROM acs;"
 
-    dfs = [alleg_df, invest_df, age_df, data311_df, acs_df]
-    for i, query in enumerate([alleg, invest, age, data311, acs]):
-        dfs[i] = pd.read_sql(query, conn)
-
-    data311_df.rename(columns = {'tract_1' : 'tractce10'}, inplace = True)
+    alleg_df = pd.read_sql(alleg, conn)
+    invest_df = pd.read_sql(invest, conn)
+    age_df = pd.read_sql(age, conn)
+    data311_df = pd.read_sql(data311, conn)
+    acs_df = pd.read_sql(acs, conn)
 
     conn.commit()
     conn.close()
 
+    data311_df.rename(columns = {'tract_1' : 'tractce10'}, inplace = True)
+
     df_final1 = alleg_df.join(invest_df, on =['crid', 'officer_id']).join(age_df, on = ['crid', 'officer_id'])
-    df_final = df_final1.join(data311, on = 'crid').join(acs_df, on 'tractce10')
+    df_final = df_final1.join(data311, on = 'crid').join(acs_df, on = 'tractce10')
 
 
     return df_final
