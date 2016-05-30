@@ -4,7 +4,9 @@ from psycopg2.extensions import AsIs
 
 # TABLES_311 = ["311alleylights","311garbage", "311graffiti", "311potholes", "311rodent", "311sanitation", "311streetlightsall", "311streetlightsone", "311trees", "311vap","311vehicles"]
 
-NEW_311 = ["rodents","garbage","sanitation", "alleylights", "vacantbuildings", "streetlights_all", "vehicles", "streetlights_one", "treetrims", "potholes", "graffiti"]
+# NEW_311 = ["rodents","garbage","sanitation", "alleylights", "vacantbuildings", "streetlights_all", "vehicles", "streetlights_one", "treetrims", "potholes", "graffiti"]
+
+NEW_311 = ["treetrims", "potholes", "graffiti"]
 
 CRIMES = ["crimetest"]
 
@@ -119,11 +121,13 @@ class client:
         # out_table = "radius311"
         # out_table = "radiuscrime"
         # cur = self.dbconn.cursor()
+        dist2 = ['500','1000', '2500']
+        times2 = ['7 days', '3 months']
         
-        
-        for d in DISTANCES:
-            for time in TIMES:
+        for d in dist2:
+            for time in times2:
                 cur = self.dbconn.cursor()
+
 
                 print("starting {}, {} m".format(time, d))
                 
@@ -268,8 +272,8 @@ if __name__ == "__main__":
 
     #Count 311
     results311 = "time_distance_311"
-    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, results311)
-    print("Created {}".format(results311))
+    # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, results311)
+    # print("Created {}".format(results311))
     for table in NEW_311:
         print("Starting {}".format(table))
 
