@@ -13,7 +13,7 @@ FBI_CODES = ["18", "08A", "02", "08B", "17", "16", "03", "01B", "24", "06", "07"
 PARTICIPANT_TABLES = ["officers"]
 ALLEGATIONS_TABLE = "allegations"
 DISTANCES = ['500','1000', '2500']
-TIMES = ['7 days', '3 months','1 year']
+TIMES = ['7 days', '3 months']
 
 class client:
     def __init__(self):
