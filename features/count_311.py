@@ -184,7 +184,7 @@ class client:
                     FROM %s as a JOIN %s as b
                     ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
                     AND b.dateobj < a.dateobj
-                    AND b.dateobj > (a.dateobj - interval '%s')
+                    AND b.dateobj > (a.dateobj - interval %s)
                     GROUP BY a.crid) as agg
                     where %s.crid=agg.crid;
                     ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table)))
@@ -195,12 +195,12 @@ class client:
 
 
 # '''
-# SELECT a.crid, COUNT(*) as num_complaints
-#                     FROM allegations as a JOIN allegations as b
-#                     ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
-#                     AND b.dateobj < a.dateobj
-#                     AND b.dateobj > (a.dateobj - interval '7 days')
-#                     GROUP BY a.crid;
+SELECT a.crid, COUNT(*) as num_complaints
+                    FROM allegations as a JOIN allegations as b
+                    ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
+                    AND b.dateobj < a.dateobj
+                    AND b.dateobj > (a.dateobj - interval '7 days')
+                    GROUP BY a.crid;
 # '''
 
     def count_311_calls(self, table311):
