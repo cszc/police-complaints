@@ -331,7 +331,7 @@ if __name__ == "__main__":
     for table in CRIMES:
         print("Starting {}".format(table))
 
-    #     dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
+        dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
 
     # count other complaints
     # resultscomplaints = "time_distance_complaints"
