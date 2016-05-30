@@ -243,6 +243,27 @@ class client:
             ON a.officer_id=b.officer_id) as agg
         where (crid, officer_id)=agg.allegation_id;
         ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(participant_table)))
+
+
+        self.dbconn.commit()
+        print("Completed {} age".format(participant_table))
+        cur.close()
+
+    def count_officer_complaints(self, allegations, out_table):
+        col_name = "prior_complaints"
+        cur = self.dbconn.cursor()
+
+        cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
+        print("added col {} to {}".format(col_name, out_table))
+
+        cur.execute('''
+        update %s
+        set %s = agg.age 
+        from (SELECT (a.crid, a.officer_id) AS allegation_id, extract(year from age(a.dateobj, b.dateobj)) as age
+            FROM %s as a JOIN %s as b
+            ON a.officer_id=b.officer_id) as agg
+        where (crid, officer_id)=agg.allegation_id;
+        ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(participant_table)))
         self.dbconn.commit()
         print("Completed {} age".format(participant_table))
         cur.close()
@@ -289,18 +310,26 @@ if __name__ == "__main__":
     #     dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
 
     #count other complaints
-    resultscomplaints = "time_distance_complaints"
+    # resultscomplaints = "time_distance_complaints"
     # # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
     # print("Created {}".format(resultscomplaints))
     # print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
 
-    dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
+    # dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
 
     #calculate ages
     resultsage = "ages"
+    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultsage)
+
     print("Starting ages")
     for p in PARTICIPANT_TABLES:
-        dbClient.get_participant_age(ALLEGATIONS,p, out_table)
+        dbClient.get_participant_age(ALLEGATIONS_TABLE,p, resultsage)
+
+    # resultsage = "prior_complaints"
+    # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultsage)
+
+    # print("Starting ages")
+    
 
     dbClient.closeConnection()
 
