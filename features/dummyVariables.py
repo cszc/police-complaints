@@ -21,12 +21,16 @@ def go():
 
     findings_dum = pd.get_dummies(df.finding_edit, prefix = "Findings", prefix_sep = " ", dummy_na = True)
     outcome_dum = pd.get_dummies(df.outcome_edit, prefix = "Outcomes", prefix_sep = " ", dummy_na = True)
+
     investigators_dum = pd.get_dummies(df.investigator_id, prefix = "Investigators", prefix_sep = " ", dummy_na = True)
     beats = pd.get_dummies(df.beat, prefix = "Beat", prefix_sep = " ", dummy_na = True)
 
-    all_dummies = findings_dum.join(outcome_dum).join(investigators_dum).join(beats)
+    dep_dummies = findings_dum.join(outcome_dum)
 
-    all_dummies.to_csv("dummyVariableFeatures.csv")
+    ind_dummies = investigators_dum.join(beats)
+
+    dep_dummies.to_csv("depDummyVar.csv")
+    ind_dummies.to_csv("indDummyVar.csv")
 
 if __name__ == '__main__':
     go()
