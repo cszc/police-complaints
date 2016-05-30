@@ -27,7 +27,7 @@ def go():
 
     # data311_df.rename(columns = {'tract_1' : 'tractce10'}, inplace = True)
 
-    df_final1 = alleg_df.join(invest_df, on =['crid', 'officer_id'], how = 'left')#.join(age_df, on = ['crid', 'officer_id'], how = 'left')
+    df_final1 = alleg_df.join(invest_df, left_on =['crid', 'officer_id'], right_on = ['crid', 'officer_id'], how = 'left')#.join(age_df, on = ['crid', 'officer_id'], how = 'left')
     #df_final = df_final1.join(data311, on = 'crid', how = 'left').join(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')
 
 
