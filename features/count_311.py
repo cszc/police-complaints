@@ -203,14 +203,14 @@ class client:
         print("Completed counting {}".format(allegations))
 
 
-'''
-SELECT a.crid, COUNT(*) as num_complaints
-                    FROM allegations as a JOIN allegations as b
-                    ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
-                    AND b.dateobj < a.dateobj
-                    AND b.dateobj > (a.dateobj - interval '7 days')
-                    GROUP BY a.crid;
-'''
+# '''
+# SELECT a.crid, COUNT(*) as num_complaints
+#                     FROM allegations as a JOIN allegations as b
+#                     ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
+#                     AND b.dateobj < a.dateobj
+#                     AND b.dateobj > (a.dateobj - interval '7 days')
+#                     GROUP BY a.crid;
+# '''
 
     def count_311_calls(self, table311):
         name = "\""+str(table311)+"\""
