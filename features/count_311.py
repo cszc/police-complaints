@@ -266,14 +266,16 @@ class client:
 
         cur.execute('''
         update %s
-        set %s = agg.age 
-        from (SELECT (a.crid, a.officer_id) AS allegation_id, extract(year from age(a.dateobj, b.dateobj)) as age
+        set %s = agg.priors 
+        from (SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
             FROM %s as a JOIN %s as b
-            ON a.officer_id=b.officer_id) as agg
+            ON a.officer_id=b.officer_id
+            WHERE b.dateobj < a.dateobj
+            GROUP BY (a.crid, a.officer_id)) as agg
         where (crid, officer_id)=agg.allegation_id;
-        ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(participant_table)))
+        ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(allegations)))
         self.dbconn.commit()
-        print("Completed {} age".format(participant_table))
+        print("Completed  priors")
         cur.close()
 
     def add_index_crid(self, table):
@@ -283,7 +285,13 @@ class client:
         self.dbconn.commit()
         cur.close()
 
-
+# '''
+# SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
+#             FROM test2 as a JOIN test2 as b
+#             ON a.officer_id=b.officer_id
+#             WHERE b.dateobj < a.dateobj
+#             GROUP BY (a.crid, a.officer_id);
+#             '''
 
 if __name__ == "__main__":
     dbClient = client()
@@ -326,15 +334,17 @@ if __name__ == "__main__":
     # dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
 
     #calculate ages
-    resultsage = "ages"
-    dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, resultsage)
+    # resultsage = "ages"
+    # dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, resultsage)
 
-    print("Starting ages")
-    for p in PARTICIPANT_TABLES:
-        dbClient.get_participant_age(ALLEGATIONS_TABLE,p, resultsage)
+    # print("Starting ages")
+    # for p in PARTICIPANT_TABLES:
+    #     dbClient.get_participant_age(ALLEGATIONS_TABLE,p, resultsage)
 
-    # resultsage = "prior_complaints"
-    # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultsage)
+    results = "prior_complaints"
+    dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, results)
+    print("Strting prior complaints")
+    dbClient.count_officer_complaints(ALLEGATIONS_TABLE, results)
 
     # print("Starting ages")
     
