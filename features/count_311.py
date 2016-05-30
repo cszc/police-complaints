@@ -173,9 +173,6 @@ class client:
 # # '''
     def count_other_complaints(self, allegations, out_table):
         print("Starting {}".format(allegations))
-            # out_table = "radius311"
-            # out_table = "radiuscrime"
-        
         
         for d in DISTANCES:
             for time in TIMES:
@@ -206,7 +203,14 @@ class client:
         print("Completed counting {}".format(allegations))
 
 
-
+'''
+SELECT a.crid, COUNT(*) as num_complaints
+                    FROM allegations as a JOIN allegations as b
+                    ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
+                    AND b.dateobj < a.dateobj
+                    AND b.dateobj > (a.dateobj - interval '7 days')
+                    GROUP BY a.crid;
+'''
 
     def count_311_calls(self, table311):
         name = "\""+str(table311)+"\""
@@ -258,7 +262,7 @@ class client:
         cur.close()
 
     def count_officer_complaints(self, allegations, out_table):
-        col_name = "prior_complaints"
+        col_name = "priors"
         cur = self.dbconn.cursor()
 
         cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
@@ -285,13 +289,13 @@ class client:
         self.dbconn.commit()
         cur.close()
 
-# '''
-# SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
-#             FROM test2 as a JOIN test2 as b
-#             ON a.officer_id=b.officer_id
-#             WHERE b.dateobj < a.dateobj
-#             GROUP BY (a.crid, a.officer_id);
-#             '''
+'''
+SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
+            FROM allegations as a JOIN allegations as b
+            ON a.officer_id=b.officer_id
+            WHERE b.dateobj < a.dateobj
+            GROUP BY (a.crid, a.officer_id);
+            '''
 
 if __name__ == "__main__":
     dbClient = client()
@@ -342,7 +346,7 @@ if __name__ == "__main__":
     #     dbClient.get_participant_age(ALLEGATIONS_TABLE,p, resultsage)
 
     results = "prior_complaints"
-    dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, results)
+    # dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, results)
     print("Strting prior complaints")
     dbClient.count_officer_complaints(ALLEGATIONS_TABLE, results)
 
