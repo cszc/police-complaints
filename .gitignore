@@ -69,3 +69,6 @@ crimes.csv
 =======
 #api keys
 google_api_keys.txt
+
+#aws keys
+*.pem
