@@ -16,9 +16,9 @@ def go():
                 ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
                 FROM acs;"
 
-
-    for query in [alleg, invest, age, data311, acs]:
-        str(query) + "_df" = pd.read_sql(query, conn)
+    dfs = [alleg_df, invest_df, age_df, data311_df, acs_df]
+    for i, query in enumerate([alleg, invest, age, data311, acs]):
+        dfs[i] = pd.read_sql(query, conn)
 
     data311_df.rename(columns = {'tract_1' : 'tractce10'}, inplace = True)
 
