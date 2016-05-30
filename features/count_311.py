@@ -265,7 +265,7 @@ class client:
         from (SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
             FROM %s as a JOIN %s as b
             ON a.officer_id=b.officer_id
-            WHERE b.dateobj =< a.dateobj
+            WHERE b.dateobj <= a.dateobj
             GROUP BY (a.crid, a.officer_id)) as agg
         where (crid, officer_id)=agg.allegation_id;
         ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(allegations)))
