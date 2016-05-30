@@ -153,8 +153,8 @@ class client:
                 cur.close()
 
         print("Completed counting {}".format(table311))
-# '''
-# alter table allegations add column %s int;
+# # '''
+# alter table allegations add column tractce10 int;
 # update allegations
 # set tractce10 = agg.tractce10
 # from
@@ -162,7 +162,7 @@ class client:
 # from allegations as a join tracts2010 as t
 # on ST_Contains(t.geom, a.geom)) as agg
 # where allegations.crid=agg.crid;
-# '''
+# # '''
     def count_other_complaints(self, allegations, out_table):
         print("Starting {}".format(allegations))
             # out_table = "radius311"
@@ -271,22 +271,22 @@ if __name__ == "__main__":
   
 
     #Count 311
-    results311 = "time_distance_311"
-    # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, results311)
+    # results311 = "time_distance_311"
+    # # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, results311)
     # print("Created {}".format(results311))
-    for table in NEW_311:
-        print("Starting {}".format(table))
+    # for table in NEW_311:
+    #     print("Starting {}".format(table))
 
-        dbClient.get_311_radii(ALLEGATIONS_TABLE, table, results311)
+    #     dbClient.get_311_radii(ALLEGATIONS_TABLE, table, results311)
 
-    #Count crimes
-    resultscrime = "time_distance_crime"
-    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscrime)
-    print("Created {}".format(resultscrime))
-    for table in CRIMES:
-        print("Starting {}".format(table))
+    # #Count crimes
+    # resultscrime = "time_distance_crime"
+    # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscrime)
+    # print("Created {}".format(resultscrime))
+    # for table in CRIMES:
+    #     print("Starting {}".format(table))
 
-        dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
+    #     dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
 
     #count other complaints
     resultscomplaints = "time_distance_complaints"
