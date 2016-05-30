@@ -1,0 +1,32 @@
+import pandas as pd
+
+def go():
+    df = pd.read_csv("../data/allegations_clean.csv")
+
+    df.officer_id.fillna(0, inplace = True)
+    df.set_index(['crid', 'officer_id'], inplace = True)
+
+    def bucket(x):
+        if x.isnumeric():
+           if int(x) >= 30:
+               return "Over 30"
+           else:
+               return "Less than 30"
+        elif x == "Over 30":
+            return "Over 30"
+        else:
+            return x
+
+    df.outcome_edit = df.outcome_edit.apply(bucket)
+
+    findings_dum = pd.get_dummies(df.finding_edit, prefix = "Findings", prefix_sep = " ", dummy_na = True)
+    outcome_dum = pd.get_dummies(df.outcome_edit, prefix = "Outcomes", prefix_sep = " ", dummy_na = True)
+    investigators_dum = pd.get_dummies(df.investigator_id, prefix = "Investigators", prefix_sep = " ", dummy_na = True)
+    beats = pd.get_dummies(df.beat, prefix = "Beat", prefix_sep = " ", dummy_na = True)
+
+    all_dummies = findings_dum.join(outcome_dum).join(investigators_dum).join(beats)
+
+    all_dummies.to_csv("dummyVariableFeatures.csv")
+
+if __name__ == '__main__':
+    go()
