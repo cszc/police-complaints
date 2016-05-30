@@ -323,7 +323,7 @@ if __name__ == "__main__":
 
     print("Starting ages")
     for p in PARTICIPANT_TABLES:
-        dbClient.get_participant_age(ALLEGATIONS_TABLE,p, out_table)
+        dbClient.get_participant_age(ALLEGATIONS_TABLE,p, resultsage)
 
     # resultsage = "prior_complaints"
     # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultsage)
