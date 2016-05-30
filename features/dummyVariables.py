@@ -28,9 +28,14 @@ def go():
     dep_dummies = findings_dum.join(outcome_dum)
 
     ind_dummies = investigators_dum.join(beats)
+    if len(ind_dummies) > 1500:
+        ind_dummies[ind_dummies.columns[:800]].to_csv("indDummyVar1.csv")
+        ind_dummies[ind_dummies.columns[:800]].to_csv("indDummyVar2.csv")
+    else:
+        ind_dummies.to_csv("indDummyVar.csv")
 
     dep_dummies.to_csv("depDummyVar.csv")
-    ind_dummies.to_csv("indDummyVar.csv")
+
 
 if __name__ == '__main__':
     go()
