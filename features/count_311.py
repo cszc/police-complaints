@@ -161,16 +161,7 @@ class client:
                 cur.close()
 
         print("Completed counting {}".format(table311))
-# # '''
-# alter table allegations add column tractce10 int;
-# update allegations
-# set tractce10 = agg.tractce10
-# from
-# (select distinct a.crid, t.tractce10
-# from allegations as a join tracts2010 as t
-# on ST_Contains(t.geom, a.geom)) as agg
-# where allegations.crid=agg.crid;
-# # '''
+
     def count_other_complaints(self, allegations, out_table):
         print("Starting {}".format(allegations))
         
@@ -274,7 +265,7 @@ class client:
         from (SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
             FROM %s as a JOIN %s as b
             ON a.officer_id=b.officer_id
-            WHERE b.dateobj < a.dateobj
+            WHERE b.dateobj =< a.dateobj
             GROUP BY (a.crid, a.officer_id)) as agg
         where (crid, officer_id)=agg.allegation_id;
         ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(allegations)))
@@ -289,13 +280,13 @@ class client:
         self.dbconn.commit()
         cur.close()
 
-'''
-SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
-            FROM allegations as a JOIN allegations as b
-            ON a.officer_id=b.officer_id
-            WHERE b.dateobj < a.dateobj
-            GROUP BY (a.crid, a.officer_id);
-            '''
+# '''
+# SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
+#             FROM allegations as a JOIN allegations as b
+#             ON a.officer_id=b.officer_id
+#             WHERE b.dateobj < a.dateobj
+#             GROUP BY (a.crid, a.officer_id);
+#             '''
 
 if __name__ == "__main__":
     dbClient = client()
@@ -329,11 +320,11 @@ if __name__ == "__main__":
 
     #     dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
 
-    #count other complaints
-    # resultscomplaints = "time_distance_complaints"
-    # # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
-    # print("Created {}".format(resultscomplaints))
-    # print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
+    count other complaints
+    resultscomplaints = "time_distance_complaints"
+    dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
+    print("Created {}".format(resultscomplaints))
+    print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
 
     # dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
 
