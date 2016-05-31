@@ -9,7 +9,8 @@ def go():
     #Queries for features
     alleg = "SELECT crid, officer_id, tractce10,\
                 (CASE WHEN EXTRACT(dow FROM dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend \
-                FROM allegations ;"
+                FROM allegations \
+		WHERE tractce10 IS NOT NULL;"
 
     invest1 = "SELECT * FROM investigator_beat_dum1;"
     invest2 = "SELECT * FROM investigator_beat_dum2;"
@@ -39,7 +40,7 @@ def go():
     conn.close()
 
     data311_df.drop_duplicates('crid', inplace = True)
-    datacrime.drop_duplicates('crid', inplace = True)
+    datacrime_df.drop_duplicates('crid', inplace = True)
     acs_df.drop_duplicates(inplace = True)
 
     #Merge (join) dataframes on shared keys
@@ -52,7 +53,7 @@ def go():
 
     #Drop sequential index column
     #df_final.drop('index', axis = 1, inplace = True)
-    df_final.drop(['tract_1', 'tractce10'], inplace = True)
+    df_final.drop(['tract_1', 'tractce10'], axis = 1, inplace = True)
 
     df_final.to_csv("queriedFeatureResults.csv")
 
