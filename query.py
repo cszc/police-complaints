@@ -11,7 +11,8 @@ def go():
                 ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
                 FROM allegations JOIN acs ON (allegations.tractce10 = acs.tract_1);"
 
-    invest = "SELECT * FROM investigator_beat_dum1 NATURAL JOIN investigator_beat_dum2;"
+    invest1 = "SELECT * FROM investigator_beat_dum1;"
+    invest2 = "SELECT * FROM investigator_beat_dum2;"
 
     age = "SELECT crid, officer_id, officers_age FROM ages;"
 
@@ -22,16 +23,19 @@ def go():
                 FROM acs;"
 
     alleg_df = pd.read_sql(alleg, conn)
-    invest_df = pd.read_sql(invest, conn)
+    invest1_df = pd.read_sql(invest1, conn)
+    invest2_df = pd.read_sql(invest2, conn)
     age_df = pd.read_sql(age, conn)
     data311_df = pd.read_sql(data311, conn)
     #Close connection to database after making queries
     conn.commit()
     conn.close()
     #Merge (join) dataframes on shared keys
-    df_final = alleg_df.merge(invest_df, on =['crid', 'officer_id'], how = 'left')\
+    df_final = alleg_df.merge(invest1_df, on = ['crid', 'officer_id'], how = 'left')\
+                .merge(invest2_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(age_df, on = ['crid', 'officer_id'], how = 'left')
-    df_final = df_final.join(data311.drop('crid', axis = 1))
+
+    df_final = df_final.join(data311_df.drop('crid', axis = 1))
     #Drop sequential index column
     df_final.drop('index', axis = 1, inplace = True)
 
