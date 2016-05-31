@@ -7,9 +7,9 @@ def go():
     conn = psycopg2.connect("dbname = police user = lauren password = llc")
 
     #Queries for features
-    alleg = "SELECT crid, officer_id, tractce10, \
+    alleg = "SELECT crid, officer_id, tractce10,\
                 (CASE WHEN EXTRACT(dow FROM dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend \
-                FROM allegations;"
+                FROM allegations ;"
 
     invest1 = "SELECT * FROM investigator_beat_dum1;"
     invest2 = "SELECT * FROM investigator_beat_dum2;"
@@ -18,7 +18,6 @@ def go():
 
     data311 = "SELECT * FROM time_distance_311;"
     datacrime = "SELECT * FROM time_distance_crime;"
-
 
     acs = "SELECT tract_1, pct017, pct1824, pct2534, pct3544, pct4554, pct5564, pct6500, \
                 ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
@@ -34,16 +33,21 @@ def go():
     #Close connection to database after making queries
     conn.commit()
     conn.close()
-    #Merge (join) dataframes on shared keys
-    df_final = alleg_df.merge(invest1_df, on = ['crid', 'officer_id'], how = 'left')\
-                .merge(invest2_df, on = ['crid', 'officer_id'], how = 'left')\
-                .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
 
-    df_final = df_final.join(data311_df.drop('crid', axis = 1)).join(datacrime_df.drop('crid', axis = 1))
-    df_final = df_final.merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')
+    data311_df.drop_duplicates('crid', inplace = True)
+    datacrime.drop_duplicates('crid', inplace = True)
+    acs_df.drop_duplicates(inplace = True)
+
+    #Merge (join) dataframes on shared keys
+    df_final = alleg_df.merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
+                .merge(invest2_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
+                .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
+                .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
+                .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')
 
     #Drop sequential index column
-    df_final.drop('index', axis = 1, inplace = True)
+    #df_final.drop('index', axis = 1, inplace = True)
+    df_final.drop(['tract_1', 'tractce10'], inplace = True)
 
     return df_final
 
