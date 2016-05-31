@@ -10,12 +10,14 @@ NEW_311 = ["treetrims", "potholes", "graffiti"]
 
 CRIMES = ["crimetest"]
 
-FBI_CODES = ["18", "08A", "02", "08B", "17", "16", "03", "01B", "24", "06", "07", "19", "04A", "11", "10", "12", "05", "09", "13", "26", "01A", "14", "04B", "15", "20", "22"]
+# FBI_CODES = ["18", "08A", "02", "08B", "17", "16", "03", "01B", "24", "06", "07", "19", "04A", "11", "10", "12", "05", "09", "13", "26", "01A", "14", "04B", "15", "20", "22"]
+
+FBI_CODES=['03', '06', '18', '22']
 
 PARTICIPANT_TABLES = ["officers"]
 ALLEGATIONS_TABLE = "allegations"
 DISTANCES = ['500','1000', '2500']
-TIMES = ['7 days', '3 months']
+TIMES = ['14 days', '3 months']
 
 class client:
     def __init__(self):
@@ -161,21 +163,9 @@ class client:
                 cur.close()
 
         print("Completed counting {}".format(table311))
-# # '''
-# alter table allegations add column tractce10 int;
-# update allegations
-# set tractce10 = agg.tractce10
-# from
-# (select distinct a.crid, t.tractce10
-# from allegations as a join tracts2010 as t
-# on ST_Contains(t.geom, a.geom)) as agg
-# where allegations.crid=agg.crid;
-# # '''
+
     def count_other_complaints(self, allegations, out_table):
         print("Starting {}".format(allegations))
-            # out_table = "radius311"
-            # out_table = "radiuscrime"
-        
         
         for d in DISTANCES:
             for time in TIMES:
@@ -192,21 +182,39 @@ class client:
                     update %s
                     set %s = agg.num_complaints
                     from
-                    (SELECT a.crid, COUNT(*) as num_complaints
+                    (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
                     FROM %s as a JOIN %s as b
                     ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
                     AND b.dateobj < a.dateobj
                     AND b.dateobj > (a.dateobj - interval '%s')
                     GROUP BY a.crid) as agg
-                    where %s.crid=agg.crid;
+                    where (%s.crid,=agg.allegation_id;
                     ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table)))
                 print("Completed query")
                 self.dbconn.commit()
                 cur.close()
         print("Completed counting {}".format(allegations))
 
-
-
+# '''
+# update time_distance_complaints
+# set test = agg.num_complaints
+# from
+# (SELECT (a.crid, a.officer_id) as allegation_id, COUNT(*) as num_complaints
+# FROM allegations as a JOIN allegations as b
+# ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
+# AND b.dateobj < a.dateobj
+# AND b.dateobj > (a.dateobj - interval '7 days')
+# GROUP BY (a.crid, a.officer_id)) as agg
+# where (time_distance_complaints.crid, time_distance_complaints.officer_id)=agg.allegation_id;
+# '''
+# '''
+# SELECT a.crid, COUNT(*) as num_complaints
+#                     FROM allegations as a JOIN allegations as b
+#                     ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
+#                     AND b.dateobj < a.dateobj
+#                     AND b.dateobj > (a.dateobj - interval '7 days')
+#                     GROUP BY a.crid;
+# '''
 
     def count_311_calls(self, table311):
         name = "\""+str(table311)+"\""
@@ -258,7 +266,7 @@ class client:
         cur.close()
 
     def count_officer_complaints(self, allegations, out_table):
-        col_name = "prior_complaints"
+        col_name = "priors"
         cur = self.dbconn.cursor()
 
         cur.execute("alter table %s add column %s int;", (AsIs(out_table), AsIs(col_name)))
@@ -270,7 +278,7 @@ class client:
         from (SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
             FROM %s as a JOIN %s as b
             ON a.officer_id=b.officer_id
-            WHERE b.dateobj < a.dateobj
+            WHERE b.dateobj <= a.dateobj
             GROUP BY (a.crid, a.officer_id)) as agg
         where (crid, officer_id)=agg.allegation_id;
         ''',(AsIs(out_table), AsIs(col_name), AsIs(allegations), AsIs(allegations)))
@@ -287,7 +295,7 @@ class client:
 
 # '''
 # SELECT (a.crid, a.officer_id) AS allegation_id, count(*) as priors
-#             FROM test2 as a JOIN test2 as b
+#             FROM allegations as a JOIN allegations as b
 #             ON a.officer_id=b.officer_id
 #             WHERE b.dateobj < a.dateobj
 #             GROUP BY (a.crid, a.officer_id);
@@ -316,20 +324,18 @@ if __name__ == "__main__":
 
     #     dbClient.get_311_radii(ALLEGATIONS_TABLE, table, results311)
 
-    # #Count crimes
-    # resultscrime = "time_distance_crime"
+    #Count crimes
+    resultscrime = "time_distance_crime"
     # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscrime)
-    # print("Created {}".format(resultscrime))
-    # for table in CRIMES:
-    #     print("Starting {}".format(table))
+    print("Created {}".format(resultscrime))
+    for table in CRIMES:
+        print("Starting {}".format(table))
 
-    #     dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
+        dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
 
-    #count other complaints
+    # count other complaints
     # resultscomplaints = "time_distance_complaints"
-    # # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscomplaints)
-    # print("Created {}".format(resultscomplaints))
-    # print("Starting aggregate {}".format(ALLEGATIONS_TABLE))
+    # dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, resultscomplaints)
 
     # dbClient.count_other_complaints(ALLEGATIONS_TABLE, resultscomplaints)
 
@@ -341,10 +347,10 @@ if __name__ == "__main__":
     # for p in PARTICIPANT_TABLES:
     #     dbClient.get_participant_age(ALLEGATIONS_TABLE,p, resultsage)
 
-    results = "prior_complaints"
-    dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, results)
-    print("Strting prior complaints")
-    dbClient.count_officer_complaints(ALLEGATIONS_TABLE, results)
+    # results = "prior_complaints"
+    # # dbClient.make_new_feature_table_oid(ALLEGATIONS_TABLE, results)
+    # print("Strting prior complaints")
+    # dbClient.count_officer_complaints(ALLEGATIONS_TABLE, results)
 
     # print("Starting ages")
     
