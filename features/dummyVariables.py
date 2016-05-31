@@ -30,7 +30,7 @@ def go():
     ind_dummies = investigators_dum.join(beats)
     if len(ind_dummies.columns) > 1500:
         ind_dummies[ind_dummies.columns[:800]].to_csv("indDummyVar1.csv")
-        ind_dummies[ind_dummies.columns[:800]].to_csv("indDummyVar2.csv")
+        ind_dummies[ind_dummies.columns[800:]].to_csv("indDummyVar2.csv")
     else:
         ind_dummies.to_csv("indDummyVar.csv")
 
