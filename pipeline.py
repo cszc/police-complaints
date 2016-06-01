@@ -3,11 +3,11 @@ from sklearn.svm import SVC
 import pandas as pd
 import numpy as np
 import random
+import matplotlib
 import pylab as pl
 import matplotlib.pyplot as plt
 from scipy import optimize
 import time
-import matplotlib
 import json
 matplotlib.style.use('ggplot')
 from sklearn import preprocessing, cross_validation, svm, metrics, tree, decomposition
@@ -51,10 +51,10 @@ clfs = {
 #not yet used. eventually, will iterate through parameters for estimators
 grid = {
         'RF': {
-                'n_estimators': [1,10,100,1000,10000],
-                'max_depth': [1,5,10,20,50,100],
-                'max_features': ['sqrt','log2'],
-                'min_samples_split': [2,5,10]
+                'RF__n_estimators': [1,10,100,1000,10000],
+                'RF__max_depth': [1,5,10,20,50,100],
+                'RF__max_features': ['sqrt','log2'],
+                'RF__min_samples_split': [2,5,10]
                 },
         'LR': {
                 'LR__penalty': ['l1','l2'],
@@ -153,43 +153,43 @@ if __name__ == "__main__":
         scores = cross_validation.cross_val_score(pipeline, X_train, y_train, scoring='roc_auc')
 
         print(estimator, scores.mean())
-    print("Performing grid search...")
-    print("pipeline:", [name for name, _ in pipeline.steps])
-    print("parameters:")
-    print(parameters)
-    t0 = time.clock()
-    grid_search.fit(X_train,y_train)
-    print("done fitting in %0.3fs" % (time.clock() - t0))
-    
-    print("Predicting binary outcome on test X")
-    predicted = grid_search.predict(X_test)
-    
-    df = pd.DataFrame(predicted)
-    # print(df.head())
-    print("Value counts for predictions")
-    print(df[0].value_counts())
-    print()
-    print("Predicting probability of outcome on test X")
-    predicted_prob = grid_search.predict_proba(X_test)
+        print("Performing grid search...")
+        print("pipeline:", [name for name, _ in pipeline.steps])
+        print("parameters:")
+        print(parameters)
+        t0 = time.clock()
+        grid_search.fit(X_train,y_train)
+        print("done fitting in %0.3fs" % (time.clock() - t0))
+        
+        print("Predicting binary outcome on test X")
+        predicted = grid_search.predict(X_test)
+        
+        df = pd.DataFrame(predicted)
+        # print(df.head())
+        print("Value counts for predictions")
+        print(df[0].value_counts())
+        print()
+        print("Predicting probability of outcome on test X")
+        predicted_prob = grid_search.predict_proba(X_test)
 
-    predicted_prob = predicted_prob[:, 1]  # probability that label is 1
-    df1 = pd.DataFrame(predicted_prob)
-    # print(df1.head())
-    print("Value counts for prob predictions")
-    print(df1[0].value_counts())
-    print()
-    ydf = pd.DataFrame(y_test)
-    # print(ydf.head())
-    print("Value counts for y actual")
-    print(ydf[label].value_counts())
-    print()
-    # statistics
-    # output_evaluation_statistics(y_test, predicted_prob)
-    print("Feature Importance")
-    feature_importances = get_feature_importances(grid_search)
-    print(feature_importances)
-    print("Best score: %0.3f" % grid_search.best_score_)
-    print("Best parameters set:")
-    best_parameters = grid_search.best_estimator_.get_params()
-    for param_name in sorted(parameters.keys()):
-        print("\t%s: %r" % (param_name, best_parameters[param_name]))
+        predicted_prob = predicted_prob[:, 1]  # probability that label is 1
+        df1 = pd.DataFrame(predicted_prob)
+        # print(df1.head())
+        print("Value counts for prob predictions")
+        print(df1[0].value_counts())
+        print()
+        ydf = pd.DataFrame(y_test)
+        # print(ydf.head())
+        print("Value counts for y actual")
+        print(ydf[label].value_counts())
+        print()
+        # statistics
+        # output_evaluation_statistics(y_test, predicted_prob)
+        print("Feature Importance")
+        feature_importances = get_feature_importances(grid_search)
+        print(feature_importances)
+        print("Best score: %0.3f" % grid_search.best_score_)
+        print("Best parameters set:")
+        best_parameters = grid_search.best_estimator_.get_params()
+        for param_name in sorted(parameters.keys()):
+            print("\t%s: %r" % (param_name, best_parameters[param_name]))
