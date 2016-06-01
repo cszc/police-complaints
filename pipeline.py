@@ -31,12 +31,12 @@ y = df[label]
 
 #estimators
 clfs = {
-        # 'RF': RandomForestClassifier(n_estimators=50, n_jobs=-1),
+        'RF': RandomForestClassifier(n_estimators=50, n_jobs=-1),
         # 'AB': AdaBoostClassifier(
         #             DecisionTreeClassifier(max_depth=1),
         #             algorithm="SAMME",
         #             n_estimators=200),
-        # 'LR': LogisticRegression(penalty='l1', C=1e5),
+        'LR': LogisticRegression(penalty='l1', C=1e5),
         # 'SVM': svm.SVC(kernel='linear', probability=True, random_state=0),
         # 'GB': GradientBoostingClassifier(
         #             learning_rate=0.05,
@@ -71,26 +71,26 @@ grid = {
                 'max_depth': [1,3,5,10,20,50,100]
                 },
         'NB' : {},
-        # 'DT': {
-        #         'DT__criterion': ['gini', 'entropy'],
-        #         'DT__max_depth': [1,5,10,20,50,100],
-        #         'DT__max_features': ['sqrt','log2'],
-        #         'DT__min_samples_split': [2,5,10]
-                # },
         'DT': {
-                'DT__criterion': ['gini'],
-                'DT__max_depth': [1,5],
-                'DT__max_features': ['sqrt'],
+                'DT__criterion': ['gini', 'entropy'],
+                'DT__max_depth': [1,5,10,20,50,100],
+                'DT__max_features': ['sqrt','log2'],
                 'DT__min_samples_split': [2,5,10]
                 },
+        # 'DT': {
+        #         'DT__criterion': ['gini'],
+        #         'DT__max_depth': [1,5],
+        #         'DT__max_features': ['sqrt'],
+        #         'DT__min_samples_split': [2,5,10]
+        #         },
         'SVM' :{
                 'C' :[0.00001,0.0001,0.001,0.01,0.1,1,10],
                 'kernel':['linear']
                 },
         'KNN' :{
-                'n_neighbors': [1,5,10,25,50,100],
-                'weights': ['uniform','distance'],
-                'algorithm': ['auto','ball_tree','kd_tree']
+                'KNN__n_neighbors': [1,5,10,25,50,100],
+                'KNN__weights': ['uniform','distance'],
+                'KNN__algorithm': ['auto','ball_tree','kd_tree']
                 }
        }
 
