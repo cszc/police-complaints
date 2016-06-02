@@ -3,7 +3,7 @@ from sklearn.svm import SVC
 import pandas as pd
 import numpy as np
 import random
-import matplotlib
+import python3-matplotlib
 import pylab as pl
 import matplotlib.pyplot as plt
 from scipy import optimize
@@ -51,7 +51,7 @@ clfs = {
 #not yet used. eventually, will iterate through parameters for estimators
 grid = {
         'RF': {
-                'RF__n_estimators': [1,10,100,1000,10000],
+                'RF__n_estimators': [1,10,100,1000],
                 'RF__max_depth': [1,5,10,20,50,100],
                 'RF__max_features': ['sqrt','log2'],
                 'RF__min_samples_split': [2,5,10]
@@ -98,15 +98,15 @@ def get_feature_importances(model):
     try:
         return model.feature_importances_
     except:
-        pass
-    try:
-        print('This model does not have feature_importances, '
-                      'returning .coef_[0] instead.')
-        return model.coef_[0]
-    except:
-        print('This model does not have feature_importances, '
-                      'nor coef_ returning None')
-    return None
+        
+        try:
+            print('This model does not have feature_importances, '
+                          'returning .coef_[0] instead.')
+            return model.coef_[0]
+        except:
+            print('This model does not have feature_importances, '
+                          'nor coef_ returning None')
+            return None
 
 def output_evaluation_statistics(y_test, predictions):
     print("Statistics with probability cutoff at 0.5")
