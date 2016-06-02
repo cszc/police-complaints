@@ -3,7 +3,7 @@ from sklearn.svm import SVC
 import pandas as pd
 import numpy as np
 import random
-import python3-matplotlib
+import matplotlib
 import pylab as pl
 import matplotlib.pyplot as plt
 from scipy import optimize
