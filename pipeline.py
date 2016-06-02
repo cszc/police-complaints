@@ -195,6 +195,11 @@ def main(to_try):
             print("\t%s: %r" % (param_name, best_parameters[param_name]))
 
 if __name__ == "__main__":
+    # can pass in a list of models to try
+    if len(sys.argv) > 1:
+        to_try = sys.argv[1]
+    else:
+        to_try = ['DT','LR','RF']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
     # find the best parameters for both the feature extraction and the
     # classifier
