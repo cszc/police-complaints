@@ -18,6 +18,7 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.cross_validation import train_test_split
+from sklearn_evaluation.metrics import precision_at
 from sklearn.grid_search import ParameterGrid, GridSearchCV
 from sklearn.metrics import *
 from sklearn.preprocessing import StandardScaler
@@ -73,18 +74,18 @@ grid = {
                 'GB__max_depth': [1,3,5,10,20,50,100]
                 },
         'NB' : {},
-        'DT': {
-                'DT__criterion': ['gini', 'entropy'],
-                'DT__max_depth': [1,5,10,20,50,100],
-                'DT__max_features': ['sqrt','log2'],
-                'DT__min_samples_split': [2,5,10]
-                },
         # 'DT': {
-        #         'DT__criterion': ['gini'],
-        #         'DT__max_depth': [1,5],
-        #         'DT__max_features': ['sqrt'],
-        #         'DT__min_samples_split': [5,10]
+        #         'DT__criterion': ['gini', 'entropy'],
+        #         'DT__max_depth': [1,5,10,20,50,100],
+        #         'DT__max_features': ['sqrt','log2'],
+        #         'DT__min_samples_split': [2,5,10]
         #         },
+        'DT': {
+                'DT__criterion': ['gini'],
+                'DT__max_depth': [1,5],
+                'DT__max_features': ['sqrt'],
+                'DT__min_samples_split': [5,10]
+                },
         'SVM' :{
                 'SVM__C' :[0.00001,0.0001,0.001,0.01,0.1,1,10],
                 'SVM__kernel':['linear']
@@ -122,9 +123,13 @@ def output_evaluation_statistics(y_test, predictions):
     print("Statistics with probability cutoff at 0.5")
     # binary predictions with some cutoff for these evaluations
     cutoff = 0.5
+    y_test = y_test.astype(int)
     predictions_binary = np.copy(predictions)
-    predictions_binary[predictions_binary >= cutoff] = 1
-    predictions_binary[predictions_binary < cutoff] = 0
+    predictions_binary[predictions_binary >= cutoff] = int(1)
+    predictions_binary[predictions_binary < cutoff] = int(0)
+    # predictions_binary = predictions_binary.astype(int)
+
+    # print(type)
     # df1 = pd.DataFrame(predictions_binary)
     # # print(df1.head())
     # print("Value counts for binary predictions")
@@ -132,12 +137,12 @@ def output_evaluation_statistics(y_test, predictions):
     evaluation.print_model_statistics(y_test, predictions_binary)
     evaluation.print_confusion_matrix(y_test, predictions_binary)
 
-    precision1 = precision_at(y_test, predictions, 0.01)
-    print("Precision at 1%: {} (probability cutoff {})".format(
-                 round(precision1[0], 2), precision1[1]))
-    precision10 = precision_at(y_test, predictions, 0.1)
-    print("Precision at 10%: {} (probability cutoff {})".format(
-                 round(precision10[0], 2), precision10[1]))
+    # precision1 = precision_at(y_test, predictions, 0.01)
+    # print("Precision at 1%: {} (probability cutoff {})".format(
+    #              round(precision1[0], 2), precision1[1]))
+    # precision10 = precision_at(y_test, predictions, 0.1)
+    # print("Precision at 10%: {} (probability cutoff {})".format(
+    #              round(precision10[0], 2), precision10[1]))
 
 
 if __name__ == "__main__":
@@ -191,14 +196,14 @@ if __name__ == "__main__":
         predicted_prob = predicted_prob[:, 1]  # probability that label is 1
         df1 = pd.DataFrame(predicted_prob)
         # print(df1.head())
-        print("Value counts for prob predictions")
-        print(df1[0].value_counts())
-        print()
-        ydf = pd.DataFrame(y_test)
-        # print(ydf.head())
-        print("Value counts for y actual")
-        print(ydf[label].value_counts())
-        print()
+        # print("Value counts for prob predictions")
+        # print(df1[0].value_counts())
+        # print()
+        # ydf = pd.DataFrame(y_test)
+        # # print(ydf.head())
+        # print("Value counts for y actual")
+        # print(ydf[label].value_counts())
+        # print()
         # statistics
         print("Evaluation Statistics")
         output_evaluation_statistics(y_test, predicted_prob)
@@ -207,7 +212,7 @@ if __name__ == "__main__":
         feature_importances = get_feature_importances(grid_search.best_estimator_.named_steps[estimator_name])
         if feature_importances != None:
             df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp"], index = X_train.columns).sort(['Imp'], ascending = False)
-            filename = "ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S")
+            filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
             plot_feature_importances(df_best_estimators, filename)
             print(df_best_estimators.head(20))
         print("Best score: %0.3f" % grid_search.best_score_)

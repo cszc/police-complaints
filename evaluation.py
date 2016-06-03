@@ -1,7 +1,7 @@
 
 #!/usr/bin/env python
 
-import logging
+# import logging
 
 from scipy.stats import itemfreq
 from sklearn import metrics
@@ -11,18 +11,18 @@ import numpy as np
 import pandas as pd
 import os
 
-logger = logging.getLogger()
+# logger = logging.getLogger()
 
-def plot_feature_importances(feature_names, feature_importances, filename):
-    importances = list(zip(feature_names, list(feature_importances)))
-    importances = pd.DataFrame(importances, columns=["Feature", "Importance"])
-    importances = importances.set_index("Feature")
-    importances = importances.sort(columns="Importance", ascending=False)
-    plt.figure()
-    plt.style.use('ggplot')
-    importances.plot(kind="barh", legend=False)
-    plt.tight_layout()
-    plt.savefig(filename)
+# def plot_feature_importances(feature_names, feature_importances, filename):
+#     importances = list(zip(feature_names, list(feature_importances)))
+#     importances = pd.DataFrame(importances, columns=["Feature", "Importance"])
+#     importances = importances.set_index("Feature")
+#     importances = importances.sort(columns="Importance", ascending=False)
+#     plt.figure()
+#     plt.style.use('ggplot')
+#     importances.plot(kind="barh", legend=False)
+#     plt.tight_layout()
+#     plt.savefig(filename)
 
 
 def fifty_fifty_split(labels):
@@ -58,28 +58,28 @@ def print_model_statistics(y_test_cv, result_cv):
     # Accuracy score
     acc = metrics.accuracy_score(y_test_cv, result_cv)
     acc_str = 'Accuracy score: {:.2%}'.format(acc)
-    logger.debug(acc_str)
+    print(acc_str)
 
     # Classification report (precision, recall, F1 score)
     class_rpt = metrics.classification_report(y_test_cv, result_cv)
-    logger.debug(class_rpt)
+    # print(class_rpt)
 
-    logger.debug('truth: {}'.format(itemfreq(y_test_cv)))
-    logger.debug('model: {}'.format(itemfreq(result_cv)))
+    print('truth: {}'.format(itemfreq(y_test_cv)))
+    print('model: {}'.format(itemfreq(result_cv)))
 
-    # Classification report for 50-50 split
-    logger.debug("Results fifty fifty split")
-    indexes_to_keep = fifty_fifty_split(y_test_cv)
-    class_rpt = metrics.classification_report(y_test_cv[indexes_to_keep],
-                                              result_cv[indexes_to_keep])
-    logger.debug(class_rpt)
+    # # Classification report for 50-50 split
+    # print("Results fifty fifty split")
+    # indexes_to_keep = fifty_fifty_split(y_test_cv)
+    # class_rpt = metrics.classification_report(y_test_cv[indexes_to_keep],
+    #                                           result_cv[indexes_to_keep])
+    # print(class_rpt)
 
 
 def print_confusion_matrix(y_test_cv, result_cv):
     cm = metrics.confusion_matrix(y_test_cv, result_cv)
     np.set_printoptions(precision=2)
-    logger.debug('Confusion matrix, without normalization')
-    logger.debug(cm)
+    print('Confusion matrix, without normalization')
+    print(cm)
 
 
 def precision_at_x_percent(test_labels, test_predictions, x_percent=0.01):
