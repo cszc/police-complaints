@@ -26,6 +26,7 @@ import sklearn.pipeline
 import evaluation
 import argparse
 import sys
+# %pylab inline
 
 df = pd.read_csv("test_fulldata.csv") #csv name goes here
 label = "Findings Sustained" #predicted variable goes here
@@ -136,13 +137,13 @@ def output_evaluation_statistics(y_test, predictions):
     # print(df1[0].value_counts())
     evaluation.print_model_statistics(y_test, predictions_binary)
     evaluation.print_confusion_matrix(y_test, predictions_binary)
-
-    # precision1 = precision_at(y_test, predictions, 0.01)
-    # print("Precision at 1%: {} (probability cutoff {})".format(
-    #              round(precision1[0], 2), precision1[1]))
-    # precision10 = precision_at(y_test, predictions, 0.1)
-    # print("Precision at 10%: {} (probability cutoff {})".format(
-    #              round(precision10[0], 2), precision10[1]))
+    if len(list(set(predictions_binary))) > 1:
+        precision1 = precision_at(y_test, predictions, 0.01)
+        print("Precision at 1%: {} (probability cutoff {})".format(
+                     round(precision1[0], 2), precision1[1]))
+        precision10 = precision_at(y_test, predictions, 0.1)
+        print("Precision at 10%: {} (probability cutoff {})".format(
+                     round(precision10[0], 2), precision10[1]))
 
 
 if __name__ == "__main__":
@@ -212,8 +213,8 @@ if __name__ == "__main__":
         feature_importances = get_feature_importances(grid_search.best_estimator_.named_steps[estimator_name])
         if feature_importances != None:
             df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp"], index = X_train.columns).sort(['Imp'], ascending = False)
-            filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
-            plot_feature_importances(df_best_estimators, filename)
+            # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
+            # plot_feature_importances(df_best_estimators, filename)
             print(df_best_estimators.head(20))
         print("Best score: %0.3f" % grid_search.best_score_)
         print("Best parameters set:")
