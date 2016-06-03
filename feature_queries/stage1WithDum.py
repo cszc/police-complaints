@@ -8,7 +8,6 @@ def go(output_fn):
     conn = psycopg2.connect("dbname = police user = lauren password = llc")
 
     #Queries for features
-
     alleg = "SELECT crid, a.officer_id, a.dateobj, (CASE WHEN a.finding_edit = 'No Affidavit' THEN 1 ELSE 0 END) AS no_affidavit,\
                 tractce10, o.race_edit AS officer_race, o.gender AS officer_gender, \
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
@@ -32,13 +31,6 @@ def go(output_fn):
 
     priors = "SELECT * FROM prior_complaints;"
 
-    acs = "SELECT tract_1, pct017, pct1824, pct2534, pct3544, pct4554, pct5564, pct6500, \
-                ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
-                FROM acs;"
-
-    complainant_demo = "SELECT crid, gender AS complainant_gender, race_edit AS complainant_race, \
-                        age AS complainant_age from complainants;"
-
     alleg_df = pd.read_sql(alleg, conn)
     invest1_df = pd.read_sql(invest1, conn)
     invest2_df = pd.read_sql(invest2, conn)
@@ -46,35 +38,27 @@ def go(output_fn):
     data311_df = pd.read_sql(data311, conn)
     datacrime_df = pd.read_sql(datacrime, conn)
     priors_df = pd.read_sql(priors, conn)
-    acs_df = pd.read_sql(acs, conn)
-    complainants_df = pd.read_sql(complainant_demo, conn)
-
     #Close connection to database after queries
+
     conn.commit()
     conn.close()
 
-    #Drop duplicate geographic data
     data311_df.drop_duplicates('crid', inplace = True)
     datacrime_df.drop_duplicates('crid', inplace = True)
-    acs_df.drop_duplicates(inplace = True)
 
     #Merge (join) dataframes on shared keys
     df_final = alleg_df.merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
                 .merge(invest2_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
                 .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
-                .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
-                .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
-           		.merge(complainants_df, how = 'left', on = 'crid')
+                .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')
 
     #Dummies for race and rank and drop unneeded columns
     rank_dummies = pd.get_dummies(df_final['rank'], prefix = 'Rank', prefix_sep = ' ', dummy_na = True)
     gender_dummies = pd.get_dummies(df_final[['officer_race', 'officer_gender']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
-    complainant_dummies = pd.get_dummies(df_final[['complainant_race', 'complainant_gender']], prefix = 'Complainant', prefix_sep = ' ', dummy_na = True)
-
 
     df_final = pd.concat([df_final, rank_dummies, gender_dummies, complainant_dummies], axis = 1)
-    df_final.drop(['tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender', 'complainant_gender', 'complainant_race'], axis = 1, inplace = True)
+    df_final.drop(['tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender'], axis = 1, inplace = True)
 
     df_final.to_csv(output_fn)
 
