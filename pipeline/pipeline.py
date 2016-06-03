@@ -27,16 +27,18 @@ import matplotlib.pyplot as plt
 matplotlib.style.use('ggplot')
 import itertools
 from pydoc import locate
+from argparse import ArgumentParser
 
 #Own modules
 import evaluation
 
 #create timestamp
 TS = time.time()
-TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d %H:%M:%S')
+TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d_%H:%M:%S')
 
 # df = pd.read_csv("test_fulldata.csv") #csv name goes here
 label = "no_affidavit" #predicted variable goes here
+#label = "Findings Sustained" #predicted variable goes here
 TRAIN_SPLITS =[[0,1],[1,2],[2,3]]
 TEST_SPLITS = [2,3,4]
 CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
@@ -118,7 +120,6 @@ def temporal_split_data(df):
     return chunks
 
 
-
 def get_feature_importances(model):
     # print("Trying to get feature importance for:")
     # print(model)
@@ -135,12 +136,14 @@ def get_feature_importances(model):
                           'nor coef_ returning None')
             return None
 
+
 def plot_feature_importances(importances, filename):
     plt.figure()
     plt.style.use('ggplot')
     importances.plot(kind="barh", legend=False)
     plt.tight_layout()
     plt.savefig(filename)
+
 
 def output_evaluation_statistics(y_test, predictions):
     print("Statistics with probability cutoff at 0.5")
@@ -166,6 +169,8 @@ def output_evaluation_statistics(y_test, predictions):
         #precision10 = precision_at(y_test, predictions, 0.1)
         #print("Precision at 10%: {} (probability cutoff {})".format(
          #            round(precision10[0], 2), precision10[1]))
+
+
 def _generate_grid(model_parameters):
     #Iterate over keys and values
     parameter_groups = []
@@ -179,8 +184,10 @@ def _generate_grid(model_parameters):
     dicts = [_tuples2dict(params) for params in parameters]
     return dicts
 
+
 def _tuples2dict(tuples):
     return dict((x, y) for x, y in tuples)
+
 
 def grid_from_class(class_name):
 
@@ -188,8 +195,8 @@ def grid_from_class(class_name):
     values = grid[class_name]
     #Generate cross product for all given values and return them as dicts
     grids = _generate_grid(values)
-
     return grids
+
 
 def convert_to_binary(predictions):
     print("Statistics with probability cutoff at 0.5")
@@ -213,18 +220,40 @@ def transform_feature( df, column_name ):
     df[column_name] = df[column_name].apply( label_map )
     return df
 
+
 if __name__ == "__main__":
+    '''
+    Argument Parsing
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument('csv', help='csv filename')
-    # parser.add_argument('label', help='label of dependent variable')
-    parser.add_argument('--to_try', default=[], dest='to_try', help='list of model abbreviations', action='append')
+    parser.add_argument('label', help='label of dependent variable')
+    parser.add_argument('to_try', nargs='+', default=['DT'], help='list of model abbreviations')
     args = parser.parse_args()
+
+    label = args.label #predicted variable goes here
+    to_try = args.to_try
+    print(to_try)
+
+    '''
+    Splitting Data into Temporal Chunks
+    '''
+    chunks = temporal_split_data(df)
+
+    '''
+    Data Transformations
+    '''
+    for chunk in chunks:
+        #need to impute nulls and do other trnsformations
+        chunk.fillna(0, inplace=True)
 
     # label = args.label #predicted variable goes here
     to_try = args.to_try
     print(to_try)
 
-
+    '''
+    Trying Models
+    '''
     for model_name in to_try:
         df = pd.read_csv(args.csv)
         for col in df.columns:
@@ -260,9 +289,17 @@ if __name__ == "__main__":
             # except:
             #     print("can't fill col {}".format(col))
         print("### STARTING {} ###".format(model_name))
+        '''
+        Iterating Through Model
+        '''
+
         clf = clfs[model_name]
         grid = grid_from_class(model_name)
-        for params in grid:
+
+        for i, params in enumerate(grid):
+            '''
+            Iterating Through Parameters
+            '''
             print("### TRYING PARAMS ###")
             clf.set_params(**params)
             if hasattr(clf, 'n_jobs'):
@@ -270,16 +307,24 @@ if __name__ == "__main__":
             # print("Initialized model")
             folds_completed = 0
             print(clf)
-            steps = [("normalization", preprocessing.RobustScaler()),
-         (model_name, clf)]
+            steps = [(
+                "normalization", preprocessing.RobustScaler()), (model_name, clf)
+                ]
+
             pipeline = sklearn.pipeline.Pipeline(steps)
             print("pipeline:", [name for name, _ in pipeline.steps])
+
             auc_scores = []
+
             for i in range(len(TRAIN_SPLITS)):
+                '''
+                Cross Validation
+                '''
                 print("Training sets are: {}".format(TRAIN_SPLITS[i]))
                 print("Testing sets are: {}".format(TEST_SPLITS[i]))
 
-                train_df = pd.concat([chunks[TRAIN_SPLITS[i][0]],chunks[TRAIN_SPLITS[i][1]]])
+                train_df = pd.concat(
+                    [chunks[TRAIN_SPLITS[i][0]], chunks[TRAIN_SPLITS[i][1]]])
                 X_train = train_df.drop(label, axis=1)
                 y_train = train_df[label]
                 test_df = chunks[TEST_SPLITS[i]]
@@ -287,9 +332,13 @@ if __name__ == "__main__":
                 y_test = test_df[label]
 
                 t0 = time.clock()
-                pipeline.fit(X_train,y_train)
-                print("done fitting in %0.3fs" % (time.clock() - t0))
+                pipeline.fit(X_train, y_train)
+                time = ("done fitting in %0.3fs" % (time.clock() - t0))
+                print("done fitting in {}".format(time))
 
+                '''
+                Predictions
+                '''
                 predicted = pipeline.predict(X_test)
 
                 try:
@@ -300,39 +349,65 @@ if __name__ == "__main__":
                     print("Model has no predict_proba method")
                 # print("Evaluation Statistics")
                 # output_evaluation_statistics(y_test, predicted_prob)
+
+                '''
+                Evaluation Statistics
+                '''
                 print()
                 auc_score = metrics.roc_auc_score(y_test, predicted)
-                precision, recall, thresholds = metrics.precision_recall_curve(y_test, predicted_prob)
+                precision, recall, thresholds = metrics.precision_recall_curve(
+                    y_test, predicted_prob)
                 auc_scores.append(auc_score)
                 print("AUC score: %0.3f" % auc_score)
 
                 # save predcited/actual to calculate precision/recall
                 if folds_completed==0:
                     overall_predictions = pd.DataFrame(predicted_prob)
-                else:
-                    overall_predictions = pd.concat([overall_predictions, pd.DataFrame(predicted_prob)])
-                if folds_completed==0:
                     overall_actual = y_test
                 else:
+                    overall_predictions = pd.concat(
+                        [overall_predictions, pd.DataFrame(predicted_prob)])
                     overall_actual = pd.concat([overall_actual, y_test])
 
+                '''
+                Important Features
+                '''
                 print("Feature Importance")
-                feature_importances = get_feature_importances(pipeline.named_steps[model_name])
-                if feature_importances != None:
-                    df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp/Coef"], index = X_train.columns).sort_values(by='Imp/Coef', ascending = False)
+                feature_importances = get_feature_importances(
+                    pipeline.named_steps[model_name])
+                if feature_importances:
+                    df_best_estimators = pd.DataFrame(
+                        feature_importances, columns = (
+                            ["Imp/Coef"],
+                            index = X_train.columns.sort_values(
+                                by='Imp/Coef', ascending = False)
+                                )
+                        )
                     # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
                     # plot_feature_importances(df_best_estimators, filename)
                     print(df_best_estimators.head(5))
+
                 folds_completed += 1
+
+                with open('results.csv', 'a') as csvfile:
+                    spamwriter = csv.writer(csvfile)
+                    spamwriter.writerow([model_name, params, folds_completed, auc_score, precision, recall, thresholds])
+
+                file_name = "pickles/{0}_{1}_paramset:{2}_fold:{3}.p}".format(TIMESTAMP, model_name, i, folds_completed)
+                data = [clf, pipeline, predicted, params, ] #need to fill in with things that we want to pickle
+                pickle.dump( data, open(file_name, "wb" ) )
+
             print("### Cross Validation Statistics ###")
-            precision, recall, thresholds = metrics.precision_recall_curve(overall_actual, overall_predictions)
-            average_auc = sum(auc_scores)/len(auc_scores)
+            precision, recall, thresholds = metrics.precision_recall_curve(
+                overall_actual, overall_predictions)
+            average_auc = sum(auc_scores) / len(auc_scores)
             print("Average AUC: %0.3f" % auc_score)
             print("Confusion Matrix")
             overall_binary_predictions = convert_to_binary(overall_predictions)
-            confusion = metrics.confusion_matrix(overall_actual, overall_binary_predictions)
+            confusion = metrics.confusion_matrix(
+                overall_actual, overall_binary_predictions)
             print(confusion)
 
-        # file_name = "pickles/{0}_{1}.p}".format(TIMESTAMP, estimator)
-        # data = [] #need to fill in with things that we want to pickle
-        # pickle.dump( data, open(file_name, "wb" ) )
+            with open('final_results.csv', 'a') as csvfile:
+                spamwriter = csv.writer(csvfile)
+                spamwriter.writerow([model_name, params, folds_completed, precision, recall, thresholds, average_auc])
