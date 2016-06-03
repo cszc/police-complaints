@@ -1,13 +1,14 @@
 import pandas as pd
 import psycopg2
+import sys
 
-def go():
+def go(output_fn):
     '''Generate dataframe with features from database'''
 
     conn = psycopg2.connect("dbname = police user = lauren password = llc")
 
     #Queries for features
-    alleg = "SELECT crid, a.officer_id, tractce10, o.race_edit, \
+    alleg = "SELECT crid, a.officer_id, tractce10, o.race_edit As race, \
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
                 (CASE WHEN o.rank IS NOT NULL THEN o.rank ELSE 'UNKNOWN' END) AS rank, \
                 (CASE WHEN investigator_name IN (SELECT concat_ws(', ', officer_last, officer_first) \
@@ -33,7 +34,7 @@ def go():
                 ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
                 FROM acs;"
 
-    officer_gender = "SELECT officer_first, gender FROM officers;"
+    officer_gender = "SELECT officer_id, gender FROM officers;"
 
 
     alleg_df = pd.read_sql(alleg, conn)
@@ -60,15 +61,17 @@ def go():
                 .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
-                .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')
+                .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
+                .merge(off_gender_df, how = 'left', on = 'officer_id')
 
     #Dummies for race and rank and drop unneeded columns
     race_dummies = pd.get_dummies(df_final['race'], prefix = 'Race', prefix_sep = ' ', dummy_na = True)
     rank_dummies = pd.get_dummies(df_final['rank'], prefix = 'Rank', prefix_sep = ' ', dummy_na = True)
-    df_final = df_final.concat([df_final, race_dummies, rank_dummies], axis = 1)
-    df_final.drop(['tract_1', 'tractce10', 'race', 'rank'], inplace = True)
+    gender_dummies = pd.get_dummies(df_final['gender'], prefix = 'Gender', prefix_sep = ' ', dummy_na = True)
+    df_final = pd.concat([df_final, race_dummies, rank_dummies, gender_dummies], axis = 1)
+    df_final.drop(['tract_1', 'tractce10', 'race', 'rank', 'gender'], axis = 1, inplace = True)
 
-    df_final.to_csv("queriedFeatureResults.csv")
+    df_final.to_csv(output_fn)
 
 def impute_gender(df, name_col, gender_col):
     '''Fills in missing gender using Genderize.io API.
@@ -84,4 +87,4 @@ def impute_gender(df, name_col, gender_col):
 
 
 if __name__ == '__main__':
-    go()
+    go(sys.argv[1])
