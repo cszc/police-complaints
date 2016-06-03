@@ -30,9 +30,11 @@ import sys
 
 df = pd.read_csv("test_fulldata.csv") #csv name goes here
 label = "Findings Sustained" #predicted variable goes here
-X = df.drop(label, axis=1)
-y = df[label]
-TO_TRY = ['AB','GB']
+TEST_SPLITS =[[0,1],[1,2],[2,3]]
+TRAIN_SPLITS = [2,3,4]
+# X = df.drop(label, axis=1)
+# y = df[label]
+
 
 #estimators
 clfs = {
@@ -145,6 +147,10 @@ def output_evaluation_statistics(y_test, predictions):
         print("Precision at 10%: {} (probability cutoff {})".format(
                      round(precision10[0], 2), precision10[1]))
 
+def temporal_split_data(df):
+    df_sorted = df.sort_values(by='dateobj')
+    chunks = np.array_split(df_sorted, 5)
+    return chunks
 
 if __name__ == "__main__":
     # can pass in a list of models to try
@@ -153,6 +159,20 @@ if __name__ == "__main__":
     else:
         to_try = ['DT','LR','RF']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+    chunks = temporal_split_data(df)
+
+    for chunk in chunks:
+        #need to impute nulls and do other trnsformations
+        pass 
+
+    for model_name in to_try:
+        model = clfs[model_name]
+         
+
+
+
+
+
     # find the best parameters for both the feature extraction and the
     # classifier
     #runs through each estiamtor
@@ -173,7 +193,7 @@ if __name__ == "__main__":
         print("Starting parameter search")
         grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1, verbose=0)
         scores = cross_validation.cross_val_score(pipeline, X_train, y_train, scoring='roc_auc')
-
+        print("mean score:")
         print(estimator, scores.mean())
         print("Performing grid search...")
         print("pipeline:", [name for name, _ in pipeline.steps])
