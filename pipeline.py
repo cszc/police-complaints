@@ -1,5 +1,15 @@
-#Libraries from scikit-learn
+import sklearn
 from sklearn.svm import SVC
+import pandas as pd
+import numpy as np
+import random
+import matplotlib
+import pylab as pl
+import matplotlib.pyplot as plt
+from scipy import optimize
+import time
+import json
+matplotlib.style.use('ggplot')
 from sklearn import preprocessing, cross_validation, svm, metrics, tree, decomposition
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier, AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression, Perceptron, SGDClassifier, OrthogonalMatchingPursuit, RandomizedLogisticRegression
@@ -13,8 +23,11 @@ from sklearn.grid_search import ParameterGrid, GridSearchCV
 from sklearn.metrics import *
 from sklearn.preprocessing import StandardScaler
 import sklearn.pipeline
+import evaluation
+import argparse
+import sys
+# %pylab inline
 
-<<<<<<< HEAD:pipeline.py
 df = pd.read_csv("test_fulldata.csv") #csv name goes here
 label = "Findings Sustained" #predicted variable goes here
 TEST_SPLITS =[[0,1],[1,2],[2,3]]
@@ -22,20 +35,6 @@ TRAIN_SPLITS = [2,3,4]
 # X = df.drop(label, axis=1)
 # y = df[label]
 
-=======
-#All other libraries
-import argparse, sys, pickle, random, time, json, datetime
-import pandas as pd
-import numpy as np
-import pylab as pl
-import pickle
-from scipy import optimize
-import matplotlib.pyplot as plt
-matplotlib.style.use('ggplot')
-
-#Own modules
-import evaluation
->>>>>>> 42f14da65c206a673fef8bfeb90fd43000a64aae:pipeline/pipeline.py
 
 #estimators
 clfs = {
@@ -101,30 +100,64 @@ grid = {
                 }
        }
 
-#create timestamp
-TS = time.time()
-TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d %H:%M:%S')
+def get_feature_importances(model):
+    # print("Trying to get feature importance for:")
+    # print(model)
+    try:
+        return model.feature_importances_
+    except:
+        
+        try:
+            print('This model does not have feature_importances, '
+                          'returning .coef_[0] instead.')
+            return model.coef_[0]
+        except:
+            print('This model does not have feature_importances, '
+                          'nor coef_ returning None')
+            return None
+def plot_feature_importances(importances, filename):
+    plt.figure()
+    plt.style.use('ggplot')
+    importances.plot(kind="barh", legend=False)
+    plt.tight_layout()
+    plt.savefig(filename)
 
-def main():
-    parser = ArgumentParser()
-    parser.add_argument('csv', help='csv filename')
-    parse.add_argment('y_label', help='label of dependent variable')
-    parser.add_argument('to_try', default=['DT','LR','RF'], help='list of model abbreviations')
-    args = parser.parse_args()
+def output_evaluation_statistics(y_test, predictions):
+    print("Statistics with probability cutoff at 0.5")
+    # binary predictions with some cutoff for these evaluations
+    cutoff = 0.5
+    y_test = y_test.astype(int)
+    predictions_binary = np.copy(predictions)
+    predictions_binary[predictions_binary >= cutoff] = int(1)
+    predictions_binary[predictions_binary < cutoff] = int(0)
+    # predictions_binary = predictions_binary.astype(int)
 
-<<<<<<< HEAD:pipeline.py
+    # print(type)
+    # df1 = pd.DataFrame(predictions_binary)
+    # # print(df1.head())
+    # print("Value counts for binary predictions")
+    # print(df1[0].value_counts())
+    evaluation.print_model_statistics(y_test, predictions_binary)
+    evaluation.print_confusion_matrix(y_test, predictions_binary)
+    if len(list(set(predictions_binary))) > 1:
+        precision1 = precision_at(y_test, predictions, 0.01)
+        print("Precision at 1%: {} (probability cutoff {})".format(
+                     round(precision1[0], 2), precision1[1]))
+        precision10 = precision_at(y_test, predictions, 0.1)
+        print("Precision at 10%: {} (probability cutoff {})".format(
+                     round(precision10[0], 2), precision10[1]))
+
 def temporal_split_data(df):
     df_sorted = df.sort_values(by='dateobj')
     chunks = np.array_split(df_sorted, 5)
     return chunks
-=======
-    df = pd.read_csv(args.csv)
-    label = args.label #predicted variable goes here
-    to_try = args.to_try
-    X = df.drop(label, axis=1)
-    y = df[label]
->>>>>>> 42f14da65c206a673fef8bfeb90fd43000a64aae:pipeline/pipeline.py
 
+if __name__ == "__main__":
+    # can pass in a list of models to try
+    if len(sys.argv) > 1:
+        to_try = sys.argv[1:]
+    else:
+        to_try = ['DT','LR','RF']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
     chunks = temporal_split_data(df)
 
@@ -169,10 +202,10 @@ def temporal_split_data(df):
         t0 = time.clock()
         grid_search.fit(X_train,y_train)
         print("done fitting in %0.3fs" % (time.clock() - t0))
-
+        
         print("Predicting binary outcome on test X")
         predicted = grid_search.predict(X_test)
-
+        
         df = pd.DataFrame(predicted)
         # print(df.head())
         print("Value counts for predictions")
@@ -208,59 +241,3 @@ def temporal_split_data(df):
         best_parameters = grid_search.best_estimator_.get_params()
         for param_name in sorted(parameters.keys()):
             print("\t%s: %r" % (param_name, best_parameters[param_name]))
-
-        file_name = "pickles/{0}_{1}.p}".format(TIMESTAMP, estimator)
-        data = [] #need to fill in with things that we want to pickle
-        pickle.dump( data, open(file_name, "wb" ) )
-
-def get_feature_importances(model):
-    # print("Trying to get feature importance for:")
-    # print(model)
-    try:
-        return model.feature_importances_
-    except:
-
-        try:
-            print('This model does not have feature_importances, '
-                          'returning .coef_[0] instead.')
-            return model.coef_[0]
-        except:
-            print('This model does not have feature_importances, '
-                          'nor coef_ returning None')
-            return None
-
-def plot_feature_importances(importances, filename):
-    plt.figure()
-    plt.style.use('ggplot')
-    importances.plot(kind="barh", legend=False)
-    plt.tight_layout()
-    plt.savefig(filename)
-
-def output_evaluation_statistics(y_test, predictions):
-    print("Statistics with probability cutoff at 0.5")
-    # binary predictions with some cutoff for these evaluations
-    cutoff = 0.5
-    y_test = y_test.astype(int)
-    predictions_binary = np.copy(predictions)
-    predictions_binary[predictions_binary >= cutoff] = int(1)
-    predictions_binary[predictions_binary < cutoff] = int(0)
-    # predictions_binary = predictions_binary.astype(int)
-
-    # print(type)
-    # df1 = pd.DataFrame(predictions_binary)
-    # # print(df1.head())
-    # print("Value counts for binary predictions")
-    # print(df1[0].value_counts())
-    evaluation.print_model_statistics(y_test, predictions_binary)
-    evaluation.print_confusion_matrix(y_test, predictions_binary)
-    #if len(list(set(predictions_binary))) > 1:
-       # precision1 = precision_at(y_test, predictions, 0.01)
-       # print("Precision at 1%: {} (probability cutoff {})".format(
-        #             round(precision1[0], 2), precision1[1]))
-        #precision10 = precision_at(y_test, predictions, 0.1)
-        #print("Precision at 10%: {} (probability cutoff {})".format(
-         #            round(precision10[0], 2), precision10[1]))
-
-
-if __name__ == "__main__":
-    main()
