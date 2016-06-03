@@ -37,9 +37,12 @@ TS = time.time()
 TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d_%H:%M:%S')
 
 # df = pd.read_csv("test_fulldata.csv") #csv name goes here
+label = "no_affidavit" #predicted variable goes here
 #label = "Findings Sustained" #predicted variable goes here
 TRAIN_SPLITS =[[0,1],[1,2],[2,3]]
 TEST_SPLITS = [2,3,4]
+CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
+FILL_WITH_MEAN = ['agesqrd','officers_age', 'complainant_age']
 # X = df.drop(label, axis=1)
 # y = df[label]
 
@@ -206,6 +209,17 @@ def convert_to_binary(predictions):
 
     return predictions_binary
 
+def transform_feature( df, column_name ):
+    unique_values = set( df[column_name].tolist() )
+    transformer_dict = {}
+    for ii, value in enumerate(unique_values):
+        transformer_dict[value] = ii
+
+    def label_map(y):
+        return transformer_dict[y]
+    df[column_name] = df[column_name].apply( label_map )
+    return df
+
 
 if __name__ == "__main__":
     '''
@@ -241,58 +255,43 @@ if __name__ == "__main__":
     Trying Models
     '''
     for model_name in to_try:
+        df = pd.read_csv(args.csv)
+        for col in df.columns:
+            if col not in FILL_WITH_MEAN:
+                df[col].fillna(0, inplace=True)
+        # if model_name in ['RF','DT']:
+        #     df = pd.read_csv(args.csv)
+        #     for c in CATEGORICAL:
+        #         df[c].fillna(-1, inplace=True)
+        #         print(c)
+        #         df = transform_feature(df, c)
+        #         cats = list(df[c].unique())
+        #         df[c]=df[c].astype('category', categories=cats)
+        #     for col in df.columns:
+        #         if col not in CATEGORICAL and col not in FILL_WITH_MEAN:
+        #             print(col)
+        #             df[col].fillna(0, inplace=True)
+        # else:
+        #     df = pd.read_csv(args.csv)
+        #     for col in df.columns:
+        #         if col not in CATEGORICAL and col not in FILL_WITH_MEAN:
+        #             print(col)
+        #             df[col].fillna(0, inplace=True)
+        #         if col in CATEGORICAL and col not in FILL_WITH_MEAN:
+        #             print(col)
+        #             df[col].fillna(-1, inplace=True)
+        chunks = temporal_split_data(df)
+
+        for chunk in chunks:
+            chunk.drop('Unnamed: 0',axis=1, inplace=True)
+            for col in FILL_WITH_MEAN:
+                chunk[col].fillna(chunk[col].mean(), inplace=True)
+            # except:
+            #     print("can't fill col {}".format(col))
+        print("### STARTING {} ###".format(model_name))
         '''
         Iterating Through Model
         '''
-        if model_name in ['RF','DT']:
-            df = pd.read_csv(args.csv, dtype = {'officer_id' : 'object', 'investigator_id' : 'object', 'beat' : 'object'})
-        else:
-            df = pd.read_csv(args.csv)
-
-        chunks = temporal_split_data(df)
-
-        for df in chunks:
-            try:
-                df["beat"].fillna("Unknown", inplace=True)
-            except:
-                pass
-            try:
-                df["investigator_id"].fillna("Unknown", inplace=True)
-            except:
-                pass
-            try:
-                df["officer_race"].fillna("Unknown", inplace=True)
-            except:
-                pass
-            try:
-                df["officer_gender"].fillna("Unknown", inplace=True)
-            except:
-                pass
-            try:
-                df["officers_age"].fillna(df["officers_age"].mean(), inplace=True)
-            except:
-                pass
-            try:
-                df["agesqrd"].fillna(df["agesqrd"].mean(), inplace=True)
-            except:
-                pass
-            try:
-                df["complainant_gender"].fillna("Unknown", inplace=True)
-            except:
-                pass
-            try:
-                df["complainant_race"].fillna("Unknown", inplace=True)
-            except:
-                pass
-            try:
-                df["complainant_age"].fillna(df["complainant_age"].mean(), inplace=True)
-            except:
-                pass
-
-            #need to impute nulls and do other trnsformations
-            df.fillna(0, inplace=True)
-
-                print("### STARTING {} ###".format(model_name))
 
         clf = clfs[model_name]
         grid = grid_from_class(model_name)
