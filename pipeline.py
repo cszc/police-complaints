@@ -137,13 +137,13 @@ def output_evaluation_statistics(y_test, predictions):
     # print(df1[0].value_counts())
     evaluation.print_model_statistics(y_test, predictions_binary)
     evaluation.print_confusion_matrix(y_test, predictions_binary)
-    if len(list(set(predictions_binary))) > 1:
-        precision1 = precision_at(y_test, predictions, 0.01)
-        print("Precision at 1%: {} (probability cutoff {})".format(
-                     round(precision1[0], 2), precision1[1]))
-        precision10 = precision_at(y_test, predictions, 0.1)
-        print("Precision at 10%: {} (probability cutoff {})".format(
-                     round(precision10[0], 2), precision10[1]))
+    #if len(list(set(predictions_binary))) > 1:
+       # precision1 = precision_at(y_test, predictions, 0.01)
+       # print("Precision at 1%: {} (probability cutoff {})".format(
+        #             round(precision1[0], 2), precision1[1]))
+        #precision10 = precision_at(y_test, predictions, 0.1)
+        #print("Precision at 10%: {} (probability cutoff {})".format(
+         #            round(precision10[0], 2), precision10[1]))
 
 
 if __name__ == "__main__":
