@@ -212,12 +212,11 @@ if __name__ == "__main__":
     Argument Parsing
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('pickle', help='pickle filename')
+    parser.add_argument('csv', help='csv filename')
     parser.add_argument('label', help='label of dependent variable')
     parser.add_argument('to_try', nargs='+', default=['DT'], help='list of model abbreviations')
     args = parser.parse_args()
 
-    df = pickle.load( open( args.pickle, "rb" ) )
     label = args.label #predicted variable goes here
     to_try = args.to_try
     print(to_try)
@@ -294,7 +293,7 @@ if __name__ == "__main__":
             df.fillna(0, inplace=True)
 
                 print("### STARTING {} ###".format(model_name))
-                
+
         clf = clfs[model_name]
         grid = grid_from_class(model_name)
 
@@ -355,7 +354,6 @@ if __name__ == "__main__":
                 '''
                 Evaluation Statistics
                 '''
-
                 print()
                 auc_score = metrics.roc_auc_score(y_test, predicted)
                 precision, recall, thresholds = metrics.precision_recall_curve(
@@ -392,8 +390,12 @@ if __name__ == "__main__":
 
                 folds_completed += 1
 
-                file_name = "pickles/{0}_{1}.p}".format(TIMESTAMP, model_name, )
-                data = [] #need to fill in with things that we want to pickle
+                with open('results.csv', 'a') as csvfile:
+                    spamwriter = csv.writer(csvfile)
+                    spamwriter.writerow([model_name, params, folds_completed, auc_score, precision, recall, thresholds])
+
+                file_name = "pickles/{0}_{1}_paramset:{2}_fold:{3}.p}".format(TIMESTAMP, model_name, i, folds_completed)
+                data = [clf, pipeline, predicted, params, ] #need to fill in with things that we want to pickle
                 pickle.dump( data, open(file_name, "wb" ) )
 
             print("### Cross Validation Statistics ###")
@@ -406,3 +408,7 @@ if __name__ == "__main__":
             confusion = metrics.confusion_matrix(
                 overall_actual, overall_binary_predictions)
             print(confusion)
+
+            with open('final_results.csv', 'a') as csvfile:
+                spamwriter = csv.writer(csvfile)
+                spamwriter.writerow([model_name, params, folds_completed, precision, recall, thresholds, average_auc])
