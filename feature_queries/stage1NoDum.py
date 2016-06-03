@@ -8,7 +8,7 @@ def go(output_fn):
     conn = psycopg2.connect("dbname = police user = lauren password = llc")
 
     #Queries for features
-    alleg = "SELECT crid, a.officer_id, (CASE WHEN finding_edit = 'No Affidavit' THEN 1 ELSE 0 END) AS no_affidavit,\
+    alleg = "SELECT crid, a.officer_id, a.dateobj, (CASE WHEN finding_edit = 'No Affidavit' THEN 1 ELSE 0 END) AS no_affidavit,\
                 beat, i.investigator_id, o.race_edit AS officer_race, o.gender AS officer_gender, \
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
                 (CASE WHEN o.rank IS NOT NULL THEN o.rank ELSE 'UNKNOWN' END) AS rank, \
@@ -45,6 +45,7 @@ def go(output_fn):
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')
 
+    df_final.drop('crid', axis = 1, inplace = True)
     df_final.to_csv(output_fn)
 
 if __name__ == '__main__':

@@ -58,10 +58,10 @@ def go(output_fn):
 
     #Dummies for race and rank and drop unneeded columns
     rank_dummies = pd.get_dummies(df_final['rank'], prefix = 'Rank', prefix_sep = ' ', dummy_na = True)
-    gender_dummies = pd.get_dummies(df_final[['officer_race', 'officer_gender']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
+    gender_dummies = pd.get_dummies(df_final[['officer_race', 'officer_gender', 'officer_id']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
 
     df_final = pd.concat([df_final, rank_dummies, gender_dummies], axis = 1)
-    df_final.drop(['tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender'], axis = 1, inplace = True)
+    df_final.drop(['crid', 'tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender', 'officer_id'], axis = 1, inplace = True)
 
     df_final.to_csv(output_fn)
 

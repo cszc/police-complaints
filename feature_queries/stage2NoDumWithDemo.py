@@ -10,7 +10,7 @@ def go(output_fn):
     #Queries for features
     outcome = 'SELECT crid, officer_id, "Findings Sustained" FROM dependent_dum;'
 
-    alleg = "SELECT crid, a.officer_id, beat, i.investigator_id, o.race_edit AS officer_race, o.gender AS officer_gender, tractce10,\
+    alleg = "SELECT crid, a.officer_id, beat, a.dateobj, i.investigator_id, o.race_edit AS officer_race, o.gender AS officer_gender, tractce10,\
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
                 (CASE WHEN o.rank IS NOT NULL THEN o.rank ELSE 'UNKNOWN' END) AS rank, \
                 (CASE WHEN investigator_name IN (SELECT concat_ws(', ', officer_last, officer_first) \
@@ -59,8 +59,8 @@ def go(output_fn):
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
                 .merge(complainants_df, how = 'left', on = 'crid')
-    
-    df_final.drop(['tractce10', 'tract_1'], axis = 1, inplace = True)
+
+    df_final.drop(['crid', 'tractce10', 'tract_1'], axis = 1, inplace = True)
 
     df_final.to_csv(output_fn)
 

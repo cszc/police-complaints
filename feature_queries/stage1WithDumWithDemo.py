@@ -8,7 +8,6 @@ def go(output_fn):
     conn = psycopg2.connect("dbname = police user = lauren password = llc")
 
     #Queries for features
-
     alleg = "SELECT crid, a.officer_id, a.dateobj, (CASE WHEN a.finding_edit = 'No Affidavit' THEN 1 ELSE 0 END) AS no_affidavit,\
                 tractce10, o.race_edit AS officer_race, o.gender AS officer_gender, \
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
@@ -69,12 +68,12 @@ def go(output_fn):
 
     #Dummies for race and rank and drop unneeded columns
     rank_dummies = pd.get_dummies(df_final['rank'], prefix = 'Rank', prefix_sep = ' ', dummy_na = True)
-    gender_dummies = pd.get_dummies(df_final[['officer_race', 'officer_gender']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
+    gender_dummies = pd.get_dummies(df_final[['officer_id', 'officer_race', 'officer_gender']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
     complainant_dummies = pd.get_dummies(df_final[['complainant_race', 'complainant_gender']], prefix = 'Complainant', prefix_sep = ' ', dummy_na = True)
 
 
     df_final = pd.concat([df_final, rank_dummies, gender_dummies, complainant_dummies], axis = 1)
-    df_final.drop(['tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender', 'complainant_gender', 'complainant_race'], axis = 1, inplace = True)
+    df_final.drop(['tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender', 'complainant_gender', 'complainant_race', 'officer_id'], axis = 1, inplace = True)
 
     df_final.to_csv(output_fn)
 

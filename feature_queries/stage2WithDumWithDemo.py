@@ -71,12 +71,12 @@ def go(output_fn):
 
     #Dummies for race and rank and drop unneeded columns
     rank_dummies = pd.get_dummies(df_final['rank'], prefix = 'Rank', prefix_sep = ' ', dummy_na = True)
-    gender_dummies = pd.get_dummies(df_final[['officer_race', 'officer_gender']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
+    gender_dummies = pd.get_dummies(df_final[['officer_race', 'officer_gender', 'officer_id']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
     complainant_dummies = pd.get_dummies(df_final[['complainant_race', 'complainant_gender']], prefix = 'Complainant', prefix_sep = ' ', dummy_na = True)
 
 
     df_final = pd.concat([df_final, rank_dummies, gender_dummies, complainant_dummies], axis = 1)
-    df_final.drop(['tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender', 'complainant_gender', 'complainant_race'], axis = 1, inplace = True)
+    df_final.drop(['crid', 'tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender', 'complainant_gender', 'complainant_race', 'officer_id'], axis = 1, inplace = True)
 
     df_final.to_csv(output_fn)
 
