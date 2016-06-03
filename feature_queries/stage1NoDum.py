@@ -1,7 +1,6 @@
 import pandas as pd
 import psycopg2
 import sys
-import requests
 
 def go(output_fn):
     '''Generate dataframe with features from database'''

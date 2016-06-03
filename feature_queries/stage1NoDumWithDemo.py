@@ -1,7 +1,6 @@
 import pandas as pd
 import psycopg2
 import sys
-import requests
 
 def go(output_fn):
     '''Generate dataframe with features from database'''
@@ -41,7 +40,7 @@ def go(output_fn):
     priors_df = pd.read_sql(priors, conn)
     acs_df = pd.read_sql(acs, conn)
     complainants_df = pd.read_sql(complainant_demo, conn)
-    
+
     #Close connection to database after queries
     conn.commit()
     conn.close()
