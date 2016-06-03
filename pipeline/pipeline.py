@@ -390,6 +390,7 @@ if __name__ == "__main__":
 
                 file_name = "pickles/{0}_{1}_paramset:{2}_fold:{3}.p".format(TIMESTAMP, model_name, i, folds_completed)
                 data = [clf, pipeline, predicted, params, ] #need to fill in with things that we want to pickle
+
                 pickle.dump( data, open(file_name, "wb" ) )
 
             print("### Cross Validation Statistics ###")
