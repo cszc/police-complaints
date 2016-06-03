@@ -84,7 +84,7 @@ grid = {
         #         'DT__criterion': ['gini'],
         #         'DT__max_depth': [1,5],
         #         'DT__max_features': ['sqrt'],
-        #         'DT__min_samples_split': [2,5,10]
+        #         'DT__min_samples_split': [5,10]
         #         },
         'SVM' :{
                 'SVM__C' :[0.00001,0.0001,0.001,0.01,0.1,1,10],
@@ -98,6 +98,8 @@ grid = {
        }
 
 def get_feature_importances(model):
+    print("Trying to get feature importance for:")
+    print(model)
     try:
         return model.feature_importances_
     except:
@@ -131,75 +133,12 @@ def output_evaluation_statistics(y_test, predictions):
     precision10 = precision_at(y_test, predictions, 0.1)
     logger.debug("Precision at 10%: {} (probability cutoff {})".format(
                  round(precision10[0], 2), precision10[1]))
-def main(to_try):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-    # find the best parameters for both the feature extraction and the
-    # classifier
-    #runs through each estiamtor
-    for estimator in to_try:
-    # for estimator in clfs.items():
-        #will need to figure out what preprocessing we want
-        #http://scikit-learn.org/stable/modules/preprocessing.html
-        print(estimator)
-        estimator_name = estimator
-        estimator_obj = clfs[estimator]
 
-        print("Trying {}".format(estimator_name))
-        steps = [("normalization", preprocessing.RobustScaler()),
-         (estimator_name, estimator_obj)]
-        pipeline = sklearn.pipeline.Pipeline(steps)
-        print("Created pipeline")
-        parameters = grid[estimator_name]
-        print("Starting parameter search")
-        grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1, verbose=0)
-        scores = cross_validation.cross_val_score(pipeline, X_train, y_train, scoring='roc_auc')
-
-        print(estimator, scores.mean())
-        print("Performing grid search...")
-        print("pipeline:", [name for name, _ in pipeline.steps])
-        print("parameters:")
-        print(parameters)
-        t0 = time.clock()
-        grid_search.fit(X_train,y_train)
-        print("done fitting in %0.3fs" % (time.clock() - t0))
-        
-        print("Predicting binary outcome on test X")
-        predicted = grid_search.predict(X_test)
-        
-        df = pd.DataFrame(predicted)
-        # print(df.head())
-        print("Value counts for predictions")
-        print(df[0].value_counts())
-        print()
-        print("Predicting probability of outcome on test X")
-        predicted_prob = grid_search.predict_proba(X_test)
-
-        predicted_prob = predicted_prob[:, 1]  # probability that label is 1
-        df1 = pd.DataFrame(predicted_prob)
-        # print(df1.head())
-        print("Value counts for prob predictions")
-        print(df1[0].value_counts())
-        print()
-        ydf = pd.DataFrame(y_test)
-        # print(ydf.head())
-        print("Value counts for y actual")
-        print(ydf[label].value_counts())
-        print()
-        # statistics
-        # output_evaluation_statistics(y_test, predicted_prob)
-        print("Feature Importance")
-        feature_importances = get_feature_importances(grid_search.best_estimator_)
-        print(feature_importances)
-        print("Best score: %0.3f" % grid_search.best_score_)
-        print("Best parameters set:")
-        best_parameters = grid_search.best_estimator_.get_params()
-        for param_name in sorted(parameters.keys()):
-            print("\t%s: %r" % (param_name, best_parameters[param_name]))
 
 if __name__ == "__main__":
     # can pass in a list of models to try
     if len(sys.argv) > 1:
-        to_try = sys.argv[1]
+        to_try = sys.argv[1:]
     else:
         to_try = ['DT','LR','RF']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
@@ -258,8 +197,10 @@ if __name__ == "__main__":
         # statistics
         # output_evaluation_statistics(y_test, predicted_prob)
         print("Feature Importance")
-        feature_importances = get_feature_importances(grid_search.best_estimator_)
-        print(feature_importances)
+        feature_importances = get_feature_importances(grid_search.best_estimator_.named_steps[estimator_name])
+        if best_estimator_ != None:
+            df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp"], index = X_train.columns).sort(['Imp'], ascending = False)
+            print(df_best_estimators.head(20))
         print("Best score: %0.3f" % grid_search.best_score_)
         print("Best parameters set:")
         best_parameters = grid_search.best_estimator_.get_params()
