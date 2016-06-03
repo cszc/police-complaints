@@ -1,0 +1,37 @@
+                                Table "public.radiuscrime"
+            Column            |  Type   | Modifiers | Storage | Stats target | Description 
+------------------------------+---------+-----------+---------+--------------+-------------
+ crid                         | bigint  |           | plain   |              | 
+ officer_id                   | bigint  |           | plain   |              | 
+ crimetest_count_7days500m    | integer |           | plain   |              | 
+ crimetest_count_14days500m   | integer |           | plain   |              | 
+ crimetest_count_30days500m   | integer |           | plain   |              | 
+ crimetest_count_3months500m  | integer |           | plain   |              | 
+ crimetest_count_6months500m  | integer |           | plain   |              | 
+ crimetest_count_1year500m    | integer |           | plain   |              | 
+ crimetest_count_7days1000m   | integer |           | plain   |              | 
+ crimetest_count_14days1000m  | integer |           | plain   |              | 
+ crimetest_count_30days1000m  | integer |           | plain   |              | 
+ crimetest_count_3months1000m | integer |           | plain   |              | 
+ crimetest_count_6months1000m | integer |           | plain   |              | 
+ crimetest_count_1year1000m   | integer |           | plain   |              | 
+ crimetest_count_7days2000m   | integer |           | plain   |              | 
+ crimetest_count_14days2000m  | integer |           | plain   |              | 
+ crimetest_count_30days2000m  | integer |           | plain   |              | 
+ crimetest_count_3months2000m | integer |           | plain   |              | 
+ crimetest_count_6months2000m | integer |           | plain   |              | 
+ crimetest_count_1year2000m   | integer |           | plain   |              | 
+ crimetest_count_7days2500m   | integer |           | plain   |              | 
+ crimetest_count_14days2500m  | integer |           | plain   |              | 
+ crimetest_count_30days2500m  | integer |           | plain   |              | 
+ crimetest_count_3months2500m | integer |           | plain   |              | 
+ crimetest_count_6months2500m | integer |           | plain   |              | 
+ crimetest_count_1year2500m   | integer |           | plain   |              | 
+ crimetest_count_7days5000m   | integer |           | plain   |              | 
+ crimetest_count_14days5000m  | integer |           | plain   |              | 
+ crimetest_count_30days5000m  | integer |           | plain   |              | 
+ crimetest_count_3months5000m | integer |           | plain   |              | 
+ crimetest_count_6months5000m | integer |           | plain   |              | 
+ crimetest_count_1year5000m   | integer |           | plain   |              | 
+Has OIDs: no
+
