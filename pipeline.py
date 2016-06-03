@@ -51,7 +51,6 @@ clfs = {
         'KNN': KNeighborsClassifier(n_neighbors=3)
         }
 
-#not yet used. eventually, will iterate through parameters for estimators
 grid = {
         'RF': {
                 'RF__n_estimators': [1,10,100,1000],
@@ -198,7 +197,7 @@ if __name__ == "__main__":
         # output_evaluation_statistics(y_test, predicted_prob)
         print("Feature Importance")
         feature_importances = get_feature_importances(grid_search.best_estimator_.named_steps[estimator_name])
-        if best_estimator_ != None:
+        if feature_importances != None:
             df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp"], index = X_train.columns).sort(['Imp'], ascending = False)
             print(df_best_estimators.head(20))
         print("Best score: %0.3f" % grid_search.best_score_)
