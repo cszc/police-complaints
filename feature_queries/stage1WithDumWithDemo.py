@@ -9,8 +9,8 @@ def go(output_fn):
 
     #Queries for features
 
-    alleg = "SELECT crid, a.officer_id, (CASE WHEN a.finding_edit = 'No Affidavit' THEN 1 ELSE 0 END) AS no_affidavit,\
-                tractce10, o.race_edit As race, \
+    alleg = "SELECT crid, a.officer_id, a.dateobj, (CASE WHEN a.finding_edit = 'No Affidavit' THEN 1 ELSE 0 END) AS no_affidavit,\
+                tractce10, o.race_edit AS officer_race, o.gender AS officer_gender, \
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
                 (CASE WHEN o.rank IS NOT NULL THEN o.rank ELSE 'UNKNOWN' END) AS rank, \
                 (CASE WHEN investigator_name IN (SELECT concat_ws(', ', officer_last, officer_first) \
@@ -36,9 +36,8 @@ def go(output_fn):
                 ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
                 FROM acs;"
 
-    officer_gender = "SELECT officer_id, gender FROM officers;"
-
-    complainant_demo = "SELECT * from complainants;"
+    complainant_demo = "SELECT crid, gender AS complainant_gender, race_edit AS complainant_race, \
+                        age AS complainant_age from complainants;"
 
     alleg_df = pd.read_sql(alleg, conn)
     invest1_df = pd.read_sql(invest1, conn)
@@ -48,36 +47,34 @@ def go(output_fn):
     datacrime_df = pd.read_sql(datacrime, conn)
     priors_df = pd.read_sql(priors, conn)
     acs_df = pd.read_sql(acs, conn)
-    off_gender_df = pd.read_sql(officer_gender, conn)
     complainants_df = pd.read_sql(complainant_demo, conn)
-    #Close connection to database after queries
 
+    #Close connection to database after queries
     conn.commit()
     conn.close()
 
+    #Drop duplicate geographic data
     data311_df.drop_duplicates('crid', inplace = True)
     datacrime_df.drop_duplicates('crid', inplace = True)
     acs_df.drop_duplicates(inplace = True)
 
     #Merge (join) dataframes on shared keys
-    df_final = outcome_df.merge(alleg_df, on = ['crid', 'officer_id'], how = 'left')\
-                .merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
+    df_final = alleg_df.merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
                 .merge(invest2_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
                 .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
-                .merge(off_gender_df, how = 'left', on = 'officer_id')
+           		.merge(complainants_df, how = 'left', on = 'crid')
 
     #Dummies for race and rank and drop unneeded columns
-    race_dummies = pd.get_dummies(df_final['race'], prefix = 'Race', prefix_sep = ' ', dummy_na = True)
     rank_dummies = pd.get_dummies(df_final['rank'], prefix = 'Rank', prefix_sep = ' ', dummy_na = True)
-    gender_dummies = pd.get_dummies(df_final['gender'], prefix = 'Gender', prefix_sep = ' ', dummy_na = True)
-    complainant_dummies = pd.get_dummies(df_final[['race_edit', 'gender']], prefix = 'Complainant', prefix_sep = ' ', dummy_na = True)
+    gender_dummies = pd.get_dummies(df_final[['officer_race', 'officer_gender']], prefix = 'Officer', prefix_sep = ' ', dummy_na = True)
+    complainant_dummies = pd.get_dummies(df_final[['complainant_race', 'complainant_gender']], prefix = 'Complainant', prefix_sep = ' ', dummy_na = True)
 
 
-    df_final = pd.concat([df_final, race_dummies, rank_dummies, gender_dummies, complainant_dummies], axis = 1)
-    df_final.drop(['tract_1', 'tractce10', 'race', 'rank', 'gender'], axis = 1, inplace = True)
+    df_final = pd.concat([df_final, rank_dummies, gender_dummies, complainant_dummies], axis = 1)
+    df_final.drop(['tract_1', 'tractce10', 'officer_race', 'rank', 'officer_gender', 'complainant_gender', 'complainant_race'], axis = 1, inplace = True)
 
     df_final.to_csv(output_fn)
 
