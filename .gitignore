@@ -64,7 +64,8 @@ target/
 
 # Annoyingly Big Data Sets
 crimes.csv
-
+indDummy*
+training_data/*
 
 =======
 #api keys
