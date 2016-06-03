@@ -27,7 +27,7 @@ def go(output_fn):
 
     priors = "SELECT * FROM prior_complaints;"
 
-    outcome_df = pd.read_sql(outcome_df, conn)
+    outcome_df = pd.read_sql(outcome, conn)
     alleg_df = pd.read_sql(alleg, conn)
     age_df = pd.read_sql(age, conn)
     data311_df = pd.read_sql(data311, conn)
@@ -43,7 +43,7 @@ def go(output_fn):
     datacrime_df.drop_duplicates('crid', inplace = True)
 
     #Merge (join) dataframes on shared keys
-    df_final = outcome_df.merge(alleg_df.merge, on = ['crid', 'officer_id'], how = 'right')\
+    df_final = outcome_df.merge(alleg_df, on = ['crid', 'officer_id'], how = 'right')\
                 .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')
