@@ -28,13 +28,14 @@ matplotlib.style.use('ggplot')
 import itertools
 from pydoc import locate
 from argparse import ArgumentParser
+import csv
 
 #Own modules
 import evaluation
 
 #create timestamp
 TS = time.time()
-TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d_%H:%M:%S')
+TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d_%H_%M_%S')
 
 # df = pd.read_csv("test_fulldata.csv") #csv name goes here
 label = "no_affidavit" #predicted variable goes here
@@ -235,17 +236,17 @@ if __name__ == "__main__":
     to_try = args.to_try
     print(to_try)
 
-    '''
-    Splitting Data into Temporal Chunks
-    '''
-    chunks = temporal_split_data(df)
+    # '''
+    # Splitting Data into Temporal Chunks
+    # '''
+    # chunks = temporal_split_data(df)
 
-    '''
-    Data Transformations
-    '''
-    for chunk in chunks:
-        #need to impute nulls and do other trnsformations
-        chunk.fillna(0, inplace=True)
+    # '''
+    # Data Transformations
+    # '''
+    # for chunk in chunks:
+    #     #need to impute nulls and do other trnsformations
+    #     chunk.fillna(0, inplace=True)
 
     # label = args.label #predicted variable goes here
     to_try = args.to_try
@@ -333,8 +334,8 @@ if __name__ == "__main__":
 
                 t0 = time.clock()
                 pipeline.fit(X_train, y_train)
-                time = ("done fitting in %0.3fs" % (time.clock() - t0))
-                print("done fitting in {}".format(time))
+                time_to_fit = (time.clock() - t0)
+                print("done fitting in {}".format(time_to_fit))
 
                 '''
                 Predictions
@@ -375,14 +376,8 @@ if __name__ == "__main__":
                 print("Feature Importance")
                 feature_importances = get_feature_importances(
                     pipeline.named_steps[model_name])
-                if feature_importances:
-                    df_best_estimators = pd.DataFrame(
-                        feature_importances, columns = (
-                            ["Imp/Coef"],
-                            index = X_train.columns.sort_values(
-                                by='Imp/Coef', ascending = False)
-                                )
-                        )
+                if feature_importances != None:
+                    df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp/Coef"], index = X_train.columns).sort_values(by='Imp/Coef', ascending = False)
                     # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
                     # plot_feature_importances(df_best_estimators, filename)
                     print(df_best_estimators.head(5))
@@ -393,7 +388,7 @@ if __name__ == "__main__":
                     spamwriter = csv.writer(csvfile)
                     spamwriter.writerow([model_name, params, folds_completed, auc_score, precision, recall, thresholds])
 
-                file_name = "pickles/{0}_{1}_paramset:{2}_fold:{3}.p}".format(TIMESTAMP, model_name, i, folds_completed)
+                file_name = "pickles/{0}_{1}_paramset:{2}_fold:{3}.p".format(TIMESTAMP, model_name, i, folds_completed)
                 data = [clf, pipeline, predicted, params, ] #need to fill in with things that we want to pickle
                 pickle.dump( data, open(file_name, "wb" ) )
 
