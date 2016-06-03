@@ -58,7 +58,8 @@ clfs = {
                     n_estimators=10),
         'NB': GaussianNB(),
         'DT': DecisionTreeClassifier(),
-        'KNN': KNeighborsClassifier(n_neighbors=3)
+        'KNN': KNeighborsClassifier(n_neighbors=3),
+        'test': DecisionTreeClassifier(),
         }
 
 grid = {
@@ -73,36 +74,36 @@ grid = {
                 'C': [0.00001,0.0001,0.001,0.01,0.1,1,10]
                 },
         'AB': {
-                'AB__algorithm': ['SAMME', 'SAMME.R'],
-                'AB__n_estimators': [1,10,100,1000]
+                'algorithm': ['SAMME', 'SAMME.R'],
+                'n_estimators': [1,10,100,1000]
                 },
         'GB': {
-                'GB__n_estimators': [1,10,100,1000],
-                'GB__learning_rate' : [0.001,0.01,0.05,0.1,0.5],
-                'GB__subsample' : [0.1,0.5,1.0],
-                'GB__max_depth': [1,3,5,10,20,50,100]
+                'n_estimators': [1,10,100,1000],
+                'learning_rate' : [0.001,0.01,0.05,0.1,0.5],
+                'subsample' : [0.1,0.5,1.0],
+                'max_depth': [1,3,5,10,20,50,100]
                 },
         'NB' : {},
-        # 'DT': {
-        #         'DT__criterion': ['gini', 'entropy'],
-        #         'DT__max_depth': [1,5,10,20,50,100],
-        #         'DT__max_features': ['sqrt','log2'],
-        #         'DT__min_samples_split': [2,5,10]
-        #         },
         'DT': {
-                'DT__criterion': ['gini'],
-                'DT__max_depth': [1,5],
-                'DT__max_features': ['sqrt'],
-                'DT__min_samples_split': [5,10]
+                'criterion': ['gini', 'entropy'],
+                'max_depth': [1,5,10,20,50,100],
+                'max_features': ['sqrt','log2'],
+                'min_samples_split': [2,5,10]
+                },
+        'test': {
+                'criterion': ['gini'],
+                'max_depth': [1,5],
+                'max_features': ['sqrt'],
+                'min_samples_split': [5,10]
                 },
         'SVM' :{
-                'SVM__C' :[0.00001,0.0001,0.001,0.01,0.1,1,10],
-                'SVM__kernel':['linear']
+                'C' :[0.00001,0.0001,0.001,0.01,0.1,1,10],
+                'kernel':['linear']
                 },
         'KNN' :{
-                'KNN__n_neighbors': [1,5,10,25,50,100],
-                'KNN__weights': ['uniform','distance'],
-                'KNN__algorithm': ['auto','ball_tree','kd_tree']
+                'n_neighbors': [1,5,10,25,50,100],
+                'weights': ['uniform','distance'],
+                'algorithm': ['auto','ball_tree','kd_tree']
                 }
        }
 
@@ -188,11 +189,22 @@ def grid_from_class(class_name):
 
     return grids
 
+def convert_to_binary(predictions):
+    print("Statistics with probability cutoff at 0.5")
+    # binary predictions with some cutoff for these evaluations
+    cutoff = 0.5
+
+    predictions_binary = np.copy(predictions)
+    predictions_binary[predictions_binary >= cutoff] = int(1)
+    predictions_binary[predictions_binary < cutoff] = int(0)
+
+    return predictions_binary
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('csv', help='csv filename')
     # parser.add_argument('label', help='label of dependent variable')
-    parser.add_argument('--to_try', help='list of model abbreviations', action='append')
+    parser.add_argument('--to_try', default=[], dest='to_try', help='list of model abbreviations', action='append')
     args = parser.parse_args()
 
     df = pd.read_csv(args.csv)
@@ -211,11 +223,13 @@ if __name__ == "__main__":
         clf = clfs[model_name]
         grid = grid_from_class(model_name)
         for params in grid:
+            print("### TRYING PARAMS ###")
             clf.set_params(**params)
             if hasattr(clf, 'n_jobs'):
                     clf.set_params(n_jobs=-1)
-            print("Initialized model")
-            # print(clf)
+            # print("Initialized model")
+            folds_completed = 0
+            print(clf)
             steps = [("normalization", preprocessing.RobustScaler()),
          (model_name, clf)]
             pipeline = sklearn.pipeline.Pipeline(steps)
@@ -232,46 +246,52 @@ if __name__ == "__main__":
                 X_test = test_df.drop(label, axis=1)
                 y_test = test_df[label]
 
-
-                
                 t0 = time.clock()
-                clf.fit(X_train,y_train)
+                pipeline.fit(X_train,y_train)
                 print("done fitting in %0.3fs" % (time.clock() - t0))
 
+                predicted = pipeline.predict(X_test)
 
-                print("Predicting binary outcome on test X")
-                predicted = clf.predict(X_test)
-                print("Len predicted: {}".format(len(predicted)))
-
-                df = pd.DataFrame(predicted)
-                # print(df.head())
-                print("Value counts for predictions")
-                print(df[0].value_counts())
-                print()
-                print("Predicting probability of outcome on test X")
                 try:
-                    predicted_prob = clf.predict_proba(X_test)
+                    predicted_prob = pipeline.predict_proba(X_test)
                     predicted_prob = predicted_prob[:, 1]  # probability that label is 1
 
                 except:
                     print("Model has no predict_proba method")
-                print("Evaluation Statistics")
+                # print("Evaluation Statistics")
                 # output_evaluation_statistics(y_test, predicted_prob)
                 print()
                 auc_score = metrics.roc_auc_score(y_test, predicted)
+                precision, recall, thresholds = metrics.precision_recall_curve(y_test, predicted_prob)
                 auc_scores.append(auc_score)
                 print("AUC score: %0.3f" % auc_score)
 
+                # save predcited/actual to calculate precision/recall
+                if folds_completed==0:
+                    overall_predictions = pd.DataFrame(predicted_prob)
+                else:
+                    overall_predictions = pd.concat([overall_predictions, pd.DataFrame(predicted_prob)])
+                if folds_completed==0:
+                    overall_actual = y_test
+                else:
+                    overall_actual = pd.concat([overall_actual, y_test])
+
                 print("Feature Importance")
-                feature_importances = get_feature_importances(clf)
+                feature_importances = get_feature_importances(pipeline.named_steps[model_name])
                 if feature_importances != None:
-                    df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp"], index = X_train.columns).sort(['Imp'], ascending = False)
+                    df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp/Coef"], index = X_train.columns).sort_values(by='Imp/Coef', ascending = False)
                     # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
                     # plot_feature_importances(df_best_estimators, filename)
-                    print(df_best_estimators.head(20))
+                    print(df_best_estimators.head(5))
+                folds_completed += 1
             print("### Cross Validation Statistics ###")
+            precision, recall, thresholds = metrics.precision_recall_curve(overall_actual, overall_predictions)
             average_auc = sum(auc_scores)/len(auc_scores)
             print("Average AUC: %0.3f" % auc_score)
+            print("Confusion Matrix")
+            overall_binary_predictions = convert_to_binary(overall_predictions)
+            confusion = metrics.confusion_matrix(overall_actual, overall_binary_predictions)
+            print(confusion)
 
         # file_name = "pickles/{0}_{1}.p}".format(TIMESTAMP, estimator)
         # data = [] #need to fill in with things that we want to pickle
