@@ -36,7 +36,8 @@ def go(output_fn):
                 ptnla, ptnlb, ptnlwh, ptnloth, ptl, ptlths, pthsged, ptsomeco, ptbaplus, ptpov, pctfb \
                 FROM acs;"
 
-    complainant_demo = "SELECT crid, gender AS complainant_gender, race_edit AS complainant_race, age AS complainant_age from complainants;"
+    complainant_demo = "SELECT crid, gender AS complainant_gender, race_edit AS complainant_race, \
+                        age AS complainant_age from complainants;"
 
     alleg_df = pd.read_sql(alleg, conn)
     invest1_df = pd.read_sql(invest1, conn)
@@ -63,7 +64,7 @@ def go(output_fn):
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
-   		.merge(complainants_df, how = 'left', on = 'crid')
+           		.merge(complainants_df, how = 'left', on = 'crid')
 
     #Dummies for race and rank and drop unneeded columns
     rank_dummies = pd.get_dummies(df_final['rank'], prefix = 'Rank', prefix_sep = ' ', dummy_na = True)
