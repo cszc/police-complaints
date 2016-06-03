@@ -14,15 +14,7 @@ from sklearn.metrics import *
 from sklearn.preprocessing import StandardScaler
 import sklearn.pipeline
 
-<<<<<<< HEAD:pipeline.py
-df = pd.read_csv("test_fulldata.csv") #csv name goes here
-label = "Findings Sustained" #predicted variable goes here
-TEST_SPLITS =[[0,1],[1,2],[2,3]]
-TRAIN_SPLITS = [2,3,4]
-# X = df.drop(label, axis=1)
-# y = df[label]
 
-=======
 #All other libraries
 import argparse, sys, pickle, random, time, json, datetime
 import pandas as pd
@@ -30,12 +22,25 @@ import numpy as np
 import pylab as pl
 import pickle
 from scipy import optimize
+import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.style.use('ggplot')
+import itertools
+from pydoc import locate
 
 #Own modules
 import evaluation
->>>>>>> 42f14da65c206a673fef8bfeb90fd43000a64aae:pipeline/pipeline.py
+
+#create timestamp
+TS = time.time()
+TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d %H:%M:%S')
+
+# df = pd.read_csv("test_fulldata.csv") #csv name goes here
+label = "Findings Sustained" #predicted variable goes here
+TRAIN_SPLITS =[[0,1],[1,2],[2,3]]
+TEST_SPLITS = [2,3,4]
+# X = df.drop(label, axis=1)
+# y = df[label]
 
 #estimators
 clfs = {
@@ -58,14 +63,14 @@ clfs = {
 
 grid = {
         'RF': {
-                'RF__n_estimators': [1,10,100,1000],
-                'RF__max_depth': [1,5,10,20,50,100],
-                'RF__max_features': ['sqrt','log2'],
-                'RF__min_samples_split': [2,5,10]
+                'n_estimators': [1,10,100,1000],
+                'max_depth': [1,5,10,20,50,100],
+                'max_features': ['sqrt','log2'],
+                'min_samples_split': [2,5,10]
                 },
         'LR': {
-                'LR__penalty': ['l1','l2'],
-                'LR__C': [0.00001,0.0001,0.001,0.01,0.1,1,10]
+                'penalty': ['l1','l2'],
+                'C': [0.00001,0.0001,0.001,0.01,0.1,1,10]
                 },
         'AB': {
                 'AB__algorithm': ['SAMME', 'SAMME.R'],
@@ -101,117 +106,15 @@ grid = {
                 }
        }
 
-#create timestamp
-TS = time.time()
-TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d %H:%M:%S')
-
-def main():
-    parser = ArgumentParser()
-    parser.add_argument('csv', help='csv filename')
-    parse.add_argment('y_label', help='label of dependent variable')
-    parser.add_argument('to_try', default=['DT','LR','RF'], help='list of model abbreviations')
-    args = parser.parse_args()
-
-<<<<<<< HEAD:pipeline.py
 def temporal_split_data(df):
     df_sorted = df.sort_values(by='dateobj')
     chunks = np.array_split(df_sorted, 5)
-    return chunks
-=======
-    df = pd.read_csv(args.csv)
-    label = args.label #predicted variable goes here
-    to_try = args.to_try
-    X = df.drop(label, axis=1)
-    y = df[label]
->>>>>>> 42f14da65c206a673fef8bfeb90fd43000a64aae:pipeline/pipeline.py
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-    chunks = temporal_split_data(df)
-
     for chunk in chunks:
-        #need to impute nulls and do other trnsformations
-        pass 
+        chunk.drop('dateobj',axis=1, inplace=True)
 
-    for model_name in to_try:
-        model = clfs[model_name]
-         
+    return chunks
 
 
-
-
-
-    # find the best parameters for both the feature extraction and the
-    # classifier
-    #runs through each estiamtor
-    for estimator in to_try:
-    # for estimator in clfs.items():
-        #will need to figure out what preprocessing we want
-        #http://scikit-learn.org/stable/modules/preprocessing.html
-        print(estimator)
-        estimator_name = estimator
-        estimator_obj = clfs[estimator]
-
-        print("Trying {}".format(estimator_name))
-        steps = [("normalization", preprocessing.RobustScaler()),
-         (estimator_name, estimator_obj)]
-        pipeline = sklearn.pipeline.Pipeline(steps)
-        print("Created pipeline")
-        parameters = grid[estimator_name]
-        print("Starting parameter search")
-        grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1, verbose=0)
-        scores = cross_validation.cross_val_score(pipeline, X_train, y_train, scoring='roc_auc')
-        print("mean score:")
-        print(estimator, scores.mean())
-        print("Performing grid search...")
-        print("pipeline:", [name for name, _ in pipeline.steps])
-        print("parameters:")
-        print(parameters)
-        t0 = time.clock()
-        grid_search.fit(X_train,y_train)
-        print("done fitting in %0.3fs" % (time.clock() - t0))
-
-        print("Predicting binary outcome on test X")
-        predicted = grid_search.predict(X_test)
-
-        df = pd.DataFrame(predicted)
-        # print(df.head())
-        print("Value counts for predictions")
-        print(df[0].value_counts())
-        print()
-        print("Predicting probability of outcome on test X")
-        predicted_prob = grid_search.predict_proba(X_test)
-
-        predicted_prob = predicted_prob[:, 1]  # probability that label is 1
-        df1 = pd.DataFrame(predicted_prob)
-        # print(df1.head())
-        # print("Value counts for prob predictions")
-        # print(df1[0].value_counts())
-        # print()
-        # ydf = pd.DataFrame(y_test)
-        # # print(ydf.head())
-        # print("Value counts for y actual")
-        # print(ydf[label].value_counts())
-        # print()
-        # statistics
-        print("Evaluation Statistics")
-        output_evaluation_statistics(y_test, predicted_prob)
-        print()
-        print("Feature Importance")
-        feature_importances = get_feature_importances(grid_search.best_estimator_.named_steps[estimator_name])
-        if feature_importances != None:
-            df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp"], index = X_train.columns).sort(['Imp'], ascending = False)
-            # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
-            # plot_feature_importances(df_best_estimators, filename)
-            print(df_best_estimators.head(20))
-        print("Best score: %0.3f" % grid_search.best_score_)
-        print("Best parameters set:")
-        best_parameters = grid_search.best_estimator_.get_params()
-        for param_name in sorted(parameters.keys()):
-            print("\t%s: %r" % (param_name, best_parameters[param_name]))
-
-        file_name = "pickles/{0}_{1}.p}".format(TIMESTAMP, estimator)
-        data = [] #need to fill in with things that we want to pickle
-        pickle.dump( data, open(file_name, "wb" ) )
 
 def get_feature_importances(model):
     # print("Trying to get feature importance for:")
@@ -260,7 +163,116 @@ def output_evaluation_statistics(y_test, predictions):
         #precision10 = precision_at(y_test, predictions, 0.1)
         #print("Precision at 10%: {} (probability cutoff {})".format(
          #            round(precision10[0], 2), precision10[1]))
+def _generate_grid(model_parameters):
+    #Iterate over keys and values
+    parameter_groups = []
+    for key in model_parameters:
+        #Generate tuple key,value
+        t = list(itertools.product([key], model_parameters[key]))
+        parameter_groups.append(t)
+    #Cross product over each group
+    parameters = list(itertools.product(*parameter_groups))
+    #Convert each result to dict
+    dicts = [_tuples2dict(params) for params in parameters]
+    return dicts
 
+def _tuples2dict(tuples):
+    return dict((x, y) for x, y in tuples)
+
+def grid_from_class(class_name):
+
+    #Get grid values for the given class
+    values = grid[class_name]
+    #Generate cross product for all given values and return them as dicts
+    grids = _generate_grid(values)
+
+    return grids
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('csv', help='csv filename')
+    # parser.add_argument('label', help='label of dependent variable')
+    parser.add_argument('--to_try', help='list of model abbreviations', action='append')
+    args = parser.parse_args()
+
+    df = pd.read_csv(args.csv)
+    # label = args.label #predicted variable goes here
+    to_try = args.to_try
+    print(to_try)
+
+    chunks = temporal_split_data(df)
+
+    for chunk in chunks:
+        #need to impute nulls and do other trnsformations
+        chunk.fillna(0, inplace=True)
+
+    for model_name in to_try:
+        print("### STARTING {} ###".format(model_name))
+        clf = clfs[model_name]
+        grid = grid_from_class(model_name)
+        for params in grid:
+            clf.set_params(**params)
+            if hasattr(clf, 'n_jobs'):
+                    clf.set_params(n_jobs=-1)
+            print("Initialized model")
+            # print(clf)
+            steps = [("normalization", preprocessing.RobustScaler()),
+         (model_name, clf)]
+            pipeline = sklearn.pipeline.Pipeline(steps)
+            print("pipeline:", [name for name, _ in pipeline.steps])
+            auc_scores = []
+            for i in range(len(TRAIN_SPLITS)):
+                print("Training sets are: {}".format(TRAIN_SPLITS[i]))
+                print("Testing sets are: {}".format(TEST_SPLITS[i]))
+
+                train_df = pd.concat([chunks[TRAIN_SPLITS[i][0]],chunks[TRAIN_SPLITS[i][1]]])
+                X_train = train_df.drop(label, axis=1)
+                y_train = train_df[label]
+                test_df = chunks[TEST_SPLITS[i]]
+                X_test = test_df.drop(label, axis=1)
+                y_test = test_df[label]
+
+
+                
+                t0 = time.clock()
+                clf.fit(X_train,y_train)
+                print("done fitting in %0.3fs" % (time.clock() - t0))
+
+
+                print("Predicting binary outcome on test X")
+                predicted = clf.predict(X_test)
+                print("Len predicted: {}".format(len(predicted)))
+
+                df = pd.DataFrame(predicted)
+                # print(df.head())
+                print("Value counts for predictions")
+                print(df[0].value_counts())
+                print()
+                print("Predicting probability of outcome on test X")
+                try:
+                    predicted_prob = clf.predict_proba(X_test)
+                    predicted_prob = predicted_prob[:, 1]  # probability that label is 1
+
+                except:
+                    print("Model has no predict_proba method")
+                print("Evaluation Statistics")
+                # output_evaluation_statistics(y_test, predicted_prob)
+                print()
+                auc_score = metrics.roc_auc_score(y_test, predicted)
+                auc_scores.append(auc_score)
+                print("AUC score: %0.3f" % auc_score)
+
+                print("Feature Importance")
+                feature_importances = get_feature_importances(clf)
+                if feature_importances != None:
+                    df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp"], index = X_train.columns).sort(['Imp'], ascending = False)
+                    # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
+                    # plot_feature_importances(df_best_estimators, filename)
+                    print(df_best_estimators.head(20))
+            print("### Cross Validation Statistics ###")
+            average_auc = sum(auc_scores)/len(auc_scores)
+            print("Average AUC: %0.3f" % auc_score)
+
+        # file_name = "pickles/{0}_{1}.p}".format(TIMESTAMP, estimator)
+        # data = [] #need to fill in with things that we want to pickle
+        # pickle.dump( data, open(file_name, "wb" ) )
