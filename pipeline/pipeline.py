@@ -395,7 +395,7 @@ if __name__ == "__main__":
                     spamwriter.writerow([model_name, params, folds_completed, auc_score, precision, recall, thresholds])
 
                 file_name = "pickles/{0}_{1}_paramset:{2}_fold:{3}.p}".format(TIMESTAMP, model_name, i, folds_completed)
-                data = [clf, pipeline, predicted, params, ] #need to fill in with things that we want to pickle
+                data = [clf, pipeline, params, predicted, feature_importances] #need to fill in with things that we want to pickle
                 pickle.dump( data, open(file_name, "wb" ) )
 
             print("### Cross Validation Statistics ###")
