@@ -55,7 +55,7 @@ def go(output_fn):
 
     #Merge (join) dataframes on shared keys
     df_final = outcome_df.merge(alleg_df, on = ['crid', 'officer_id'], how = 'left')\
-		.merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
+        		.merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
@@ -95,4 +95,3 @@ if __name__ == '__main__':
 # FROM allegations AS a JOIN officers AS o
 # ON a.officer_id = o.officer_id;
 #  1046619 |         83 |          -2
-

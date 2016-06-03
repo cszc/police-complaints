@@ -8,6 +8,8 @@ def go(output_fn):
     conn = psycopg2.connect("dbname = police user = lauren password = llc")
 
     #Queries for features
+    outcome = 'SELECT crid, officer_id, "Findings Sustained" FROM dependent_dum;'
+
     alleg = "SELECT crid, a.officer_id, tractce10, o.race_edit As race, \
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
                 (CASE WHEN o.rank IS NOT NULL THEN o.rank ELSE 'UNKNOWN' END) AS rank, \
@@ -36,7 +38,7 @@ def go(output_fn):
 
     officer_gender = "SELECT officer_id, gender FROM officers;"
 
-
+    outcome_df = pd.read_sql(outcome, conn)
     alleg_df = pd.read_sql(alleg, conn)
     invest1_df = pd.read_sql(invest1, conn)
     invest2_df = pd.read_sql(invest2, conn)
@@ -56,7 +58,8 @@ def go(output_fn):
     acs_df.drop_duplicates(inplace = True)
 
     #Merge (join) dataframes on shared keys
-    df_final = alleg_df.merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
+    df_final = outcome_df.merge(alleg_df, on = ['crid', 'officer_id'], how = 'left')\
+                .merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
                 .merge(invest2_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
                 .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
