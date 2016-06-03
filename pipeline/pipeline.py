@@ -207,18 +207,61 @@ if __name__ == "__main__":
     parser.add_argument('--to_try', default=[], dest='to_try', help='list of model abbreviations', action='append')
     args = parser.parse_args()
 
-    df = pd.read_csv(args.csv)
     # label = args.label #predicted variable goes here
     to_try = args.to_try
     print(to_try)
 
-    chunks = temporal_split_data(df)
-
-    for chunk in chunks:
-        #need to impute nulls and do other trnsformations
-        chunk.fillna(0, inplace=True)
 
     for model_name in to_try:
+        if model_name in ['RF','DT']:
+            df = pd.read_csv(args.csv, dtype = {'officer_id' : 'object', 'investigator_id' : 'object', 'beat' : 'object'})
+        else:
+            df = pd.read_csv(args.csv)
+
+        chunks = temporal_split_data(df)
+
+        for df in chunks:
+            try:
+                df["beat"].fillna("Unknown", inplace=True)
+            except:
+                pass
+            try:
+                df["investigator_id"].fillna("Unknown", inplace=True)
+            except:
+                pass
+            try:
+                df["officer_race"].fillna("Unknown", inplace=True)
+            except:
+                pass
+            try:
+                df["officer_gender"].fillna("Unknown", inplace=True)
+            except:
+                pass
+            try:
+                df["officers_age"].fillna(df["officers_age"].mean(), inplace=True)
+            except:
+                pass
+            try:
+                df["agesqrd"].fillna(df["agesqrd"].mean(), inplace=True)
+            except:
+                pass
+            try:
+                df["complainant_gender"].fillna("Unknown", inplace=True)
+            except:
+                pass
+            try:
+                df["complainant_race"].fillna("Unknown", inplace=True)
+            except:
+                pass
+            try:
+                df["complainant_age"].fillna(df["complainant_age"].mean(), inplace=True)
+            except:
+                pass
+
+            #need to impute nulls and do other trnsformations
+            df.fillna(0, inplace=True)
+
+        
         print("### STARTING {} ###".format(model_name))
         clf = clfs[model_name]
         grid = grid_from_class(model_name)
