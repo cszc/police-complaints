@@ -106,7 +106,7 @@ if __name__ == "__main__":
             except:
                 continue
 
-        chunks = temporal_split_data(this_df, axis=1, inplace=True)
+        chunks = temporal_split_data(this_df)
 
         #IMPUTE EACH TEMPORAL CHUNK
         for chunk in chunks:
