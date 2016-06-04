@@ -99,8 +99,14 @@ if __name__ == "__main__":
         '''
         Processing and Imputation
         '''
-        this_df = df.drop(TO_DROP)
-        chunks = temporal_split_data(this_df, axis=1, inplace=True)
+        this_df = df
+        for col in TO_DROP:
+            try:
+                this_df.drop(col, axis=1, inplace = True)
+            except:
+                continue
+
+        chunks = temporal_split_data(this_df)
 
         #IMPUTE EACH TEMPORAL CHUNK
         for chunk in chunks:
@@ -108,9 +114,9 @@ if __name__ == "__main__":
                 try:
                     if col in FILL_WITH_MEAN:
                         mean = round(df[col].mean())
-                        df[col].fillna(value=mean, inplace=True)
+                        chunk[col].fillna(value=mean, inplace=True)
                     else:
-                        df[col].fillna(0, inplace=True)
+                        chunk[col].fillna(0, inplace=True)
                 except:
                     print('Could not impute column:{}'.format(col))
                     continue
@@ -217,7 +223,7 @@ if __name__ == "__main__":
 
                 folds_completed += 1
 
-                with open('result/results.csv', 'a') as csvfile:
+                with open('Results/results.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
                     spamwriter.writerow(
                         [stage,
@@ -232,7 +238,7 @@ if __name__ == "__main__":
                         thresholds])
 
                 file_name = (
-                    "results/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
+                    "Results/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
                     TIMESTAMP, stage, model_name, i, folds_completed, dem_label)
                     )
 
@@ -250,7 +256,7 @@ if __name__ == "__main__":
                 overall_actual, overall_binary_predictions)
             print(confusion)
 
-            with open('results/final_results.csv', 'a') as csvfile:
+            with open('Results/final_results.csv', 'a') as csvfile:
                 spamwriter = csv.writer(csvfile)
                 spamwriter.writerow([
                     stage,

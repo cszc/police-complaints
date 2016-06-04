@@ -31,6 +31,69 @@ from argparse import ArgumentParser
 import evaluation
 from utils import *
 
+CLFS = {
+        'RF': RandomForestClassifier(n_estimators=50, n_jobs=-1),
+        'AB': AdaBoostClassifier(
+                    DecisionTreeClassifier(max_depth=1),
+                    algorithm="SAMME",
+                    n_estimators=200),
+        'LR': LogisticRegression(penalty='l1', C=1e5),
+        'SVM': svm.SVC(kernel='linear', probability=True, random_state=0),
+        'GB': GradientBoostingClassifier(
+                    learning_rate=0.05,
+                    subsample=0.5,
+                    max_depth=6,
+                    n_estimators=10),
+        'NB': GaussianNB(),
+        'DT': DecisionTreeClassifier(),
+        'KNN': KNeighborsClassifier(n_neighbors=3),
+        'test': DecisionTreeClassifier(),
+        }
+
+GRID = {
+        'RF': {
+                'n_estimators': [1,10,100,1000],
+                'max_depth': [1,5,10,20,50,100],
+                'max_features': ['sqrt','log2'],
+                'min_samples_split': [2,5,10]
+                },
+        'LR': {
+                'penalty': ['l1','l2'],
+                'C': [0.00001,0.0001,0.001,0.01,0.1,1,10]
+                },
+        'AB': {
+                'algorithm': ['SAMME', 'SAMME.R'],
+                'n_estimators': [1,10,100,1000]
+                },
+        'GB': {
+                'n_estimators': [1,10,100,1000],
+                'learning_rate' : [0.001,0.01,0.05,0.1,0.5],
+                'subsample' : [0.1,0.5,1.0],
+                'max_depth': [1,3,5,10,20,50,100]
+                },
+        'NB' : {},
+        'DT': {
+                'criterion': ['gini', 'entropy'],
+                'max_depth': [1,5,10,20,50,100],
+                'max_features': ['sqrt','log2'],
+                'min_samples_split': [2,5,10]
+                },
+        'test': {
+                'criterion': ['gini'],
+                'max_depth': [1,5],
+                'max_features': ['sqrt'],
+                'min_samples_split': [5,10]
+                },
+        'SVM' :{
+                'C' :[0.00001,0.0001,0.001,0.01,0.1,1,10],
+                'kernel':['linear']
+                },
+        'KNN' :{
+                'n_neighbors': [1,5,10,25,50,100],
+                'weights': ['uniform','distance'],
+                'algorithm': ['auto','ball_tree','kd_tree']
+                }
+       }
 '''
 Data Transformation
 '''
