@@ -79,6 +79,7 @@ def go(output_fn):
     data311_df.drop_duplicates('crid', inplace = True)
     datacrime_df.drop_duplicates('crid', inplace = True)
     acs_df.drop_duplicates(inplace = True)
+    other_df.drop_duplicates('crid', inplace = True)
 
     #Merge (join) dataframes on shared keys
     df_final = outcome_df.merge(alleg_df, on = ['crid', 'officer_id'], how = 'right')\
@@ -86,10 +87,10 @@ def go(output_fn):
                 .merge(invest2_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
                 .merge(age_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(data311_df, on = 'crid', how = 'left').merge(datacrime_df, on = 'crid', how = 'left')\
-                .merge(other_complaints, on = 'crid', how = 'left')\
+                .merge(other_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
-           		.merge(complainants_df, how = 'left', on = 'crid')\
+      		.merge(complainants_df, how = 'left', on = 'crid')\
                 .merge(witnesses_df, on = 'crid', how = 'left')\
                 .merge(phys_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(travel_df, on = ['crid', 'officer_id'], how = 'left')
