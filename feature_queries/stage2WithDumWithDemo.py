@@ -90,7 +90,7 @@ def go(output_fn):
                 .merge(other_df, on = 'crid', how = 'left')\
                 .merge(priors_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(acs_df, how = 'left', left_on = 'tractce10', right_on = 'tract_1')\
-      		.merge(complainants_df, how = 'left', on = 'crid')\
+          		.merge(complainants_df, how = 'left', on = 'crid')\
                 .merge(witnesses_df, on = 'crid', how = 'left')\
                 .merge(phys_df, on = ['crid', 'officer_id'], how = 'left')\
                 .merge(travel_df, on = ['crid', 'officer_id'], how = 'left')
