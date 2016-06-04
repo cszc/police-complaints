@@ -114,9 +114,9 @@ if __name__ == "__main__":
                 try:
                     if col in FILL_WITH_MEAN:
                         mean = round(df[col].mean())
-                        df[col].fillna(value=mean, inplace=True)
+                        chunk[col].fillna(value=mean, inplace=True)
                     else:
-                        df[col].fillna(0, inplace=True)
+                        chunk[col].fillna(0, inplace=True)
                 except:
                     print('Could not impute column:{}'.format(col))
                     continue
