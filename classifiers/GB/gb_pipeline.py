@@ -223,7 +223,7 @@ if __name__ == "__main__":
 
                 folds_completed += 1
 
-                with open('result/results.csv', 'a') as csvfile:
+                with open('Results/results.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
                     spamwriter.writerow(
                         [stage,
@@ -238,7 +238,7 @@ if __name__ == "__main__":
                         thresholds])
 
                 file_name = (
-                    "results/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
+                    "Results/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
                     TIMESTAMP, stage, model_name, i, folds_completed, dem_label)
                     )
 
@@ -256,7 +256,7 @@ if __name__ == "__main__":
                 overall_actual, overall_binary_predictions)
             print(confusion)
 
-            with open('results/final_results.csv', 'a') as csvfile:
+            with open('Results/final_results.csv', 'a') as csvfile:
                 spamwriter = csv.writer(csvfile)
                 spamwriter.writerow([
                     stage,
