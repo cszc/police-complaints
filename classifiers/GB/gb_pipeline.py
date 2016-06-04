@@ -99,7 +99,13 @@ if __name__ == "__main__":
         '''
         Processing and Imputation
         '''
-        this_df = df.drop(TO_DROP)
+        this_df [ df]
+        for col in TO_DROP:
+            try:
+                this_df.drop(col, axis=1, inplace = True)
+            except:
+                continue
+
         chunks = temporal_split_data(this_df, axis=1, inplace=True)
 
         #IMPUTE EACH TEMPORAL CHUNK
