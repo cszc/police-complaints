@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.cross_validation import train_test_split
-from sklearn_evaluation.metrics import precision_at
+# from sklearn_evaluation.metrics import precision_at
 from sklearn.grid_search import ParameterGrid, GridSearchCV
 from sklearn.metrics import *
 from sklearn.preprocessing import StandardScaler
@@ -82,7 +82,8 @@ GRID = {
                 },
         'AB': {
                 'algorithm': ['SAMME', 'SAMME.R'],
-                'n_estimators': [1,10,100,1000]
+                'n_estimators': [1,10,100,1000],
+                'learning_rate' : [0.001,0.01,0.05,0.1,0.5]
                 },
         'GB': {
                 'n_estimators': [1,10,100,1000],
@@ -243,6 +244,8 @@ if __name__ == "__main__":
         dem_label = 'non-demo'
     stage = 'stage-1'
     to_try = args.to_try
+    if '-t' in to_try:
+        to_try = to_try.remove('-t')
     print(to_try)
 
     '''
@@ -283,7 +286,7 @@ if __name__ == "__main__":
             clf.set_params(**params)
             if hasattr(clf, 'n_jobs'):
                     clf.set_params(n_jobs=-1)
-            folds_completed = 0
+            # folds_completed = 0
             print(clf)
             if model_name=='KNN':
                 steps = [("normalization", preprocessing.RobustScaler()),('feat', sklearn.feature_selection.SelectKBest(k=10)),
@@ -296,6 +299,8 @@ if __name__ == "__main__":
 
             auc_scores = []
             for over_sampler in OVER_SAMPLERS.keys():
+                folds_completed = 0
+
                 os_object = OVER_SAMPLERS[over_sampler]
                 print("Oversampler: {}".format(over_sampler))
                 for i in range(len(train_split)):
@@ -327,11 +332,7 @@ if __name__ == "__main__":
                         y_resampled = y_train
                     # X_train = pd.DataFrame(X_train)
                     # y_train = pd.DataFrame(y_train)
-                # if model_name == 'KNN':
-                #     select = sklearn.feature_selection.SelectKBest(k=5)
-                #     X_train = pd.DataFrame(select.fit_transform(X_train, y_train))
-                #     X_test = pd.DataFrame(select.transform(X_test))
-                    # print("Selected {} features".format(len(X_test.columns)))
+
                     t0 = time.clock()
                     # print(X_train.head())
                     pipeline.fit(X_resampled, y_resampled)
@@ -413,6 +414,8 @@ if __name__ == "__main__":
                     pickle.dump( data, open(file_name, "wb" ) )
 
                 print("### Cross Validation Statistics ###")
+                print(params)
+                print(over_sampler)
                 precision, recall, thresholds = metrics.precision_recall_curve(
                     overall_actual, overall_predictions)
                 average_auc = sum(auc_scores) / len(auc_scores)
@@ -423,7 +426,7 @@ if __name__ == "__main__":
                     overall_actual, overall_binary_predictions)
                 print(confusion)
 
-                with open('final_results.csv', 'a') as csvfile:
+                with open('Results/final_results.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
                     spamwriter.writerow([
                         stage,
