@@ -15,43 +15,37 @@ from sklearn.preprocessing import StandardScaler
 import sklearn.feature_selection
 import sklearn.pipeline
 
-
 #All other libraries
-import argparse, sys, pickle, random, time, json, datetime
+import argparse, sys, pickle, random, time, json, datetime, itertools, csv
 import pandas as pd
 import numpy as np
 import pylab as pl
-import pickle
 from scipy import optimize
-import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.style.use('ggplot')
-import itertools
 from pydoc import locate
 from argparse import ArgumentParser
-import csv
 
 #Own modules
 import evaluation
 
+'''
+GLOBAL VARIABLES
+'''
 #create timestamp
 TS = time.time()
 TIMESTAMP = datetime.datetime.fromtimestamp(TS).strftime('%Y-%m-%d_%H_%M_%S')
-FTRS = [6,7,8,9,16,17,18,21,24,27,29,30,35,37,40,42,44,45,50,51,52,57,62,63,66,70,71,76,77,80,81,85,88,91,94,96,98,103,104,106,116,117,119,120,121,122,128,135,136,138,139,140,142,143,144,147,151,152,155,161,163,165,166,167,168,170,171,172,173,174,181,182,183,184,185,193,194,195,196,197,198,200,202,205,207,208,214,215,218,222,225,226,228,230,231,236,243,244,252,253,255,256,257,258,259,262,264,266,268,269,273,279,285,293,296,297,298,303,304,306,308,312,319,322,328,331,334,337,338,343,344,348,352,359,360,363,364,365,368,369,371,372,377,381,382,385,386,387,388,389,395,397,398,401,409,410,411,414,415,420,429,430,431,437,442,444,446,447,448,454,455,458,463,464,466,467,468,469,471,479,480,481,483,485,489,491,493,494,497,499,500,502,507,509,512,515,516,518,521,524,530,531,532,535,537,538,539,544,547,548,550,554,555,560,561,564,570,571,574,576,577,578,579,580,586,587,590,594,596,598,599,600,606,607,611,617,624,632,637,642,644,645,658,660,669,673,676,677,679,685,686,689,694,695,696,698,702,707,710,711,713,719,722,725,733,734,735,738,748,749,752,755,756,758,765,766,768,771,772,782,788,792,802,803,806,810,812,814,815,822,824,829,832,833,835,840,843,849,850,853,854,856,861,864,866,872,874,879,888,890,894,895,899,902,903,907,910,911,913,915,916,918,921,922,925,927,931,933,937,940,948,951,954,955,956,959,963,964,965,966,968,969,970,971,974,975,976,979,983,991,992,993,995,999,1001,1002,1005,1008,1013,1015,1016,1021,1022,1026,1035,1042,1043,1045,1046,1047,1050,1051,1053,1060,1063,1064,1065,1066,1069,1070,1071,1072,1074,1075,1081,1083,1089,1091,1093,1094,1101,1103,1106,1112,1122,1124,1128,1129,1132,1133,1134,1136,1137,1143,1145,1149,1158,1159,1163,1164,1166,1168,1169,1175,1178,1180,1181,1185,1190,1193,1195,1196,1204,1206,1207,1219,1221,1225,1227,1230,1235,1239,1240,1242,1243,1246,1249,1250,1258,1260,1263,1264,1268,1272,1275,1276,1277,1279,1281,1289,1290,1296,1306,1309,1312,1319,1320,1329,1330,1331,1333,1334,1344,1345,1351,1354,1356,1358,1359,1665,1781]  
-# df = pd.read_csv("test_fulldata.csv") #csv name goes here
-label = "no_affidavit" #predicted variable goes here
-#label = "Findings Sustained" #predicted variable goes here
+
+
 TRAIN_SPLITS_WINDOW =[[0,1],[1,2],[2,3]]
 TEST_SPLITS_WINDOW = [2,3,4]
 TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
-CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
+# CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
 FILL_WITH_MEAN = ['agesqrd','officers_age', 'complainant_age']
-# X = df.drop(label, axis=1)
-# y = df[label]
 
 #estimators
-clfs = {
+CLFS = {
         'RF': RandomForestClassifier(n_estimators=50, n_jobs=-1),
         'AB': AdaBoostClassifier(
                     DecisionTreeClassifier(max_depth=1),
@@ -70,7 +64,7 @@ clfs = {
         'test': DecisionTreeClassifier(),
         }
 
-grid = {
+GRID = {
         'RF': {
                 'n_estimators': [1,10,100,1000],
                 'max_depth': [1,5,10,20,50,100],
@@ -117,20 +111,16 @@ grid = {
 
 def temporal_split_data(df):
     df_sorted = df.sort_values(by='dateobj')
-    chunks = np.array_split(df_sorted, 10)
+    chunks = np.array_split(df_sorted, 5)
     for chunk in chunks:
         chunk.drop('dateobj',axis=1, inplace=True)
-
     return chunks
 
 
 def get_feature_importances(model):
-    # print("Trying to get feature importance for:")
-    # print(model)
     try:
         return model.feature_importances_
     except:
-
         try:
             print('This model does not have feature_importances, '
                           'returning .coef_[0] instead.')
@@ -194,9 +184,8 @@ def _tuples2dict(tuples):
 
 
 def grid_from_class(class_name):
-
     #Get grid values for the given class
-    values = grid[class_name]
+    values = GRID[class_name]
     #Generate cross product for all given values and return them as dicts
     grids = _generate_grid(values)
     return grids
@@ -212,6 +201,7 @@ def convert_to_binary(predictions):
     predictions_binary[predictions_binary < cutoff] = int(0)
 
     return predictions_binary
+
 
 def transform_feature( df, column_name ):
     unique_values = set( df[column_name].tolist() )
@@ -235,22 +225,22 @@ if __name__ == "__main__":
     parser.add_argument('to_try', nargs='+', default=['DT'], help='list of model abbreviations')
     parser.add_argument('--tack_one_on', action="store_true", default=False,help='use tack one on window validation')
     parser.add_argument('--demographic', action="store_true", default=False,help='using demographic info')
-
     args = parser.parse_args()
 
-    label = args.label #predicted variable goes here
+    '''
+    Labels for Documenting
+    '''
+    label = args.label #y, predicted variable
+    dem_label = 'with_demo' if args.demographic else 'non-demo'
+    stage = 'stage-1'
+
     if args.tack_one_on:
-        train_split = TRAIN_SPLITS_TACK
-        test_split = TEST_SPLITS_TACK
+        train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
     else:
-        train_split = TRAIN_SPLITS_WINDOW
-        test_split = TEST_SPLITS_WINDOW
-
-
+        train_split, test_split = TRAIN_SPLITS_WINDOW, TEST_SPLITS_WINDOW
 
     to_try = args.to_try
     print(to_try)
-
 
     '''
     Trying Models
@@ -285,16 +275,22 @@ if __name__ == "__main__":
 
         for chunk in chunks:
             chunk.drop('Unnamed: 0',axis=1, inplace=True)
+            chunk.drop('crid',axis=1, inplace=True)
+            chunk.drop('officer_id',axis=1, inplace=True)
+
             for col in FILL_WITH_MEAN:
-                chunk[col].fillna(chunk[col].mean(), inplace=True)
+                try:
+                    chunk[col].fillna(chunk[col].mean(), inplace=True)
+                except:
+                    continue
             # except:
             #     print("can't fill col {}".format(col))
         print("### STARTING {} ###".format(model_name))
+
         '''
         Iterating Through Model
         '''
-
-        clf = clfs[model_name]
+        clf = CLFS[model_name]
         grid = grid_from_class(model_name)
 
         for i, params in enumerate(grid):
@@ -359,16 +355,17 @@ if __name__ == "__main__":
 
                 except:
                     print("Model has no predict_proba method")
-                # print("Evaluation Statistics")
                 # output_evaluation_statistics(y_test, predicted_prob)
 
                 '''
                 Evaluation Statistics
                 '''
+                print("Evaluation Statistics")
                 if model_name=='KNN':
                     print("Getting feature support")
                     features = pipeline.named_steps['feat']
-                    print(X_train.columns[features.transform(np.arange(len(X_train.columns)))])
+                    print(X_train.columns[features.transform(np.arange(
+                        len(X_train.columns)))])
 
                 print()
                 auc_score = metrics.roc_auc_score(y_test, predicted)
@@ -402,16 +399,24 @@ if __name__ == "__main__":
 
                 with open('results.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
-                    spamwriter.writerow([model_name, params, folds_completed, auc_score, precision, recall, thresholds])
+                    spamwriter.writerow(
+                        [stage,
+                        dem_label,
+                        label,
+                        model_name,
+                        params,
+                        folds_completed,
+                        auc_score,
+                        precision,
+                        recall,
+                        thresholds])
 
+                file_name = (
+                    "pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
+                    TIMESTAMP, stage, model_name, i, folds_completed, dem_label)
+                    )
 
-                if args.demographic:
-                    demographic = "with_demo"
-                else:
-                    demographic = "no_demo"
-                file_name = "pickles/{0}_{1}_paramset:{2}_fold:{3}_{4}.p".format(TIMESTAMP, model_name, i, folds_completed, demographic)
-                data = [clf, pipeline, predicted, params, ] #need to fill in with things that we want to pickle
-
+                data = [clf, pipeline, predicted, params] #need to fill in with things that we want to pickle
                 pickle.dump( data, open(file_name, "wb" ) )
 
             print("### Cross Validation Statistics ###")
@@ -427,6 +432,14 @@ if __name__ == "__main__":
 
             with open('final_results.csv', 'a') as csvfile:
                 spamwriter = csv.writer(csvfile)
-                spamwriter.writerow([model_name, params, folds_completed, precision, recall, thresholds, average_auc])
-
-              
+                spamwriter.writerow([
+                    stage,
+                    dem_label,
+                    label,
+                    model_name, 
+                    params,
+                    folds_completed,
+                    precision,
+                    recall,
+                    thresholds,
+                    average_auc])
