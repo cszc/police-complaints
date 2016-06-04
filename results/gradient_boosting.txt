@@ -1,0 +1,4001 @@
+['GB']
+['GB']
+### STARTING GB ###
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9418490000000004
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9408309999999993
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9394139999999993
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9330740000000013
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9390290000000014
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9395489999999995
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9280749999999998
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9259970000000006
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9549410000000016
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9220530000000018
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9334230000000012
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9422150000000009
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9251910000000017
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9386100000000006
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9347539999999981
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.2862779999999994
+
+AUC score: 0.500
+Feature Importance
+               Imp/Coef
+priors              0.5
+Officer nan         0.3
+Rank UNKNOWN        0.1
+Officer nan.1       0.1
+crid                0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.2779679999999978
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.6
+Officer nan.1              0.3
+Rank UNKNOWN               0.1
+crid                       0.0
+Investigators 1327.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.280463000000001
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.2845590000000016
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.5
+Officer nan.1              0.3
+Rank UNKNOWN               0.2
+crid                       0.0
+Investigators 1327.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.2790639999999982
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.6
+Officer nan                0.3
+Rank UNKNOWN               0.1
+crid                       0.0
+Investigators 1328.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.2968240000000009
+
+AUC score: 0.500
+Feature Importance
+               Imp/Coef
+priors              0.4
+Officer nan         0.2
+Rank UNKNOWN        0.2
+Officer nan.1       0.2
+crid                0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.2894620000000003
+
+AUC score: 0.500
+Feature Importance
+               Imp/Coef
+priors              0.5
+Rank UNKNOWN        0.2
+Officer nan.1       0.2
+Officer nan         0.1
+crid                0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.2791860000000028
+
+AUC score: 0.500
+Feature Importance
+               Imp/Coef
+priors              0.7
+Officer nan         0.1
+Rank UNKNOWN        0.1
+Officer nan.1       0.1
+crid                0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.2861459999999951
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.9
+Rank PO                    0.1
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.296441999999999
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                    0.3
+Officer nan               0.3
+police_investigator       0.2
+Rank UNKNOWN              0.1
+Officer nan.1             0.1
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.2980519999999984
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                0.3
+police_investigator        0.3
+Officer nan.1              0.3
+Rank PO                    0.1
+Investigators 1333.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.276767999999997
+
+AUC score: 0.500
+Feature Importance
+                                     Imp/Coef
+priors                                    0.7
+Officer nan                               0.1
+police_investigator                       0.1
+streetlights_all_count_3months1000m       0.1
+Investigators 1333.0                      0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.308019999999999
+
+AUC score: 0.701
+Feature Importance
+                          Imp/Coef
+police_investigator            0.2
+crid                           0.1
+priors                         0.1
+Officer nan.1                  0.1
+graffiti_count_7days500m       0.1
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.2913050000000013
+
+AUC score: 0.677
+Feature Importance
+                     Imp/Coef
+police_investigator       0.2
+priors                    0.2
+Complainant Unknown       0.1
+Rank UNKNOWN              0.1
+complainant_age           0.1
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.2688539999999975
+
+AUC score: 0.695
+Feature Importance
+                                    Imp/Coef
+priors                                   0.3
+police_investigator                      0.2
+vacantbuildings_count_3months1000m       0.1
+crimes_18_3months1000m                   0.1
+complainant_age                          0.1
+### Cross Validation Statistics ###
+Average AUC: 0.695
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5998 1349]
+ [1693 2192]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 4.679624000000004
+
+AUC score: 0.500
+Feature Importance
+               Imp/Coef
+priors             0.51
+Officer nan        0.21
+Officer nan.1      0.17
+Rank UNKNOWN       0.11
+crid               0.00
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 4.699361000000003
+
+AUC score: 0.500
+Feature Importance
+               Imp/Coef
+priors             0.70
+Officer nan        0.13
+Officer nan.1      0.11
+Rank UNKNOWN       0.06
+crid               0.00
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 4.764850000000003
+
+AUC score: 0.500
+Feature Importance
+               Imp/Coef
+priors             0.65
+Officer nan        0.16
+Officer nan.1      0.11
+Rank UNKNOWN       0.08
+crid               0.00
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 4.730225000000004
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                   0.31
+police_investigator      0.30
+Officer nan.1            0.19
+Officer nan              0.11
+Rank UNKNOWN             0.06
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 4.79009099999999
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                   0.52
+police_investigator      0.25
+Rank UNKNOWN             0.06
+Officer nan              0.05
+Officer nan.1            0.05
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 4.714579999999998
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                   0.49
+police_investigator      0.18
+Officer nan              0.11
+Rank UNKNOWN             0.06
+Rank PO                  0.04
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 4.737431000000001
+
+AUC score: 0.722
+Feature Importance
+                     Imp/Coef
+police_investigator      0.21
+priors                   0.14
+complainant_age          0.06
+Officer nan              0.06
+Complainant Unknown      0.06
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 4.731048999999999
+
+AUC score: 0.747
+Feature Importance
+                     Imp/Coef
+police_investigator      0.19
+priors                   0.15
+complainant_age          0.07
+Complainant Unknown      0.07
+crid                     0.05
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 4.805318
+
+AUC score: 0.685
+Feature Importance
+                           Imp/Coef
+police_investigator            0.15
+priors                         0.15
+complainant_age                0.09
+Rank PO                        0.05
+graffiti_count_7days1000m      0.03
+### Cross Validation Statistics ###
+Average AUC: 0.685
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5885 1462]
+ [1412 2473]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 4.804635000000005
+
+AUC score: 0.724
+Feature Importance
+                     Imp/Coef
+police_investigator      0.13
+priors                   0.10
+complainant_age          0.06
+crid                     0.04
+Complainant Unknown      0.04
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 4.7574029999999965
+
+AUC score: 0.751
+Feature Importance
+                     Imp/Coef
+police_investigator      0.13
+priors                   0.11
+complainant_age          0.07
+crid                     0.04
+Complainant Unknown      0.04
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 4.743058000000005
+
+AUC score: 0.702
+Feature Importance
+                     Imp/Coef
+police_investigator      0.11
+priors                   0.10
+complainant_age          0.05
+Complainant White        0.04
+Rank PO                  0.03
+### Cross Validation Statistics ###
+Average AUC: 0.702
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5650 1697]
+ [1229 2656]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 4.858739
+
+AUC score: 0.669
+Feature Importance
+                              Imp/Coef
+crid                              0.05
+police_investigator               0.04
+Beat 1612.0                       0.04
+pct6500                           0.04
+treetrims_count_3months2500m      0.03
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 4.794623000000001
+
+AUC score: 0.746
+Feature Importance
+                            Imp/Coef
+ptbaplus                        0.05
+police_investigator             0.04
+complainant_age                 0.04
+rodents_count_3months1000m      0.04
+priors                          0.03
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 4.782948000000005
+
+AUC score: 0.676
+Feature Importance
+                          Imp/Coef
+agesqrd                       0.06
+officers_age                  0.05
+pct3544                       0.04
+police_investigator           0.03
+rodents_count_7days2500m      0.03
+### Cross Validation Statistics ###
+Average AUC: 0.676
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5490 1857]
+ [1361 2524]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 39.98042000000001
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                  0.388
+police_investigator     0.291
+Officer nan             0.116
+Officer nan.1           0.111
+Rank UNKNOWN            0.068
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 39.876469000000014
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                  0.481
+police_investigator     0.231
+Officer nan.1           0.081
+Officer nan             0.080
+Rank UNKNOWN            0.075
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 40.02620400000001
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                  0.484
+police_investigator     0.167
+Officer nan.1           0.083
+Officer nan             0.073
+Rank PO                 0.061
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 39.651820000000015
+
+AUC score: 0.733
+Feature Importance
+                     Imp/Coef
+police_investigator     0.133
+priors                  0.095
+complainant_age         0.057
+crid                    0.050
+Complainant Unknown     0.033
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 39.766629999999964
+
+AUC score: 0.753
+Feature Importance
+                     Imp/Coef
+police_investigator     0.132
+priors                  0.108
+complainant_age         0.055
+Complainant Unknown     0.042
+crid                    0.033
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 39.82699600000001
+
+AUC score: 0.718
+Feature Importance
+                     Imp/Coef
+police_investigator     0.110
+priors                  0.089
+complainant_age         0.062
+Rank PO                 0.024
+Complainant White       0.023
+### Cross Validation Statistics ###
+Average AUC: 0.718
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5742 1605]
+ [1210 2675]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 39.826629999999966
+
+AUC score: 0.728
+Feature Importance
+                            Imp/Coef
+crid                           0.039
+police_investigator            0.039
+priors                         0.025
+complainant_age                0.020
+treetrims_count_7days2500m     0.018
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 39.71547400000003
+
+AUC score: 0.755
+Feature Importance
+                     Imp/Coef
+police_investigator     0.035
+crid                    0.031
+complainant_age         0.030
+priors                  0.025
+agesqrd                 0.024
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 39.302931
+
+AUC score: 0.701
+Feature Importance
+                     Imp/Coef
+police_investigator     0.031
+priors                  0.028
+complainant_age         0.025
+crid                    0.019
+agesqrd                 0.017
+### Cross Validation Statistics ###
+Average AUC: 0.701
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5575 1772]
+ [1167 2718]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 39.782377
+
+AUC score: 0.701
+Feature Importance
+                     Imp/Coef
+crid                    0.037
+police_investigator     0.022
+pct4554                 0.020
+complainant_age         0.019
+officers_age            0.017
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 39.633883999999966
+
+AUC score: 0.762
+Feature Importance
+                     Imp/Coef
+crid                    0.035
+police_investigator     0.021
+ptlths                  0.019
+officers_age            0.018
+pct017                  0.018
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 40.68944799999997
+
+AUC score: 0.712
+Feature Importance
+                            Imp/Coef
+crid                           0.023
+pct3544                        0.020
+ptpov                          0.020
+agesqrd                        0.019
+treetrims_count_7days2500m     0.019
+### Cross Validation Statistics ###
+Average AUC: 0.712
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5616 1731]
+ [1214 2671]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 40.116356999999994
+
+AUC score: 0.656
+Feature Importance
+                            Imp/Coef
+ptnlwh                         0.109
+garbage_count_3months500m      0.079
+Beat 714.0                     0.052
+Beat 831.0                     0.049
+garbage_count_3months1000m     0.037
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 39.67469399999993
+
+AUC score: 0.715
+Feature Importance
+             Imp/Coef
+Beat 725.0      0.307
+crid            0.099
+Beat 1422.0     0.085
+Beat 1921.0     0.042
+Beat 222.0      0.029
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 39.521409999999946
+
+AUC score: 0.659
+Feature Importance
+                             Imp/Coef
+graffiti_count_7days2500m       0.129
+ptsomeco                        0.070
+pct6500                         0.053
+pct5564                         0.048
+potholes_count_3months1000m     0.039
+### Cross Validation Statistics ###
+Average AUC: 0.659
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5313 2034]
+ [1432 2453]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.2395909999999049
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1978110000000015
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.2116420000000971
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1852439999998978
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1794099999999617
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1698240000000624
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1700610000000324
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1731900000000905
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1997179999999616
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1508709999999382
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.175307000000089
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1613039999999728
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1439300000000685
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1568210000000363
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.2094059999999445
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.9056060000000343
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                0.6
+Officer nan.1              0.3
+priors                     0.1
+crid                       0.0
+Investigators 1327.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.9247839999999314
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.9
+Officer nan.1              0.1
+Investigators 1326.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.922698999999966
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.7
+Officer nan                0.2
+Officer nan.1              0.1
+crid                       0.0
+Investigators 1327.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.9037029999999504
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              0.5
+Officer nan                0.4
+priors                     0.1
+crid                       0.0
+Investigators 1327.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.9420169999999644
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.922125000000051
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.6
+Officer nan.1              0.4
+Investigators 1326.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.975373999999988
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              0.7
+Officer nan                0.2
+police_investigator        0.1
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.9223269999999957
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.8
+Officer nan                0.2
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.9237660000000005
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.9
+Officer nan.1              0.1
+Investigators 1326.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.9104509999999664
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              0.3
+police_investigator        0.3
+Officer nan                0.3
+priors                     0.1
+Investigators 1327.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.9195479999999634
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.7
+police_investigator        0.3
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.9591739999999618
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.7
+police_investigator        0.2
+Officer nan.1              0.1
+Investigators 1326.0       0.0
+Investigators 1338.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.893132000000037
+
+AUC score: 0.753
+Feature Importance
+                       Imp/Coef
+police_investigator         0.3
+Officer nan                 0.2
+crid                        0.1
+crimes_03_3months500m       0.1
+Officer nan.1               0.1
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.9088910000000396
+
+AUC score: 0.756
+Feature Importance
+                              Imp/Coef
+priors                             0.3
+police_investigator                0.2
+alleylights_count_7days2500m       0.1
+treetrims_count_7days2500m         0.1
+complainant_age                    0.1
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.9066800000000512
+
+AUC score: 0.681
+Feature Importance
+                             Imp/Coef
+priors                            0.3
+police_investigator               0.2
+vehicles_count_3months2500m       0.1
+complainant_age                   0.1
+Rank PO                           0.1
+### Cross Validation Statistics ###
+Average AUC: 0.681
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5732 1615]
+ [1242 2643]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.337073000000032
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan               0.48
+Officer nan.1             0.47
+priors                    0.05
+crid                      0.00
+Investigators 1327.0      0.00
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.357591999999954
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                    0.95
+Officer nan.1             0.03
+Officer nan               0.02
+crid                      0.00
+Investigators 1327.0      0.00
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.405953000000068
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                    0.59
+Officer nan.1             0.24
+Officer nan               0.17
+crid                      0.00
+Investigators 1327.0      0.00
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.500200999999947
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+police_investigator       0.32
+Officer nan               0.29
+Officer nan.1             0.27
+priors                    0.12
+Investigators 1327.0      0.00
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.580925999999977
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                    0.63
+police_investigator       0.27
+Officer nan.1             0.06
+Officer nan               0.04
+Investigators 1327.0      0.00
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.495159999999942
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                   0.56
+police_investigator      0.23
+Officer nan              0.11
+Officer nan.1            0.09
+Rank PO                  0.01
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.540570000000002
+
+AUC score: 0.729
+Feature Importance
+                     Imp/Coef
+police_investigator      0.27
+Officer nan.1            0.14
+priors                   0.10
+complainant_age          0.09
+Complainant Unknown      0.08
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.408918999999969
+
+AUC score: 0.757
+Feature Importance
+                                     Imp/Coef
+priors                                   0.29
+police_investigator                      0.26
+Complainant Unknown                      0.09
+complainant_age                          0.09
+streetlights_all_count_3months2500m      0.06
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.517924999999991
+
+AUC score: 0.696
+Feature Importance
+                     Imp/Coef
+priors                   0.23
+police_investigator      0.22
+complainant_age          0.11
+Officer nan              0.05
+Complainant White        0.05
+### Cross Validation Statistics ###
+Average AUC: 0.696
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5865 1482]
+ [1331 2554]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.456911999999988
+
+AUC score: 0.751
+Feature Importance
+                     Imp/Coef
+police_investigator      0.19
+Officer nan.1            0.11
+priors                   0.07
+complainant_age          0.07
+crid                     0.05
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.444956000000047
+
+AUC score: 0.770
+Feature Importance
+                     Imp/Coef
+police_investigator      0.18
+priors                   0.18
+complainant_age          0.07
+Complainant Unknown      0.07
+crid                     0.04
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.504188999999997
+
+AUC score: 0.701
+Feature Importance
+                     Imp/Coef
+police_investigator      0.15
+priors                   0.13
+complainant_age          0.09
+Complainant White        0.06
+Officer nan.1            0.05
+### Cross Validation Statistics ###
+Average AUC: 0.701
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5768 1579]
+ [1174 2711]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.416579999999954
+
+AUC score: 0.743
+Feature Importance
+                             Imp/Coef
+police_investigator              0.06
+priors                           0.04
+crid                             0.03
+treetrims_count_3months500m      0.03
+complainant_age                  0.03
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.417421999999988
+
+AUC score: 0.771
+Feature Importance
+                              Imp/Coef
+police_investigator               0.06
+priors                            0.06
+garbage_count_3months500m         0.02
+Complainant Unknown               0.02
+alleylights_count_7days2500m      0.02
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.463261999999986
+
+AUC score: 0.703
+Feature Importance
+                                  Imp/Coef
+police_investigator                   0.05
+priors                                0.04
+crid                                  0.03
+vacantbuildings_count_7days1000m      0.02
+Complainant Unknown                   0.02
+### Cross Validation Statistics ###
+Average AUC: 0.703
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5694 1653]
+ [1145 2740]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 84.47034499999995
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+police_investigator     0.306
+Officer nan.1           0.296
+Officer nan             0.277
+priors                  0.119
+Rank UNKNOWN            0.002
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 84.9840549999999
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                  0.667
+police_investigator     0.256
+Officer nan.1           0.045
+Officer nan             0.030
+Rank UNKNOWN            0.002
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 85.24962400000004
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors                  0.551
+police_investigator     0.218
+Officer nan.1           0.113
+Officer nan             0.112
+Rank PO                 0.006
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 83.84465399999999
+
+AUC score: 0.748
+Feature Importance
+                     Imp/Coef
+police_investigator     0.191
+priors                  0.080
+complainant_age         0.074
+Officer nan.1           0.061
+Officer nan             0.060
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 84.62604600000009
+
+AUC score: 0.768
+Feature Importance
+                            Imp/Coef
+police_investigator            0.180
+priors                         0.175
+complainant_age                0.078
+Complainant Unknown            0.061
+treetrims_count_7days2500m     0.039
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 84.805611
+
+AUC score: 0.710
+Feature Importance
+                     Imp/Coef
+police_investigator     0.160
+priors                  0.124
+complainant_age         0.083
+Complainant White       0.058
+Complainant Unknown     0.039
+### Cross Validation Statistics ###
+Average AUC: 0.710
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5771 1576]
+ [1166 2719]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 84.07621300000005
+
+AUC score: 0.751
+Feature Importance
+                            Imp/Coef
+police_investigator            0.059
+crid                           0.032
+complainant_age                0.031
+priors                         0.024
+treetrims_count_7days2500m     0.021
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 85.25224000000003
+
+AUC score: 0.774
+Feature Importance
+                     Imp/Coef
+police_investigator     0.062
+priors                  0.049
+complainant_age         0.029
+ptlths                  0.023
+crid                    0.021
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 84.49019800000019
+
+AUC score: 0.741
+Feature Importance
+                     Imp/Coef
+police_investigator     0.050
+priors                  0.041
+complainant_age         0.026
+crid                    0.020
+Complainant Unknown     0.018
+### Cross Validation Statistics ###
+Average AUC: 0.741
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5726 1621]
+ [1040 2845]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 84.78744000000006
+
+AUC score: 0.759
+Feature Importance
+                            Imp/Coef
+police_investigator            0.038
+crid                           0.030
+complainant_age                0.019
+pct4554                        0.016
+treetrims_count_7days2500m     0.015
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 85.0622229999999
+
+AUC score: 0.770
+Feature Importance
+                     Imp/Coef
+police_investigator     0.037
+priors                  0.029
+crid                    0.024
+ptlths                  0.020
+complainant_age         0.018
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 84.73787800000014
+
+AUC score: 0.727
+Feature Importance
+                                   Imp/Coef
+police_investigator                   0.034
+priors                                0.021
+complainant_age                       0.017
+crid                                  0.015
+streetlights_all_count_7days2500m     0.014
+### Cross Validation Statistics ###
+Average AUC: 0.727
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5682 1665]
+ [1039 2846]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.5, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 84.73012499999982
+
+AUC score: 0.750
+Feature Importance
+                      Imp/Coef
+Investigators 347.0      0.204
+Investigators 1504.0     0.165
+Investigators 506.0      0.129
+Investigators 879.0      0.057
+Investigators 608.0      0.048
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 84.72048700000005
+
+AUC score: 0.765
+Feature Importance
+                     Imp/Coef
+Investigators 36.0      0.292
+Investigators 55.0      0.276
+Investigators 680.0     0.045
+Investigators 855.0     0.021
+Investigators 359.0     0.011
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 84.55883799999992
+
+AUC score: 0.733
+Feature Importance
+                      Imp/Coef
+Investigators 302.0      0.256
+Investigators 1461.0     0.069
+Investigators 676.0      0.064
+Investigators 348.0      0.026
+Investigators 1323.0     0.023
+### Cross Validation Statistics ###
+Average AUC: 0.733
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5524 1823]
+ [ 975 2910]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.12266099999988
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1699149999999463
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.120394000000033
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.106771999999637
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1234819999999672
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.138441999999941
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.117471999999907
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.121733999999833
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.119064999999864
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1193829999997433
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1757189999998445
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1237489999998616
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1349660000000767
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1267689999999675
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1251830000001064
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.5058219999996254
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                0.6
+Officer nan.1              0.4
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.5251280000002225
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.5183680000000095
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.5
+Officer nan.1              0.4
+Officer nan                0.1
+crid                       0.0
+Investigators 1327.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.5173439999998664
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                0.5
+Officer nan.1              0.5
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.5085509999998976
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.5596599999998944
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.7
+Officer nan                0.2
+Officer nan.1              0.1
+crid                       0.0
+Investigators 1327.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.4891750000001593
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                0.5
+Officer nan.1              0.4
+police_investigator        0.1
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.524120000000039
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.5245670000003884
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.4
+Officer nan.1              0.4
+Officer nan                0.2
+crid                       0.0
+Investigators 1327.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.5150180000000546
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              0.4
+police_investigator        0.3
+Officer nan                0.3
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.5730949999997392
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     0.7
+police_investigator        0.3
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.5175920000001497
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                0.4
+Officer nan.1              0.2
+police_investigator        0.2
+priors                     0.2
+Investigators 1327.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.5173960000001898
+
+AUC score: 0.730
+Feature Importance
+                       Imp/Coef
+police_investigator         0.3
+Officer nan                 0.2
+crimes_06_3months500m       0.1
+priors                      0.1
+crimes_03_3months500m       0.1
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.5145720000000438
+
+AUC score: 0.759
+Feature Importance
+                              Imp/Coef
+priors                             0.3
+police_investigator                0.2
+alleylights_count_7days2500m       0.1
+treetrims_count_7days2500m         0.1
+complainant_age                    0.1
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.532083000000057
+
+AUC score: 0.683
+Feature Importance
+                             Imp/Coef
+priors                            0.2
+police_investigator               0.2
+Rank PO                           0.1
+Officer nan.1                     0.1
+vehicles_count_3months2500m       0.1
+### Cross Validation Statistics ###
+Average AUC: 0.683
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5845 1502]
+ [1343 2542]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 5.298651999999947
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan               0.56
+Officer nan.1             0.44
+crid                      0.00
+Investigators 1328.0      0.00
+Investigators 1339.0      0.00
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 5.381149999999707
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 5.571526000000176
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                    0.54
+Officer nan.1             0.25
+Officer nan               0.21
+crid                      0.00
+Investigators 1327.0      0.00
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 5.5036049999998795
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1             0.36
+Officer nan               0.33
+police_investigator       0.31
+Investigators 1327.0      0.00
+Investigators 1339.0      0.00
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 5.576282000000447
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                    0.74
+police_investigator       0.26
+crid                      0.00
+Investigators 1327.0      0.00
+Investigators 1338.0      0.00
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 5.483596999999918
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                    0.45
+police_investigator       0.22
+Officer nan.1             0.20
+Officer nan               0.13
+Investigators 1327.0      0.00
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 5.487609999999677
+
+AUC score: 0.732
+Feature Importance
+                     Imp/Coef
+police_investigator      0.28
+Officer nan              0.17
+Officer nan.1            0.12
+complainant_age          0.10
+Complainant Unknown      0.08
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 5.442708000000039
+
+AUC score: 0.753
+Feature Importance
+                            Imp/Coef
+priors                          0.33
+police_investigator             0.27
+complainant_age                 0.10
+Complainant Unknown             0.09
+treetrims_count_7days2500m      0.05
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 5.590484999999717
+
+AUC score: 0.691
+Feature Importance
+                     Imp/Coef
+police_investigator      0.24
+priors                   0.20
+complainant_age          0.11
+Complainant White        0.07
+Officer nan.1            0.07
+### Cross Validation Statistics ###
+Average AUC: 0.691
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5883 1464]
+ [1356 2529]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 5.478526000000329
+
+AUC score: 0.760
+Feature Importance
+                       Imp/Coef
+police_investigator        0.21
+Officer nan.1              0.09
+Officer nan                0.08
+complainant_age            0.08
+crimes_03_3months500m      0.07
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 5.481847000000016
+
+AUC score: 0.770
+Feature Importance
+                      Imp/Coef
+priors                    0.21
+police_investigator       0.20
+complainant_age           0.08
+Complainant Unknown       0.07
+Complainant Hispanic      0.04
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 5.430497999999716
+
+AUC score: 0.710
+Feature Importance
+                     Imp/Coef
+police_investigator      0.17
+priors                   0.10
+complainant_age          0.08
+Complainant White        0.07
+Officer nan              0.06
+### Cross Validation Statistics ###
+Average AUC: 0.710
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5795 1552]
+ [1141 2744]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 5.509381999999732
+
+AUC score: 0.760
+Feature Importance
+                       Imp/Coef
+police_investigator        0.06
+complainant_age            0.04
+Officer nan.1              0.03
+crimes_03_3months500m      0.03
+crid                       0.02
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 5.535652999999911
+
+AUC score: 0.782
+Feature Importance
+                      Imp/Coef
+police_investigator       0.06
+priors                    0.06
+complainant_age           0.03
+crid                      0.02
+Complainant Hispanic      0.02
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 5.5102969999998095
+
+AUC score: 0.722
+Feature Importance
+                      Imp/Coef
+police_investigator       0.05
+priors                    0.03
+crid                      0.02
+Officer nan               0.02
+Investigators 1081.0      0.02
+### Cross Validation Statistics ###
+Average AUC: 0.722
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5779 1568]
+ [1071 2814]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 45.4877819999997
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan              0.362
+Officer nan.1            0.328
+police_investigator      0.310
+Investigators 1327.0     0.000
+Investigators 1339.0     0.000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 45.80946300000005
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                   0.737
+police_investigator      0.263
+crid                     0.000
+Investigators 1327.0     0.000
+Investigators 1338.0     0.000
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 45.98443999999972
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                   0.451
+police_investigator      0.218
+Officer nan.1            0.179
+Officer nan              0.152
+Investigators 1327.0     0.000
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 45.66095399999995
+
+AUC score: 0.764
+Feature Importance
+                       Imp/Coef
+police_investigator       0.214
+Officer nan.1             0.107
+complainant_age           0.082
+Officer nan               0.073
+crimes_03_3months500m     0.066
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 45.43876599999976
+
+AUC score: 0.768
+Feature Importance
+                            Imp/Coef
+priors                         0.208
+police_investigator            0.204
+complainant_age                0.085
+Complainant Unknown            0.067
+treetrims_count_7days2500m     0.043
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 44.10799399999996
+
+AUC score: 0.708
+Feature Importance
+                     Imp/Coef
+police_investigator     0.177
+priors                  0.127
+complainant_age         0.088
+Complainant White       0.070
+Complainant Unknown     0.046
+### Cross Validation Statistics ###
+Average AUC: 0.708
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5780 1567]
+ [1135 2750]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 44.346394000000146
+
+AUC score: 0.771
+Feature Importance
+                            Imp/Coef
+police_investigator            0.065
+complainant_age                0.034
+treetrims_count_7days2500m     0.029
+crimes_03_3months500m          0.026
+Officer nan                    0.026
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 46.215921999999864
+
+AUC score: 0.787
+Feature Importance
+                                    Imp/Coef
+police_investigator                    0.069
+priors                                 0.062
+complainant_age                        0.028
+vacantbuildings_count_3months2500m     0.027
+Complainant Unknown                    0.021
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 46.527872000000116
+
+AUC score: 0.734
+Feature Importance
+                     Imp/Coef
+police_investigator     0.058
+priors                  0.033
+complainant_age         0.030
+Complainant Unknown     0.022
+Complainant White       0.021
+### Cross Validation Statistics ###
+Average AUC: 0.734
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5757 1590]
+ [ 986 2899]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 45.70743300000004
+
+AUC score: 0.774
+Feature Importance
+                            Imp/Coef
+police_investigator            0.038
+complainant_age                0.023
+crid                           0.022
+treetrims_count_7days2500m     0.022
+crimes_03_3months500m          0.014
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 44.44471700000031
+
+AUC score: 0.778
+Feature Importance
+                                    Imp/Coef
+police_investigator                    0.042
+priors                                 0.037
+crid                                   0.019
+complainant_age                        0.019
+vacantbuildings_count_3months2500m     0.016
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 45.69512200000008
+
+AUC score: 0.738
+Feature Importance
+                                   Imp/Coef
+police_investigator                   0.035
+complainant_age                       0.022
+streetlights_all_count_7days2500m     0.017
+crid                                  0.016
+crimes_18_3months1000m                0.015
+### Cross Validation Statistics ###
+Average AUC: 0.738
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5747 1600]
+ [ 987 2898]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=1, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=1.0, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 44.350344999999834
+
+AUC score: 0.766
+Feature Importance
+                            Imp/Coef
+crid                           0.014
+police_investigator            0.013
+treetrims_count_7days2500m     0.010
+complainant_age                0.010
+crimes_03_14days2500m          0.008
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 46.33276599999999
+
+AUC score: 0.776
+Feature Importance
+                           Imp/Coef
+crid                          0.022
+police_investigator           0.014
+complainant_age               0.012
+garbage_count_3months500m     0.012
+ptlths                        0.012
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 46.06342200000017
+
+AUC score: 0.734
+Feature Importance
+                                   Imp/Coef
+crid                                  0.014
+complainant_age                       0.014
+police_investigator                   0.012
+streetlights_all_count_7days2500m     0.011
+streetlights_all_count_7days500m      0.010
+### Cross Validation Statistics ###
+Average AUC: 0.734
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5721 1626]
+ [1009 2876]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1559090000000651
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.498847
+police_investigator  0.225783
+Complainant Unknown  0.164515
+complainant_age      0.110855
+crid                 0.000000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1707890000002408
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+Officer nan          0.470870
+police_investigator  0.273459
+complainant_age      0.143980
+Complainant Unknown  0.111690
+crid                 0.000000
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.166602000000239
+
+AUC score: 0.500
+Feature Importance
+                                    Imp/Coef
+Officer nan.1                       0.604841
+police_investigator                 0.203845
+complainant_age                     0.112287
+streetlights_all_count_3months500m  0.079026
+Investigators 1328.0                0.000000
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1524970000000394
+
+AUC score: 0.500
+Feature Importance
+                                    Imp/Coef
+priors                              0.499473
+police_investigator                 0.276600
+Complainant Unknown                 0.125863
+vacantbuildings_count_3months1000m  0.098064
+crid                                0.000000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1689750000000458
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                0.472671
+police_investigator   0.338669
+Complainant White     0.103356
+Investigators 1298.0  0.085304
+Investigators 1333.0  0.000000
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1958450000001903
+
+AUC score: 0.500
+Feature Importance
+                             Imp/Coef
+Officer nan                  0.584051
+police_investigator          0.192243
+vehicles_count_3months1000m  0.132886
+Complainant Unknown          0.090820
+crid                         0.000000
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1694240000001628
+
+AUC score: 0.500
+Feature Importance
+                        Imp/Coef
+Officer nan             0.524493
+police_investigator     0.299284
+Complainant White       0.100366
+crimes_22_3months1000m  0.075857
+Investigators 1338.0    0.000000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.166682000000037
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1         0.577958
+police_investigator   0.191399
+Complainant White     0.147835
+Complainant Unknown   0.082808
+Investigators 1334.0  0.000000
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1692800000000716
+
+AUC score: 0.500
+Feature Importance
+                        Imp/Coef
+Officer nan             0.665879
+police_investigator     0.148277
+complainant_age         0.130214
+crimes_06_3months1000m  0.055629
+Investigators 1327.0    0.000000
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1694130000000769
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1         0.512774
+police_investigator   0.256109
+Complainant Unknown   0.127952
+complainant_age       0.103165
+Investigators 1327.0  0.000000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1682240000000093
+
+AUC score: 0.500
+Feature Importance
+                              Imp/Coef
+Officer nan.1                 0.554391
+police_investigator           0.254319
+Complainant Unknown           0.096476
+treetrims_count_3months2500m  0.094813
+Investigators 1328.0          0.000000
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.163543000000118
+
+AUC score: 0.500
+Feature Importance
+                                     Imp/Coef
+Officer nan                          0.658655
+police_investigator                  0.136735
+streetlights_all_count_3months2500m  0.114671
+crimes_06_14days1000m                0.089939
+Investigators 1328.0                 0.000000
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1, presort='auto',
+              random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.1629870000001574
+
+AUC score: 0.754
+Feature Importance
+                      Imp/Coef
+priors                0.531732
+Complainant Unknown   0.177556
+Complainant White     0.162717
+police_investigator   0.127995
+Investigators 1334.0  0.000000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.1639650000001893
+
+AUC score: 0.755
+Feature Importance
+                      Imp/Coef
+priors                0.535027
+police_investigator   0.279552
+Complainant Unknown   0.093091
+Complainant White     0.092330
+Investigators 1334.0  0.000000
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.1679140000001098
+
+AUC score: 0.709
+Feature Importance
+                      Imp/Coef
+priors                0.571242
+police_investigator   0.215809
+Complainant White     0.128856
+crimes_18_14days500m  0.084093
+Investigators 1333.0  0.000000
+### Cross Validation Statistics ###
+Average AUC: 0.709
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5772 1575]
+ [1191 2694]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.7830989999997655
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.257763
+police_investigator  0.254535
+Officer nan          0.105863
+Officer nan.1        0.100319
+Complainant Unknown  0.099018
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.904435000000376
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.486452
+police_investigator  0.241567
+Complainant Unknown  0.092603
+Rank UNKNOWN         0.051650
+complainant_age      0.045229
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.7901819999997315
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.345321
+police_investigator  0.197935
+Officer nan          0.112127
+Officer nan.1        0.063844
+complainant_age      0.057540
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 2.0156849999998485
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.337375
+police_investigator  0.266652
+Officer nan.1        0.102224
+Complainant Unknown  0.092377
+Officer nan          0.057000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.9757990000002792
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+police_investigator  0.238597
+priors               0.214110
+Officer nan          0.152326
+Officer nan.1        0.108287
+Complainant Unknown  0.075347
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.83820999999989
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.314724
+Officer nan          0.239462
+police_investigator  0.178169
+Rank UNKNOWN         0.058087
+complainant_age      0.044904
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.9437490000000253
+
+AUC score: 0.544
+Feature Importance
+                     Imp/Coef
+priors               0.399070
+police_investigator  0.206630
+Complainant Unknown  0.057232
+complainant_age      0.053922
+Rank UNKNOWN         0.047465
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.8217110000000503
+
+AUC score: 0.524
+Feature Importance
+                     Imp/Coef
+priors               0.249955
+police_investigator  0.216898
+Officer nan.1        0.106923
+Rank UNKNOWN         0.098410
+Complainant Unknown  0.067065
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.8195279999999912
+
+AUC score: 0.506
+Feature Importance
+                     Imp/Coef
+priors               0.278077
+police_investigator  0.154254
+Officer nan          0.151215
+Officer nan.1        0.058323
+Rank UNKNOWN         0.057907
+### Cross Validation Statistics ###
+Average AUC: 0.506
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7234  113]
+ [3634  251]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.85412099999985
+
+AUC score: 0.746
+Feature Importance
+                     Imp/Coef
+police_investigator  0.207056
+priors               0.191192
+Officer nan.1        0.131349
+Officer nan          0.096802
+crid                 0.046585
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.888742000000093
+
+AUC score: 0.703
+Feature Importance
+                     Imp/Coef
+priors               0.318301
+police_investigator  0.188775
+complainant_age      0.086383
+Rank PO              0.053716
+Officer nan          0.047876
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.8938170000001264
+
+AUC score: 0.674
+Feature Importance
+                     Imp/Coef
+priors               0.371978
+police_investigator  0.134204
+complainant_age      0.059249
+Officer nan          0.058472
+Rank UNKNOWN         0.044433
+### Cross Validation Statistics ###
+Average AUC: 0.674
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6290 1057]
+ [1711 2174]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=10,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.892123999999967
+
+AUC score: 0.697
+Feature Importance
+                                     Imp/Coef
+priors                               0.145851
+police_investigator                  0.064765
+pct4554                              0.060194
+streetlights_all_count_3months1000m  0.049336
+rodents_count_7days2500m             0.039417
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.8819699999999102
+
+AUC score: 0.700
+Feature Importance
+                               Imp/Coef
+priors                         0.160233
+complainant_age                0.064125
+police_investigator            0.063195
+crimes_03_3months500m          0.051192
+sanitation_count_3months1000m  0.045481
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.932864000000336
+
+AUC score: 0.696
+Feature Importance
+                                    Imp/Coef
+priors                              0.085087
+police_investigator                 0.050966
+complainant_age                     0.047565
+Officer nan                         0.045512
+vacantbuildings_count_3months1000m  0.042282
+### Cross Validation Statistics ###
+Average AUC: 0.696
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5987 1360]
+ [1629 2256]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 8.780322999999953
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.282374
+police_investigator  0.263481
+Officer nan          0.115451
+Officer nan.1        0.075426
+Complainant Unknown  0.069295
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 8.664048000000093
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.388184
+police_investigator  0.236469
+Complainant Unknown  0.082219
+Officer nan.1        0.076913
+complainant_age      0.051436
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 8.644341000000168
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+priors               0.430142
+police_investigator  0.190295
+Officer nan.1        0.078128
+Officer nan          0.067049
+complainant_age      0.050562
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.345984999999928
+
+AUC score: 0.722
+Feature Importance
+                     Imp/Coef
+priors               0.246088
+police_investigator  0.215171
+Officer nan          0.077887
+Officer nan.1        0.058484
+Complainant Unknown  0.050263
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.427835999999843
+
+AUC score: 0.697
+Feature Importance
+                     Imp/Coef
+priors               0.284079
+police_investigator  0.186328
+complainant_age      0.064802
+Rank UNKNOWN         0.052979
+Officer nan.1        0.049299
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.336753000000044
+
+AUC score: 0.658
+Feature Importance
+                     Imp/Coef
+priors               0.291329
+police_investigator  0.134020
+Officer nan          0.075958
+complainant_age      0.066906
+Officer nan.1        0.051398
+### Cross Validation Statistics ###
+Average AUC: 0.658
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6403  944]
+ [1891 1994]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.31443100000024
+
+AUC score: 0.730
+Feature Importance
+                     Imp/Coef
+priors               0.078403
+police_investigator  0.072809
+complainant_age      0.039922
+crid                 0.036090
+Rank UNKNOWN         0.022610
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.214065000000119
+
+AUC score: 0.755
+Feature Importance
+                     Imp/Coef
+priors               0.099861
+police_investigator  0.069074
+complainant_age      0.035054
+crid                 0.032431
+Officer nan          0.019305
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.394632000000001
+
+AUC score: 0.716
+Feature Importance
+                     Imp/Coef
+priors               0.093339
+police_investigator  0.056455
+complainant_age      0.037420
+crid                 0.027879
+Officer nan          0.023975
+### Cross Validation Statistics ###
+Average AUC: 0.716
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5853 1494]
+ [1275 2610]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.231358
+
+AUC score: 0.732
+Feature Importance
+                     Imp/Coef
+priors               0.048478
+police_investigator  0.043483
+crid                 0.031361
+agesqrd              0.024117
+complainant_age      0.022153
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 9.345196000000215
+
+AUC score: 0.739
+Feature Importance
+                     Imp/Coef
+priors               0.058878
+police_investigator  0.036468
+crid                 0.029870
+complainant_age      0.029825
+agesqrd              0.021285
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.218004999999721
+
+AUC score: 0.716
+Feature Importance
+                            Imp/Coef
+priors                      0.064257
+police_investigator         0.036047
+complainant_age             0.026891
+officers_age                0.020249
+potholes_count_3months500m  0.018131
+### Cross Validation Statistics ###
+Average AUC: 0.716
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5705 1642]
+ [1231 2654]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=100,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 9.002020999999786
+
+AUC score: 0.643
+Feature Importance
+                       Imp/Coef
+crid                   0.050987
+pthsged                0.034802
+priors                 0.021707
+Complainant X          0.018324
+crimes_06_3months500m  0.017950
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 8.999616999999944
+
+AUC score: 0.681
+Feature Importance
+              Imp/Coef
+Beat 825.0    0.052168
+pthsged       0.040391
+officers_age  0.040029
+Beat 1123.0   0.038709
+Beat 1233.0   0.037585
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 9.094544999999925
+
+AUC score: 0.640
+Feature Importance
+                             Imp/Coef
+priors                       0.028246
+pct2534                      0.028128
+graffiti_count_3months2500m  0.027474
+pthsged                      0.024699
+vehicles_count_3months1000m  0.024194
+### Cross Validation Statistics ###
+Average AUC: 0.640
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5175 2172]
+ [1532 2353]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.001, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 82.0734050000001
+
+AUC score: 0.727
+Feature Importance
+                     Imp/Coef
+priors               0.231598
+police_investigator  0.206973
+Officer nan.1        0.068538
+Officer nan          0.066855
+Complainant Unknown  0.049936
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 81.6314739999998
+
+AUC score: 0.713
+Feature Importance
+                     Imp/Coef
+priors               0.296483
+police_investigator  0.187656
+complainant_age      0.054985
+Rank UNKNOWN         0.051713
+Complainant Unknown  0.046905
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 82.97407299999986
+
+AUC score: 0.661
+Feature Importance
+                     Imp/Coef
+priors               0.309374
+police_investigator  0.149529
+complainant_age      0.060063
+Officer nan          0.056723
+Officer nan.1        0.047272
+### Cross Validation Statistics ###
+Average AUC: 0.661
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6395  952]
+ [1824 2061]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.01, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 81.32262300000002
+
+AUC score: 0.751
+Feature Importance
+                     Imp/Coef
+priors               0.053626
+police_investigator  0.043906
+crid                 0.028548
+complainant_age      0.028237
+pct5564              0.013158
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 84.68124399999988
+
+AUC score: 0.768
+Feature Importance
+                     Imp/Coef
+priors               0.058980
+police_investigator  0.038245
+crid                 0.028070
+complainant_age      0.026720
+pct1824              0.013282
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 84.08972799999992
+
+AUC score: 0.727
+Feature Importance
+                     Imp/Coef
+priors               0.062913
+police_investigator  0.032389
+complainant_age      0.026541
+crid                 0.017918
+officers_age         0.015012
+### Cross Validation Statistics ###
+Average AUC: 0.727
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5790 1557]
+ [1127 2758]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 81.15238700000009
+
+AUC score: 0.725
+Feature Importance
+                 Imp/Coef
+priors           0.023362
+crid             0.021021
+complainant_age  0.019863
+pct4554          0.016815
+officers_age     0.015278
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 82.70549100000017
+
+AUC score: 0.753
+Feature Importance
+                     Imp/Coef
+priors               0.028118
+crid                 0.023647
+officers_age         0.017115
+complainant_age      0.016633
+police_investigator  0.014616
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 82.72390300000006
+
+AUC score: 0.739
+Feature Importance
+                 Imp/Coef
+priors           0.030995
+crid             0.019677
+complainant_age  0.016881
+pct3544          0.014908
+ptbaplus         0.013792
+### Cross Validation Statistics ###
+Average AUC: 0.739
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5508 1839]
+ [1050 2835]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.1, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 79.43307600000026
+
+AUC score: 0.721
+Feature Importance
+                 Imp/Coef
+crid             0.018445
+complainant_age  0.016638
+pct4554          0.016475
+pct3544          0.014341
+priors           0.014248
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 80.88950799999975
+
+AUC score: 0.734
+Feature Importance
+              Imp/Coef
+crid          0.024087
+priors        0.017540
+pct3544       0.015695
+agesqrd       0.015342
+officers_age  0.014177
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 80.63465799999994
+
+AUC score: 0.722
+Feature Importance
+                 Imp/Coef
+priors           0.020677
+complainant_age  0.016162
+agesqrd          0.015197
+crid             0.015181
+pct4554          0.014575
+### Cross Validation Statistics ###
+Average AUC: 0.722
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5440 1907]
+ [1120 2765]]
+### TRYING PARAMS ###
+GradientBoostingClassifier(init=None, learning_rate=0.5, loss='deviance',
+              max_depth=3, max_features=None, max_leaf_nodes=None,
+              min_samples_leaf=1, min_samples_split=2,
+              min_weight_fraction_leaf=0.0, n_estimators=1000,
+              presort='auto', random_state=None, subsample=0.1, verbose=0,
+              warm_start=False)
+pipeline: ['normalization', 'GB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 82.58604699999978
+
+AUC score: 0.512
+Feature Importance
+                           Imp/Coef
+crimes_18_3months500m      0.473927
+priors                     0.106960
+police_investigator        0.028116
+vehicles_count_7days2500m  0.021869
+graffiti_count_7days2500m  0.016881
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 49.35761399999956
+
+AUC score: 0.500
+Feature Importance
+                     Imp/Coef
+Investigators 760.0  0.019651
+pct6500              0.016908
+ptlths               0.011107
+ptbaplus             0.008795
+Beat 732.0           0.007013
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 85.2815359999995
+
+AUC score: 0.522
+Feature Importance
+                             Imp/Coef
+pthsged                      0.482269
+priors                       0.092972
+police_investigator          0.031469
+vehicles_count_3months2500m  0.023169
+ptpov                        0.022572
+### Cross Validation Statistics ###
+Average AUC: 0.522
+Confusion Matrix
+Statistics with probability cutoff at 0.5

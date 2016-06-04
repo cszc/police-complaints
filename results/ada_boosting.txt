@@ -1,0 +1,403 @@
+['AB']
+['AB']
+### STARTING AB ###
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=1, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.5757019999999997
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.6080430000000003
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.5996609999999993
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan.1              1.0
+Investigators 1327.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=1, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.5860900000000004
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.5890170000000001
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+priors                     1.0
+crid                       0.0
+Investigators 1327.0       0.0
+Investigators 1338.0       0.0
+Investigators 1337.0       0.0
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.5905400000000007
+
+AUC score: 0.500
+Feature Importance
+                      Imp/Coef
+Officer nan                1.0
+crid                       0.0
+Investigators 1328.0       0.0
+Investigators 1339.0       0.0
+Investigators 1338.0       0.0
+### Cross Validation Statistics ###
+Average AUC: 0.500
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[7347    0]
+ [3885    0]]
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=10, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.3065289999999994
+
+AUC score: 0.741
+Feature Importance
+                      Imp/Coef
+Officer nan           0.432612
+Officer nan.1         0.423181
+police_investigator   0.144207
+Investigators 1327.0  0.000000
+Investigators 1339.0  0.000000
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.3083720000000003
+
+AUC score: 0.737
+Feature Importance
+                      Imp/Coef
+priors                0.872184
+police_investigator   0.127816
+crid                  0.000000
+Investigators 1327.0  0.000000
+Investigators 1338.0  0.000000
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.3158850000000015
+
+AUC score: 0.726
+Feature Importance
+                      Imp/Coef
+priors                0.589212
+Officer nan.1         0.190081
+Officer nan           0.111760
+police_investigator   0.108947
+Investigators 1327.0  0.000000
+### Cross Validation Statistics ###
+Average AUC: 0.726
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5340 2007]
+ [ 999 2886]]
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=10, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.3597549999999998
+
+AUC score: 0.727
+Feature Importance
+                              Imp/Coef
+alleylights_count_7days2500m       0.1
+crimes_03_3months500m              0.1
+potholes_count_7days2500m          0.1
+Officer nan.1                      0.1
+crimes_06_14days500m               0.1
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.3137310000000006
+
+AUC score: 0.753
+Feature Importance
+                                    Imp/Coef
+police_investigator                      0.2
+alleylights_count_7days2500m             0.1
+Complainant Unknown                      0.1
+Investigators 1298.0                     0.1
+streetlights_all_count_3months500m       0.1
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.3218859999999992
+
+AUC score: 0.697
+Feature Importance
+                         Imp/Coef
+complainant_age               0.1
+Complainant White             0.1
+Officer nan                   0.1
+rodents_count_7days500m       0.1
+Investigators 1260.0          0.1
+### Cross Validation Statistics ###
+Average AUC: 0.697
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6081 1266]
+ [1454 2431]]
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=100, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 8.492828
+
+AUC score: 0.736
+Feature Importance
+                       Imp/Coef
+Officer nan            0.385270
+Officer nan.1          0.247075
+crimes_03_3months500m  0.110422
+police_investigator    0.058025
+complainant_age        0.027655
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 8.614996000000001
+
+AUC score: 0.771
+Feature Importance
+                              Imp/Coef
+priors                        0.628836
+police_investigator           0.063318
+Investigators 1298.0          0.042203
+alleylights_count_7days2500m  0.041210
+Complainant Hispanic          0.037082
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 8.493778000000006
+
+AUC score: 0.713
+Feature Importance
+                      Imp/Coef
+priors                0.344378
+Officer nan.1         0.160045
+Officer nan           0.142631
+police_investigator   0.058729
+Investigators 1260.0  0.056723
+### Cross Validation Statistics ###
+Average AUC: 0.713
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5956 1391]
+ [1369 2516]]
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=100, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 8.727526000000005
+
+AUC score: 0.762
+Feature Importance
+                             Imp/Coef
+crid                             0.04
+complainant_age                  0.03
+sanitation_count_7days2500m      0.02
+crimes_03_14days1000m            0.02
+crimes_03_14days500m             0.02
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 8.647904000000004
+
+AUC score: 0.764
+Feature Importance
+                                     Imp/Coef
+streetlights_all_count_3months1000m      0.04
+ptlths                                   0.03
+crid                                     0.02
+complainant_age                          0.02
+alleylights_count_3months1000m           0.02
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 8.535922
+
+AUC score: 0.685
+Feature Importance
+                                     Imp/Coef
+streetlights_all_count_7days2500m        0.03
+streetlights_all_count_3months2500m      0.03
+crid                                     0.02
+potholes_count_7days500m                 0.02
+streetlights_all_count_7days1000m        0.02
+### Cross Validation Statistics ###
+Average AUC: 0.685
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5736 1611]
+ [1186 2699]]
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=1000, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 81.51043100000001
+
+AUC score: 0.762
+Feature Importance
+                       Imp/Coef
+Officer nan.1          0.144140
+Officer nan            0.122336
+crimes_03_3months500m  0.079544
+Investigators 45.0     0.063092
+Investigators 1472.0   0.032575
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 81.888599
+
+AUC score: 0.774
+Feature Importance
+                                    Imp/Coef
+priors                              0.267529
+vacantbuildings_count_3months2500m  0.038685
+Investigators 576.0                 0.036330
+rodents_count_7days500m             0.033284
+Complainant Hispanic                0.031673
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 82.49458800000002
+
+AUC score: 0.714
+Feature Importance
+                      Imp/Coef
+priors                0.145066
+Officer nan.1         0.072331
+Investigators 1260.0  0.042499
+Officer nan           0.037821
+Investigators 1.0     0.032563
+### Cross Validation Statistics ###
+Average AUC: 0.714
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6010 1337]
+ [1427 2458]]
+### TRYING PARAMS ###
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
+            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            presort=False, random_state=None, splitter='best'),
+          learning_rate=1.0, n_estimators=1000, random_state=None)
+pipeline: ['normalization', 'AB']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 82.75693899999999
+
+AUC score: 0.727
+Feature Importance
+                                     Imp/Coef
+crid                                    0.021
+sanitation_count_3months2500m           0.021
+streetlights_all_count_3months2500m     0.017
+complainant_age                         0.015
+rodents_count_7days2500m                0.013
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 82.16571199999993
+
+AUC score: 0.754
+Feature Importance
+                                     Imp/Coef
+crid                                    0.030
+streetlights_all_count_3months1000m     0.022
+complainant_age                         0.019
+alleylights_count_3months2500m          0.016
+vacantbuildings_count_3months2500m      0.015
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 81.97227299999997
+
+AUC score: 0.699
+Feature Importance
+                                     Imp/Coef
+crid                                    0.018
+complainant_age                         0.017
+alleylights_count_3months1000m          0.016
+streetlights_all_count_3months2500m     0.016
+streetlights_all_count_3months1000m     0.016
+### Cross Validation Statistics ###
+Average AUC: 0.699
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5622 1725]
+ [1201 2684]]
