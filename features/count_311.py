@@ -188,8 +188,8 @@ class client:
                     AND b.dateobj < a.dateobj
                     AND b.dateobj > (a.dateobj - interval '%s')
                     GROUP BY a.crid) as agg
-                    where (%s.crid,=agg.allegation_id;
-                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table)))
+                    where (%s.crid,%s.officer_id)=agg.allegation_id;
+                    ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table),AsIs(out_table)))
                 print("Completed query")
                 self.dbconn.commit()
                 cur.close()
