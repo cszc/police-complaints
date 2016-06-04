@@ -187,7 +187,7 @@ class client:
                     ON ST_DWithin(a.geom::geography, b.geom::geography, %s)
                     AND b.dateobj < a.dateobj
                     AND b.dateobj > (a.dateobj - interval '%s')
-                    GROUP BY a.crid) as agg
+                    GROUP BY (a.crid,a.officer_id)) as agg
                     where (%s.crid,%s.officer_id)=agg.allegation_id;
                     ''', (AsIs(out_table),AsIs(col_name),AsIs(allegations),AsIs(allegations),AsIs(d),AsIs(time),AsIs(out_table),AsIs(out_table)))
                 print("Completed query")
