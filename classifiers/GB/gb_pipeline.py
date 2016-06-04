@@ -42,8 +42,6 @@ TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
 TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0', '']
 FILL_WITH_MEAN = ['officers_age', 'transit_time', 'car_time']
-if args.demographic:
-    FILL_WITH_MEAN.append('complainant_age')
 
 #estimators
 CLFS = {
