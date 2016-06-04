@@ -84,7 +84,7 @@ GRID = {
                 },
         'AB': {
                 'algorithm': ['SAMME', 'SAMME.R'],
-                'n_estimators': [1,10,100,1000],
+                'n_estimators': [5,10,100,1000],
                 'base_estimator':[DecisionTreeClassifier(max_depth=1),DecisionTreeClassifier(max_depth=5),DecisionTreeClassifier(max_depth=10)],
                 'learning_rate' : [0.001,0.01,0.05,0.1,0.5]
                 },
@@ -97,9 +97,10 @@ GRID = {
         'NB' : {},
         'DT': {
                 'criterion': ['gini', 'entropy'],
-                'max_depth': [1,5,10,20,50,100],
+                'max_depth': [5,10,20,50,100],
                 'max_features': ['sqrt','log2'],
-                'min_samples_split': [2,5,10]
+                'min_samples_split': [2,5,10],
+                'class_weight': ['balanced',None]
                 },
         'test': {
                 'criterion': ['gini'],
@@ -216,8 +217,8 @@ OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
                 # 'SMOTE borderline 1': SMOTE(ratio='auto', verbose=False, kind='borderline1'),
                 # 'SMOTE borderline 2': SMOTE(ratio='auto', verbose=False, kind='borderline2'),
                 # # 'SMOTE SVM': SMOTE(ratio='auto', verbose=False, kind='svm', **SVM_ARGS),
-                'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
-                'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
+                # 'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
+                # 'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
                 'None': None}
 
 if __name__ == "__main__":
@@ -285,7 +286,8 @@ if __name__ == "__main__":
         '''
         # clf = CLFS[model_name]
         grid = grid_from_class(model_name)
-
+        print(grid)
+        break
         for i, params in enumerate(grid):
             '''
             Iterating Through Parameters
@@ -451,7 +453,7 @@ if __name__ == "__main__":
                     overall_actual, overall_predictions)
                 print("Length of AUC SCORES: {}".format(len(auc_scores)))
                 average_auc = sum(auc_scores) / len(auc_scores)
-                print("Average AUC: %0.3f" % auc_score)
+                print("Average AUC: %0.3f" % average_auc)
                 print("Confusion Matrix")
                 overall_binary_predictions = convert_to_binary(overall_predictions)
                 confusion = metrics.confusion_matrix(
