@@ -78,6 +78,7 @@ def go(output_fn):
     data311_df.drop_duplicates('crid', inplace = True)
     datacrime_df.drop_duplicates('crid', inplace = True)
     acs_df.drop_duplicates(inplace = True)
+    other_df.drop_duplicates('crid', inplace = True)
 
     #Merge (join) dataframes on shared keys
     df_final = alleg_df.merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\

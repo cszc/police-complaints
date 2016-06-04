@@ -14,7 +14,7 @@ def go(output_fn):
                 (CASE WHEN o.rank IS NOT NULL THEN o.rank ELSE 'UNKNOWN' END) AS rank, \
                 (CASE WHEN investigator_name IN (SELECT concat_ws(', ', officer_last, officer_first) \
                 FROM officers) THEN 1 ELSE 0 END) AS police_investigator, oc.centrality_score \
-                FROM allegations as a LEFT JOIN officers as o \
+                FROM allegations AS a LEFT JOIN officers AS o \
                 ON (a.officer_id = o.officer_id) \
                 LEFT JOIN investigators AS i ON (a.investigator_id = i.investigator_id) \
                 LEFT JOIN officer_centralities AS oc ON (a.officer_id = oc.officer_id)\
@@ -66,6 +66,7 @@ def go(output_fn):
 
     data311_df.drop_duplicates('crid', inplace = True)
     datacrime_df.drop_duplicates('crid', inplace = True)
+    other_df.drop_duplicates('crid', inplace = True)
 
     #Merge (join) dataframes on shared keys
     df_final = alleg_df.merge(invest1_df.drop('index', axis = 1), on = ['crid', 'officer_id'], how = 'left')\
