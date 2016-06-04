@@ -17,7 +17,7 @@ FBI_CODES=['03', '06', '18', '22']
 PARTICIPANT_TABLES = ["officers"]
 ALLEGATIONS_TABLE = "allegations"
 DISTANCES = ['500','1000', '2500']
-TIMES = ['14 days', '3 months']
+TIMES = ['14 days', '3 months','6 months','1 year']
 
 class client:
     def __init__(self):
@@ -195,7 +195,7 @@ class client:
                 cur.close()
         print("Completed counting {}".format(allegations))
 
-# '''
+# # '''
 # update time_distance_complaints
 # set test = agg.num_complaints
 # from
@@ -206,15 +206,15 @@ class client:
 # AND b.dateobj > (a.dateobj - interval '7 days')
 # GROUP BY (a.crid, a.officer_id)) as agg
 # where (time_distance_complaints.crid, time_distance_complaints.officer_id)=agg.allegation_id;
-# '''
-# '''
+# # '''
+# # '''
 # SELECT a.crid, COUNT(*) as num_complaints
 #                     FROM allegations as a JOIN allegations as b
 #                     ON ST_DWithin(a.geom::geography, b.geom::geography, 500)
 #                     AND b.dateobj < a.dateobj
 #                     AND b.dateobj > (a.dateobj - interval '7 days')
 #                     GROUP BY a.crid;
-# '''
+# # '''
 
     def count_311_calls(self, table311):
         name = "\""+str(table311)+"\""
@@ -325,13 +325,13 @@ if __name__ == "__main__":
     #     dbClient.get_311_radii(ALLEGATIONS_TABLE, table, results311)
 
     #Count crimes
-    resultscrime = "time_distance_crime"
+    results = "time_distance_complaints"
     # dbClient.make_new_feature_table(ALLEGATIONS_TABLE, resultscrime)
-    print("Created {}".format(resultscrime))
-    for table in CRIMES:
-        print("Starting {}".format(table))
+    # print("Created {}".format(resultscrime))
+    # for table in CRIMES:
+    #     print("Starting {}".format(table))
 
-        dbClient.get_crimes_by_radii(ALLEGATIONS_TABLE, table, resultscrime)
+    dbClient.count_other_complaints(ALLEGATIONS_TABLE, results)
 
     # count other complaints
     # resultscomplaints = "time_distance_complaints"
