@@ -52,15 +52,6 @@ CLFS = {
                     n_estimators=10)
         }
 
-GRID = {
-        'GB': {
-                'n_estimators': [1,10,100,1000],
-                'learning_rate' : [0.001,0.01,0.05,0.1,0.5],
-                'subsample' : [0.1,0.5,1.0],
-                'max_depth': [1,3,5,10,20,50,100]
-                }
-       }
-
 
 if __name__ == "__main__":
     '''
@@ -113,7 +104,7 @@ if __name__ == "__main__":
             for col in chunk.columns:
                 try:
                     if col in FILL_WITH_MEAN:
-                        mean = round(df[col].mean())
+                        mean = round(chunk[col].mean())
                         chunk[col].fillna(value=mean, inplace=True)
                     else:
                         chunk[col].fillna(0, inplace=True)
