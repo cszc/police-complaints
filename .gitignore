@@ -66,6 +66,10 @@ target/
 crimes.csv
 indDummy*
 training_data/*
+final_data/*
+
+#pickles
+*.p
 
 =======
 #api keys

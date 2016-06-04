@@ -1,0 +1,1264 @@
+['KNN', 'DT']
+['KNN', 'DT']
+### STARTING KNN ###
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=1, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9514819999999995
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9759050000000116
+
+AUC score: 0.613
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.014474000000007
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.615
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5526 1821]
+ [2062 1823]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=5, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9519420000000309
+
+AUC score: 0.621
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0163140000000226
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9885160000000042
+
+AUC score: 0.595
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.595
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5702 1645]
+ [2190 1695]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=10, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9710870000000114
+
+AUC score: 0.593
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.978385000000003
+
+AUC score: 0.607
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0076789999999392
+
+AUC score: 0.570
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.570
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5558 1789]
+ [1990 1895]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=25, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9716309999998884
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0213529999998627
+
+AUC score: 0.589
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9738139999999476
+
+AUC score: 0.583
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.583
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6224 1123]
+ [2578 1307]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=50, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9704470000001493
+
+AUC score: 0.585
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9948060000001533
+
+AUC score: 0.557
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9954940000000079
+
+AUC score: 0.558
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.558
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6276 1071]
+ [2727 1158]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=100, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9584520000000794
+
+AUC score: 0.560
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0001969999998437
+
+AUC score: 0.550
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0156029999998282
+
+AUC score: 0.523
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.523
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6489  858]
+ [3006  879]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=1, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9894469999999274
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.99536100000023
+
+AUC score: 0.613
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0489510000002156
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.615
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5526 1821]
+ [2062 1823]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=5, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9653010000001814
+
+AUC score: 0.621
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0446520000000419
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0034030000001621
+
+AUC score: 0.594
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.594
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5702 1645]
+ [2191 1694]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=10, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.970107999999982
+
+AUC score: 0.617
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9814239999996062
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9726780000000872
+
+AUC score: 0.588
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.588
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5839 1508]
+ [2259 1626]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=25, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9836629999999786
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0254399999998896
+
+AUC score: 0.589
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0029460000000654
+
+AUC score: 0.583
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.583
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6225 1122]
+ [2579 1306]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=50, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9636059999997997
+
+AUC score: 0.594
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0015210000001389
+
+AUC score: 0.567
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9986279999993712
+
+AUC score: 0.564
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.564
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6357  990]
+ [2780 1105]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=100, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9703570000001491
+
+AUC score: 0.569
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9981760000000577
+
+AUC score: 0.556
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9929200000005949
+
+AUC score: 0.528
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.528
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6537  810]
+ [3063  822]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=1, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.015252000000146
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0421070000002146
+
+AUC score: 0.613
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0438170000006721
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.615
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5526 1821]
+ [2062 1823]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=5, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.03500300000087
+
+AUC score: 0.621
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0670359999994616
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0455320000000938
+
+AUC score: 0.595
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.595
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5702 1645]
+ [2190 1695]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=10, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.012843999999859
+
+AUC score: 0.593
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0461369999993622
+
+AUC score: 0.607
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0334140000004481
+
+AUC score: 0.570
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.570
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5558 1789]
+ [1990 1895]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=25, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.0033560000001671
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0398239999994985
+
+AUC score: 0.589
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.047696999999971
+
+AUC score: 0.583
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.583
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6224 1123]
+ [2578 1307]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=50, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.0030360000000655
+
+AUC score: 0.585
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0512399999997797
+
+AUC score: 0.557
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0834569999997257
+
+AUC score: 0.558
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.558
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6276 1071]
+ [2727 1158]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=100, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.0697259999997186
+
+AUC score: 0.560
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.031213000000207
+
+AUC score: 0.550
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0901620000004186
+
+AUC score: 0.523
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.523
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6489  858]
+ [3006  879]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=1, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.0678429999998116
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0363460000007763
+
+AUC score: 0.613
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.02237199999945
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.615
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5526 1821]
+ [2062 1823]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=5, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.005117999999129
+
+AUC score: 0.621
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0258160000003045
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0402309999999488
+
+AUC score: 0.594
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.594
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5702 1645]
+ [2191 1694]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=10, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.0094179999996413
+
+AUC score: 0.617
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0270399999999427
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0244259999999485
+
+AUC score: 0.588
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.588
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5839 1508]
+ [2259 1626]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=25, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.0094980000003488
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.032390000000305
+
+AUC score: 0.589
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0380690000001778
+
+AUC score: 0.583
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.583
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6225 1122]
+ [2579 1306]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=50, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.012880999999652
+
+AUC score: 0.594
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.04869299999973
+
+AUC score: 0.567
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.046886000000086
+
+AUC score: 0.564
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.564
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6357  990]
+ [2780 1105]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='ball_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=100, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 1.035186999999496
+
+AUC score: 0.569
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0512239999989106
+
+AUC score: 0.556
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0231890000013664
+
+AUC score: 0.528
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.528
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6537  810]
+ [3063  822]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=1, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9556510000002163
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.99827600000026
+
+AUC score: 0.613
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9821159999992233
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.615
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5526 1821]
+ [2062 1823]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=5, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9658299999991868
+
+AUC score: 0.621
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0039559999986523
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0016560000003665
+
+AUC score: 0.595
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.595
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5702 1645]
+ [2190 1695]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=10, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.967861000000994
+
+AUC score: 0.593
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0014620000001742
+
+AUC score: 0.607
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9961930000008579
+
+AUC score: 0.570
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.570
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5558 1789]
+ [1990 1895]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=25, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9590539999990142
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.011889000001247
+
+AUC score: 0.589
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0057609999985289
+
+AUC score: 0.583
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.583
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6224 1123]
+ [2578 1307]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=50, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9699129999989964
+
+AUC score: 0.585
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0076540000009118
+
+AUC score: 0.557
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0068559999999707
+
+AUC score: 0.558
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.558
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6276 1071]
+ [2727 1158]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=100, p=2,
+           weights='uniform')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9945869999992283
+
+AUC score: 0.560
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9936730000008538
+
+AUC score: 0.550
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 0.9954310000011901
+
+AUC score: 0.523
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.523
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6489  858]
+ [3006  879]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=1, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9902210000000196
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0031490000001213
+
+AUC score: 0.613
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0372299999999086
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.615
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5526 1821]
+ [2062 1823]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=5, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9518189999998867
+
+AUC score: 0.621
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0054639999998471
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0003169999999955
+
+AUC score: 0.594
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.594
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5702 1645]
+ [2191 1694]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=10, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9638500000000931
+
+AUC score: 0.617
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9880489999995916
+
+AUC score: 0.615
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0090620000009949
+
+AUC score: 0.588
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.588
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[5839 1508]
+ [2259 1626]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=25, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.971585999999661
+
+AUC score: 0.604
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 1.0395280000011553
+
+AUC score: 0.589
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.0107190000017
+
+AUC score: 0.583
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.583
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6225 1122]
+ [2579 1306]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=50, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.970725000001039
+
+AUC score: 0.594
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9838249999993423
+
+AUC score: 0.567
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.004601000000548
+
+AUC score: 0.564
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.564
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6357  990]
+ [2780 1105]]
+### TRYING PARAMS ###
+KNeighborsClassifier(algorithm='kd_tree', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=-1, n_neighbors=100, p=2,
+           weights='distance')
+pipeline: ['normalization', 'KNN']
+Training sets are: [0, 1]
+Testing sets are: 2
+done fitting in 0.9831630000007863
+
+AUC score: 0.569
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [1, 2]
+Testing sets are: 3
+done fitting in 0.9971669999995356
+
+AUC score: 0.556
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+Training sets are: [2, 3]
+Testing sets are: 4
+done fitting in 1.017703999999867
+
+AUC score: 0.528
+Feature Importance
+This model does not have feature_importances, returning .coef_[0] instead.
+This model does not have feature_importances, nor coef_ returning None
+### Cross Validation Statistics ###
+Average AUC: 0.528
+Confusion Matrix
+Statistics with probability cutoff at 0.5
+[[6537  810]
+ [3063  822]]
+### STARTING DT ###

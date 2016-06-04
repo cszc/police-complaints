@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from argparse import ArgumentParser
 import time, datetime, re, pickle, sys
-# import seaborn as sns
+import seaborn as sns
+sns.set(color_codes=True)
 
 
 def read_in(path, filetype = 'csv'):
