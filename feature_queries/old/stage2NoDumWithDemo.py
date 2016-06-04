@@ -11,6 +11,7 @@ def go(output_fn):
     outcome = 'SELECT crid, officer_id, "Findings Sustained" FROM dependent_dum;'
 
     alleg = "SELECT crid, a.officer_id, beat, a.dateobj, i.investigator_id, o.race_edit AS officer_race, o.gender AS officer_gender, tractce10,\
+                (CASE WHEN a.finding_edit = 'No Affidavit' THEN 1 ELSE 0 END) AS no_affidavit, \
                 (CASE WHEN EXTRACT(dow FROM a.dateobj) NOT IN (0, 6) THEN 1 ELSE 0 END) AS weekend, \
                 (CASE WHEN o.rank IS NOT NULL THEN o.rank ELSE 'UNKNOWN' END) AS rank, \
                 (CASE WHEN investigator_name IN (SELECT concat_ws(', ', officer_last, officer_first) \
@@ -19,7 +20,7 @@ def go(output_fn):
                 ON (a.officer_id = o.officer_id) \
                 LEFT JOIN investigators AS i ON (a.investigator_id = i.investigator_id) \
                 LEFT JOIN officer_centralities AS oc ON (a.officer_id = oc.officer_id) \
-                WHERE tractce10 IS NOT NULL AND a.finding_edit != 'No Affidavit';"
+                WHERE tractce10 IS NOT NULL;"
 
     age = "SELECT crid, officer_id, officers_age, (officers_age^2) AS agesqrd FROM ages;"
 
