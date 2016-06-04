@@ -31,7 +31,7 @@ from argparse import ArgumentParser
 import evaluation
 from utils import *
 
-clfs = {
+CLFS = {
         'RF': RandomForestClassifier(n_estimators=50, n_jobs=-1),
         'AB': AdaBoostClassifier(
                     DecisionTreeClassifier(max_depth=1),
@@ -50,7 +50,7 @@ clfs = {
         'test': DecisionTreeClassifier(),
         }
 
-grid = {
+GRID = {
         'RF': {
                 'n_estimators': [1,10,100,1000],
                 'max_depth': [1,5,10,20,50,100],
