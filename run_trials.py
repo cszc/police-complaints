@@ -17,9 +17,9 @@ import argparse, sys, pickle, random, time, json, datetime, itertools, csv
 import matplotlib
 import pandas as pd
 import numpy as np
+matplotlib.use('Agg')
 import pylab as pl
 from scipy import optimize
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 matplotlib.style.use('ggplot')
