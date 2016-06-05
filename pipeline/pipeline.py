@@ -330,6 +330,7 @@ if __name__ == "__main__":
 
                 os_object = OVER_SAMPLERS[over_sampler]
                 print("Oversampler: {}".format(over_sampler))
+
                 for i in range(len(train_split)):
                     '''
                     Cross Validation
@@ -339,11 +340,10 @@ if __name__ == "__main__":
                     for x in range(len(train_split[i])-1):
                         if x == 0:
                             train_df=chunks[train_split[i][x]]
-
                         train_df = pd.concat(
                             [train_df, chunks[train_split[i][x+1]]])
-                    X_train = train_df.drop(label, axis=1)
 
+                    X_train = train_df.drop(label, axis=1)
                     y_train = train_df[label]
                     test_df = chunks[test_split[i]]
                     X_test = test_df.drop(label, axis=1)

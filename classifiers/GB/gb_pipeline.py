@@ -164,6 +164,7 @@ if __name__ == "__main__":
                 folds_completed = 0
 
                 os_object = OVER_SAMPLERS[over_sampler]
+                print("Oversampler: {}".format(over_sampler))
 
                 for i in range(len(train_split)):
                     '''
@@ -174,7 +175,6 @@ if __name__ == "__main__":
                     for x in range(len(train_split[i])-1):
                         if x == 0:
                             train_df=chunks[train_split[i][x]]
-
                         train_df = pd.concat(
                             [train_df, chunks[train_split[i][x+1]]])
 
@@ -194,9 +194,8 @@ if __name__ == "__main__":
                         y_resampled = y_train
 
                     t0 = time.clock()
-                    pipeline.fit(X_train, y_train)
+                    pipeline.fit(X_resampled, y_resampled)
                     time_to_fit = (time.clock() - t0)
-
                     print("done fitting in {}".format(time_to_fit))
 
                     '''
@@ -278,9 +277,12 @@ if __name__ == "__main__":
                     pickle.dump( data, open(file_name, "wb" ) )
 
                 print("### Cross Validation Statistics ###")
+                print(clf)
+                print(over_sampler)
                 precision, recall, thresholds = metrics.precision_recall_curve(
                     overall_actual, overall_predictions)
                 average_auc = sum(auc_scores) / len(auc_scores)
+                print("Length of AUC SCORES: {}".format(len(auc_scores)))
                 print("Average AUC: %0.3f" % average_auc)
                 print("Confusion Matrix")
                 overall_binary_predictions = convert_to_binary(overall_predictions)
