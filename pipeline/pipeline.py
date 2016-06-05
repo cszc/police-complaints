@@ -286,8 +286,7 @@ if __name__ == "__main__":
         '''
         # clf = CLFS[model_name]
         grid = grid_from_class(model_name)
-        print(grid)
-        break
+
         for i, params in enumerate(grid):
             '''
             Iterating Through Parameters
