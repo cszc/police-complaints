@@ -215,7 +215,7 @@ if __name__ == "__main__":
     '''
     label = args.label #y, predicted variable
     dem_label = 'with_demo' if args.demographic else 'non-demo'
-    stage = 'stage-1'
+    stage = 'stage-2'
     if args.pared_down:
         data_label = "pared_"+dem_label
     else:
