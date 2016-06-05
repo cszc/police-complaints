@@ -48,7 +48,7 @@ TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
 # CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
 # FILL_WITH_MEAN = ['agesqrd','officers_age', 'complainant_age']
-TO_DROP = ['crid', 'officer_id', 'index', 'Unnamed: 0', 'no_affidavit']
+TO_DROP = ['crid', 'officer_id', 'index', 'Unnamed: 0']
 FILL_WITH_MEAN = ['officers_age', 'transit_time', 'car_time','agesqrd','complainant_age']
 
 #estimators
@@ -73,10 +73,10 @@ CLFS = {
 
 GRID = {
         'RF': {
-                'n_estimators': [1,10,100,1000],
-                'max_depth': [1,5,10,20,50,100],
+                'n_estimators': [10,100,1000],
+                'max_depth': [5,10,20,50,100],
                 'max_features': ['sqrt','log2'],
-                'min_samples_split': [2,5,10]
+                'min_samples_split': [5,10,100,200]
                 },
         'LR': {
                 'penalty': ['l1','l2'],
@@ -84,23 +84,15 @@ GRID = {
                 },
         'AB': {
                 'algorithm': ['SAMME', 'SAMME.R'],
-                'n_estimators': [5,10,100,1000],
-                'base_estimator':[DecisionTreeClassifier(max_depth=50,min_samples_split=20),
-                    DecisionTreeClassifier(max_depth=5,min_samples_split=20),
-                    DecisionTreeClassifier(max_depth=10,min_samples_split=20),
-                    DecisionTreeClassifier(max_depth=50,min_samples_split=50),
-                    DecisionTreeClassifier(max_depth=5,min_samples_split=50),
-                    DecisionTreeClassifier(max_depth=10,min_samples_split=50),
-                    DecisionTreeClassifier(max_depth=50,min_samples_split=10),
-                    DecisionTreeClassifier(max_depth=5,min_samples_split=10),
-                    DecisionTreeClassifier(max_depth=10,min_samples_split=10),],
+                'n_estimators': [5,10,100],
+                'base_estimator':[],
                 'learning_rate' : [0.001,0.01,0.1]
                 },
         'GB': {
-                'n_estimators': [1,10,100,1000],
+                'n_estimators': [10,100,1000],
                 'learning_rate' : [0.001,0.01,0.05,0.1,0.5],
                 'subsample' : [0.1,0.5,1.0],
-                'max_depth': [1,3,5,10,20,50,100]
+                'max_depth': [3,5,10,20,50,100]
                 },
         'NB' : {},
         'DT': {
@@ -121,7 +113,7 @@ GRID = {
                 'kernel':['linear']
                 },
         'KNN' :{
-                'n_neighbors': [1,5,10,25,50,100],
+                'n_neighbors': [5,10,25,50,100],
                 'weights': ['uniform','distance'],
                 'algorithm': ['auto','ball_tree','kd_tree']
                 }
@@ -262,6 +254,16 @@ if __name__ == "__main__":
     # if '-t' in to_try:
     #     to_try = to_try.remove('-t')
     print(to_try)
+    '''
+    Generate decision tree bases
+    '''
+    dt_grid = grid_from_class('DT')
+    base_dts = []
+    for i, params in enumerate(dt_grid):
+        dt = CLFS['DT']
+        dt.set_params(**params)
+        base_dts.append(dt)
+    GRID['AB']['base_estimator'] = base_dts
 
     '''
     Trying Models
@@ -330,7 +332,11 @@ if __name__ == "__main__":
                 print(clf)
                 print(over_sampler)
                 print("######")
-                steps = [(model_name, clf)]
+                if model_name=='KNN':
+                    steps = [("normalization", preprocessing.RobustScaler()),('feat', sklearn.feature_selection.SelectKBest(k=10)),
+                     (model_name, clf)]
+                else:
+                    steps = [(model_name, clf)]
 
                 pipeline = sklearn.pipeline.Pipeline(steps)
                 print("pipeline:", [name for name, _ in pipeline.steps])
