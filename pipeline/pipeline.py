@@ -99,7 +99,7 @@ GRID = {
                 'criterion': ['gini', 'entropy'],
                 'max_depth': [5,10,20,50,100],
                 'max_features': ['sqrt','log2'],
-                'min_samples_split': [2,5,10],
+                'min_samples_split': [2,5,10,100,200],
                 'class_weight': ['balanced', None]
                 },
         'test': {
@@ -282,18 +282,18 @@ if __name__ == "__main__":
 
         chunks = temporal_split_data(df)
 
-        #IMPUTE EACH TEMPORAL CHUNK
-        for chunk in chunks:
-            for col in chunk.columns:
-                try:
-                    if col in FILL_WITH_MEAN:
-                        mean = round(chunk[col].mean())
-                        chunk[col].fillna(value=mean, inplace=True)
-                    else:
-                        chunk[col].fillna(0, inplace=True)
-                except:
-                    print('Could not impute column:{}'.format(col))
-                    continue
+        # #IMPUTE EACH TEMPORAL CHUNK
+        # for chunk in chunks:
+        #     for col in chunk.columns:
+        #         try:
+        #             if col in FILL_WITH_MEAN:
+        #                 mean = round(chunk[col].mean())
+        #                 chunk[col].fillna(value=mean, inplace=True)
+        #             else:
+        #                 chunk[col].fillna(0, inplace=True)
+        #         except:
+        #             print('Could not impute column:{}'.format(col))
+        #             continue
 
         print("### STARTING {} ###".format(model_name))
 
@@ -369,6 +369,21 @@ if __name__ == "__main__":
                     X_test = test_df.drop(label, axis=1)
                     y_test = test_df[label]
 
+                    #IMPUTE VALUES
+
+                    for col in X_train.columns:
+                        try:
+                            if col in FILL_WITH_MEAN:
+                                mean = round(X_train[col].mean())
+                                X_train[col].fillna(value=mean, inplace=True)
+                                X_test[col].fillna(value=mean, inplace=True)
+                            else:
+                                X_train[col].fillna(0, inplace=True)
+                                X_test[col].fillna(0, inplace=True)
+
+                        except:
+                            print('Could not impute column:{}'.format(col))
+                            continue
                     if over_sampler != "None":
                         X_resampled = np.array(X_train)
                         y_resampled = np.array(y_train)
@@ -454,13 +469,13 @@ if __name__ == "__main__":
                             recall,
                             thresholds])
 
-                    file_name = (
-                        "pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
-                        TIMESTAMP, stage, model_name, i, folds_completed, dem_label)
-                        )
+                    # file_name = (
+                    #     "pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
+                    #     TIMESTAMP, stage, model_name, i, folds_completed, dem_label)
+                    #     )
 
-                    data = [clf, pipeline, predicted, params] #need to fill in with things that we want to pickle
-                    pickle.dump( data, open(file_name, "wb" ) )
+                    # data = [clf, pipeline, predicted, params] #need to fill in with things that we want to pickle
+                    # pickle.dump( data, open(file_name, "wb" ) )
 
                 print("### Cross Validation Statistics ###")
                 print(clf)
@@ -476,7 +491,7 @@ if __name__ == "__main__":
                     overall_actual, overall_binary_predictions)
                 print(confusion)
 
-                with open('stage2_final_results.csv', 'a') as csvfile:
+                with open('stage2_final_results_withmean.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
                     spamwriter.writerow([
                         stage,
