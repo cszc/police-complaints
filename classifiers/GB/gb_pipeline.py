@@ -87,7 +87,17 @@ if __name__ == "__main__":
     df = pd.read_csv(args.csv)
     if args.demographic:
         FILL_WITH_MEAN.append('complainant_age')
-
+    '''
+    Generate decision tree bases
+    '''
+    dt_grid = grid_from_class('DT')
+    base_dts = []
+    for i, params in enumerate(dt_grid):
+        dt = CLFS['DT']
+        dt.set_params(**params)
+        base_dts.append(dt)
+    GRID['AB']['base_estimator'] = base_dts
+    
     '''
     Trying Models
     '''
