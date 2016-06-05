@@ -44,7 +44,7 @@ TRAIN_SPLITS_WINDOW =[[0,1],[1,2],[2,3]]
 TEST_SPLITS_WINDOW = [2,3,4]
 TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
-TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0']
+TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0', 'physical:False', 'physical:True', 'physical:nan']
 FILL_WITH_MEAN = ['officers_age', 'transit_time', 'car_time']
 
 #estimators
@@ -70,6 +70,7 @@ if __name__ == "__main__":
     parser.add_argument('csv', help='csv filename')
     parser.add_argument('label', help='label of dependent variable')
     parser.add_argument('to_try', nargs='+', default=['DT'], help='list of model abbreviations')
+    parser.add_argument('--pared_down', action="store_true", default=False, help='use tack one on window validation')
     parser.add_argument('--tack_one_on', action="store_true", default=False, help='use tack one on window validation')
     parser.add_argument('--demographic', action="store_true", default=False, help='using demographic info')
     args = parser.parse_args()
@@ -85,6 +86,7 @@ if __name__ == "__main__":
 
     to_try = args.to_try
     df = pd.read_csv(args.csv)
+
     if args.demographic:
         FILL_WITH_MEAN.append('complainant_age')
     '''
@@ -112,6 +114,23 @@ if __name__ == "__main__":
                 this_df.drop(col, axis=1, inplace = True)
             except:
                 continue
+
+        categories = [col for col in this_df.columns if 'Category' in col]
+        for cat in categories:
+            this_df.drop(cat, axis=1, inplace = True)
+
+        if args.pared_down:
+            beats = [col for col in this_df.columns if 'beat' in col]
+            for beat in beats:
+                this_df.drop(beat, axis=1, inplace = True)
+
+            counts_311 = [col for col in this_df.columns if '_count_' in col]
+            for count in counts_311:
+                this_df.drop(count, axis=1, inplace = True)
+
+            crimes = [col for col in this_df.columns if 'crime' in col]
+            for crime in crimes:
+                this_df.drop(crime, axis=1, inplace = True)
 
         chunks = temporal_split_data(this_df)
 
