@@ -1,5 +1,0 @@
-crid,officer_id,cat_id,recc_finding,recc_outcome,finding_edit,outcome_edit,value,beat,location,add1,add2,city,incident_date,start_date,end_date,investigator_id,final_outcome_class,lat,lng
-1057642,1,10B,UN,600,Unfounded,Unsustained,0,114,11,100,S COLUMBUS DR,CHICAGO IL,10/7/12 7:30,10/9/12,5/16/13,1393,not-sustained,41.8807979,-87.6208529
-1063196,1,10U,,600,No Affidavit,Unsustained,0,1423,17,1446,N TALMAN AVE,CHICAGO IL,6/29/13 19:00,6/29/13,8/14/13,1060,not-sustained,41.9080192,-87.6936477
-1049623,2,05B,UN,600,Unfounded,Unsustained,0,1524,17,5200,W HURON ST,CHICAGO IL 60644,10/27/11 16:00,10/27/11,7/6/12,275,not-sustained,41.893011,-87.7555281
-1049701,2,06J,NS,600,Not Sustained,Unsustained,0,1513,17,5601,W MADISON ST,CHICAGO IL 60644,10/26/11 0:00,10/31/11,12/20/12,740,not-sustained,41.8798004,-87.7651833

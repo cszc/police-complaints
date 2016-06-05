@@ -130,9 +130,9 @@ OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
                 'None': None
                 }
 
-def temporal_split_data(df):
+def temporal_split_data(df,n=5):
     df_sorted = df.sort_values(by='dateobj')
-    chunks = np.array_split(df_sorted, 5)
+    chunks = np.array_split(df_sorted, n)
     for chunk in chunks:
         chunk.drop('dateobj',axis=1, inplace=True)
     return chunks
@@ -150,40 +150,6 @@ def get_feature_importances(model):
             print('This model does not have feature_importances, '
                           'nor coef_ returning None')
             return None
-
-
-def plot_feature_importances(importances, filename):
-    plt.figure()
-    plt.style.use('ggplot')
-    importances.plot(kind="barh", legend=False)
-    plt.tight_layout()
-    plt.savefig(filename)
-
-
-def output_evaluation_statistics(y_test, predictions):
-    print("Statistics with probability cutoff at 0.5")
-    # binary predictions with some cutoff for these evaluations
-    cutoff = 0.5
-    y_test = y_test.astype(int)
-    predictions_binary = np.copy(predictions)
-    predictions_binary[predictions_binary >= cutoff] = int(1)
-    predictions_binary[predictions_binary < cutoff] = int(0)
-    # predictions_binary = predictions_binary.astype(int)
-
-    # print(type)
-    # df1 = pd.DataFrame(predictions_binary)
-    # # print(df1.head())
-    # print("Value counts for binary predictions")
-    # print(df1[0].value_counts())
-    evaluation.print_model_statistics(y_test, predictions_binary)
-    evaluation.print_confusion_matrix(y_test, predictions_binary)
-    #if len(list(set(predictions_binary))) > 1:
-       # precision1 = precision_at(y_test, predictions, 0.01)
-       # print("Precision at 1%: {} (probability cutoff {})".format(
-        #             round(precision1[0], 2), precision1[1]))
-        #precision10 = precision_at(y_test, predictions, 0.1)
-        #print("Precision at 10%: {} (probability cutoff {})".format(
-         #            round(precision10[0], 2), precision10[1]))
 
 
 def _generate_grid(model_parameters):
@@ -257,8 +223,9 @@ if __name__ == "__main__":
     # if '-t' in to_try:
     #     to_try = to_try.remove('-t')
     print(to_try)
+    
     '''
-    Generate decision tree bases
+    Generate decision tree bases for AdaBoostClassifier
     '''
     dt_grid = grid_from_class('DT')
     base_dts = []
@@ -282,18 +249,6 @@ if __name__ == "__main__":
 
         chunks = temporal_split_data(df)
 
-        # #IMPUTE EACH TEMPORAL CHUNK
-        # for chunk in chunks:
-        #     for col in chunk.columns:
-        #         try:
-        #             if col in FILL_WITH_MEAN:
-        #                 mean = round(chunk[col].mean())
-        #                 chunk[col].fillna(value=mean, inplace=True)
-        #             else:
-        #                 chunk[col].fillna(0, inplace=True)
-        #         except:
-        #             print('Could not impute column:{}'.format(col))
-        #             continue
 
         print("### STARTING {} ###".format(model_name))
 

@@ -1,6 +1,0 @@
-pared_non-demo,non-demo,no_affidavit,GB,"{'learning_rate': 0.05, 'n_estimators': 1000, 'subsample': 0.1, 'max_depth': 1}",ROS,0.775098288,0.757970372,,,,,,,
-,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,
-non-demo,non-demo,no_affidavit,GB,"{'learning_rate': 0.05, 'subsample': 0.1, 'n_estimators': 1000, 'max_depth': 1}",ROS,0.765257567,0.753513396with_demo,with_demo,no_affidavit,GB,"{'max_depth': 1, 'subsample': 0.1, 'learning_rate': 0.05, 'n_estimators': 1000}",ROS,0.779716398,0.767361661
-,,,,,,,,,,,,,,
-non-demo,non-demo,no_affidavit,GB,"{'learning_rate': 0.05, 'subsample': 0.1, 'n_estimators': 1000, 'max_depth': 1}",ROS,0.765257567,0.753513396pared_non-demo,non-demo,Findings Sustained,GB,"{'n_estimators': 1000, 'subsample': 0.1, 'max_depth': 1, 'learning_rate': 0.05}",ROS,0.728789,0.879518731

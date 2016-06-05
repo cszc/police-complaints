@@ -1,3 +1,0 @@
-non-demo,non-demo,Findings Sustained,GB,"{'learning_rate': 0.001, 'subsample': 0.1, 'max_depth': 5, 'n_estimators': 10}",ROS,0.753806001483,0.788378452283
-with_demo,with_demo,Findings Sustained,GB,"{'n_estimators': 10, 'subsample': 0.1, 'max_depth': 5, 'learning_rate': 0.001}",ROS,0.809628881084,0.845548821549
-pared_non-demo,non-demo,Findings Sustained,GB,"{'n_estimators': 10, 'learning_rate': 0.001, 'subsample': 0.1, 'max_depth': 5}",ROS,0.692737096097,0.844982225868
