@@ -60,7 +60,7 @@ CLFS = {
 
         }
 
-GRID={'GB': {'learning_rate': [0.1], 'subsample': [0.1], 'max_depth': [5], 'n_estimators': [100]},
+GRID={'GB': {'n_estimators': [10], 'subsample': [0.1], 'learning_rate': [0.001], 'max_depth': [5]},
     'test': {
                 'criterion': ['gini'],
                 'max_depth': [1,5],
@@ -446,7 +446,7 @@ if __name__ == "__main__":
                         folds_completed += 1
                         print("Completed {} fold".format(folds_completed))
 
-                        with open('Evaluation/individual_results2.csv', 'a') as csvfile:
+                        with open('Evaluation/stage2/individual_results.csv', 'a') as csvfile:
                             spamwriter = csv.writer(csvfile)
                             spamwriter.writerow(
                                 [dem_label,
@@ -463,7 +463,7 @@ if __name__ == "__main__":
                                 accuracy])
 
                         file_name = (
-                            "Evaluation/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
+                            "Evaluation/stage2/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
                             TIMESTAMP, data_label, model_name, i, folds_completed, dem_label)
                             )
 
@@ -490,7 +490,7 @@ if __name__ == "__main__":
                     if trial == 1:
                         overall_precision, overall_recall, overall_thresholds = metrics.precision_recall_curve(
                                 overall_actual, overall_predictions)
-                        plot_file = "Evaluation/plots/aPR_{0}_{1}_{2}_{3}.png".format(
+                        plot_file = "Evaluation/stage2/plots/aPR_{0}_{1}_{2}_{3}.png".format(
                                 TIMESTAMP, data_label, model_name, label)
                         plt.plot(overall_recall, overall_precision)
                         plt.title('Precision-Recall curve for {}'.format(model_name+" "+data_label+" "+label))
@@ -501,7 +501,7 @@ if __name__ == "__main__":
                         plt.close()
 
                         #plot AUC
-                        plot_file = "Evaluation/plots/aROC_{0}_{1}_{2}_{3}.png".format(TIMESTAMP, data_label, model_name, label)
+                        plot_file = "Evaluation/stage2/plots/aROC_{0}_{1}_{2}_{3}.png".format(TIMESTAMP, data_label, model_name, label)
                         overall_fpr, overall_tpr, overall_roc_thresholds = metrics.roc_curve(
                                 overall_actual, overall_predictions)
                         plt.plot(overall_fpr, overall_tpr)
@@ -513,7 +513,7 @@ if __name__ == "__main__":
                         plt.savefig(plot_file)
                         plt.close()
 
-                    with open('Evaluation/trial_results2.csv', 'a') as csvfile:
+                    with open('Evaluation/stage2/trial_results2.csv', 'a') as csvfile:
                         spamwriter = csv.writer(csvfile)
                         spamwriter.writerow([
                             data_label,
@@ -535,7 +535,7 @@ if __name__ == "__main__":
             avg_acc_overall = sum(overall_accuracy)/len(overall_accuracy)
             print("Overall AUC score: %0.3f" % avg_auc_overall)
 
-            with open('Evaluation/full_results2.csv', 'a') as csvfile:
+            with open('Evaluation/stage2/full_results.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
                     spamwriter.writerow([
                         data_label,
