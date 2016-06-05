@@ -487,30 +487,31 @@ if __name__ == "__main__":
                     print(confusion)
 
                     #Plot precision recall
-                    overall_precision, overall_recall, overall_thresholds = metrics.precision_recall_curve(
-                            overall_actual, overall_predictions)
-                    plot_file = "Evaluation/plots/PR_{0}_{1}_{2}_{3}.png".format(
-                            TIMESTAMP, data_label, model_name, label)
-                    plt.plot(overall_recall, overall_precision)
-                    plt.title('Precision-Recall curve for {}'.format(model_name+" "+data_label+" "+label))
-                    plt.xlabel('Recall')
-                    plt.ylabel('Precision')
-                    plt.grid(True)
-                    plt.savefig(plot_file)
-                    plt.close()
+                    if trial == 1:
+                        overall_precision, overall_recall, overall_thresholds = metrics.precision_recall_curve(
+                                overall_actual, overall_predictions)
+                        plot_file = "Evaluation/plots/PR_{0}_{1}_{2}_{3}.png".format(
+                                TIMESTAMP, data_label, model_name, label)
+                        plt.plot(overall_recall, overall_precision)
+                        plt.title('Precision-Recall curve for {}'.format(model_name+" "+data_label+" "+label))
+                        plt.xlabel('Recall')
+                        plt.ylabel('Precision')
+                        plt.grid(True)
+                        plt.savefig(plot_file)
+                        plt.close()
 
-                    #plot AUC
-                    plot_file = "Evaluation/plots/ROC_{0}_{1}_{2}_{3}.png".format(TIMESTAMP, data_label, model_name, label)
-                    overall_fpr, overall_tpr, overall_roc_thresholds = metrics.roc_curve(
-                            overall_actual, overall_predictions)
-                    plt.plot(overall_fpr, overall_tpr)
-                    plt.plot([0, 1], [0, 1], 'k--')
-                    plt.title('ROC curve for {} (AUC = {})'.format(model_name+" "+data_label+" "+label, round(average_auc,3)))
-                    plt.xlabel('False Positive Rate')
-                    plt.ylabel('True Positive Rate')
-                    plt.grid(True)
-                    plt.savefig(plot_file)
-                    plt.close()
+                        #plot AUC
+                        plot_file = "Evaluation/plots/ROC_{0}_{1}_{2}_{3}.png".format(TIMESTAMP, data_label, model_name, label)
+                        overall_fpr, overall_tpr, overall_roc_thresholds = metrics.roc_curve(
+                                overall_actual, overall_predictions)
+                        plt.plot(overall_fpr, overall_tpr)
+                        plt.plot([0, 1], [0, 1], 'k--')
+                        plt.title('ROC curve for {} (AUC = {})'.format(model_name+" "+data_label+" "+label, round(average_auc,3)))
+                        plt.xlabel('False Positive Rate')
+                        plt.ylabel('True Positive Rate')
+                        plt.grid(True)
+                        plt.savefig(plot_file)
+                        plt.close()
 
                     with open('Evaluation/trial_results.csv', 'a') as csvfile:
                         spamwriter = csv.writer(csvfile)
