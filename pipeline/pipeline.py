@@ -47,7 +47,9 @@ TEST_SPLITS_WINDOW = [2,3,4]
 TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
 # CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
-FILL_WITH_MEAN = ['agesqrd','officers_age', 'complainant_age']
+# FILL_WITH_MEAN = ['agesqrd','officers_age', 'complainant_age']
+TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0', '']
+FILL_WITH_MEAN = ['officers_age', 'transit_time', 'car_time','agesqrd','complainant_age']
 
 #estimators
 CLFS = {
@@ -82,7 +84,8 @@ GRID = {
                 },
         'AB': {
                 'algorithm': ['SAMME', 'SAMME.R'],
-                'n_estimators': [1,10,100,1000],
+                'n_estimators': [5,10,100,1000],
+                'base_estimator':[DecisionTreeClassifier(max_depth=1),DecisionTreeClassifier(max_depth=5),DecisionTreeClassifier(max_depth=10)],
                 'learning_rate' : [0.001,0.01,0.05,0.1,0.5]
                 },
         'GB': {
@@ -94,9 +97,10 @@ GRID = {
         'NB' : {},
         'DT': {
                 'criterion': ['gini', 'entropy'],
-                'max_depth': [1,5,10,20,50,100],
+                'max_depth': [5,10,20,50,100],
                 'max_features': ['sqrt','log2'],
-                'min_samples_split': [2,5,10]
+                'min_samples_split': [2,5,10],
+                'class_weight': ['balanced',None]
                 },
         'test': {
                 'criterion': ['gini'],
@@ -210,11 +214,11 @@ def convert_to_binary(predictions):
 SVM_ARGS={'class_weight': 'auto'}
 OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
                 'SMOTE': SMOTE(ratio='auto', verbose=False, kind='regular'),
-                'SMOTE borderline 1': SMOTE(ratio='auto', verbose=False, kind='borderline1'),
-                'SMOTE borderline 2': SMOTE(ratio='auto', verbose=False, kind='borderline2'),
-                # 'SMOTE SVM': SMOTE(ratio='auto', verbose=False, kind='svm', **SVM_ARGS),
-                'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
-                'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
+                # 'SMOTE borderline 1': SMOTE(ratio='auto', verbose=False, kind='borderline1'),
+                # 'SMOTE borderline 2': SMOTE(ratio='auto', verbose=False, kind='borderline2'),
+                # # 'SMOTE SVM': SMOTE(ratio='auto', verbose=False, kind='svm', **SVM_ARGS),
+                # 'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
+                # 'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
                 'None': None}
 
 if __name__ == "__main__":
@@ -225,7 +229,7 @@ if __name__ == "__main__":
     parser.add_argument('csv', help='csv filename')
     parser.add_argument('label', help='label of dependent variable')
     parser.add_argument('to_try', nargs='+', default=['DT'], help='list of model abbreviations')
-    parser.add_argument('-t', action="store_true", default=False,help='use tack one on window validation')
+    # parser.add_argument('-t', action="store_true", default=False,help='use tack one on window validation')
     parser.add_argument('-d', action="store_true", default=False,help='using demographic info')
     args = parser.parse_args()
     print(args)
@@ -233,19 +237,19 @@ if __name__ == "__main__":
     Labels for Documenting
     '''
     label = args.label #y, predicted variable
-
-    if args.t:
-        train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
-    else:
-        train_split, test_split = TRAIN_SPLITS_WINDOW, TEST_SPLITS_WINDOW
+    train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
+    # if args.t:
+    #     train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
+    # else:
+    #     train_split, test_split = TRAIN_SPLITS_WINDOW, TEST_SPLITS_WINDOW
     if args.d:
         dem_label = 'with_demo'
     else:
         dem_label = 'non-demo'
     stage = 'stage-1'
     to_try = args.to_try
-    if '-t' in to_try:
-        to_try = to_try.remove('-t')
+    # if '-t' in to_try:
+    #     to_try = to_try.remove('-t')
     print(to_try)
 
     '''
@@ -253,21 +257,26 @@ if __name__ == "__main__":
     '''
     for model_name in to_try:
         df = pd.read_csv(args.csv)
-        for col in df.columns:
-            if col not in FILL_WITH_MEAN:
-                df[col].fillna(0, inplace=True)
+
+        for col in TO_DROP:
+            try:
+                df.drop(col, axis=1, inplace = True)
+            except:
+                continue
 
         chunks = temporal_split_data(df)
 
+        #IMPUTE EACH TEMPORAL CHUNK
         for chunk in chunks:
-            chunk.drop('Unnamed: 0',axis=1, inplace=True)
-            chunk.drop('crid',axis=1, inplace=True)
-            chunk.drop('officer_id',axis=1, inplace=True)
-
-            for col in FILL_WITH_MEAN:
+            for col in chunk.columns:
                 try:
-                    chunk[col].fillna(chunk[col].mean(), inplace=True)
+                    if col in FILL_WITH_MEAN:
+                        mean = round(chunk[col].mean())
+                        chunk[col].fillna(value=mean, inplace=True)
+                    else:
+                        chunk[col].fillna(0, inplace=True)
                 except:
+                    print('Could not impute column:{}'.format(col))
                     continue
 
         print("### STARTING {} ###".format(model_name))
@@ -275,34 +284,53 @@ if __name__ == "__main__":
         '''
         Iterating Through Model
         '''
-        clf = CLFS[model_name]
+        # clf = CLFS[model_name]
         grid = grid_from_class(model_name)
+        print(grid)
 
         for i, params in enumerate(grid):
             '''
             Iterating Through Parameters
             '''
             print("### TRYING PARAMS ###")
-            clf.set_params(**params)
-            if hasattr(clf, 'n_jobs'):
-                    clf.set_params(n_jobs=-1)
-            # folds_completed = 0
-            print(clf)
-            if model_name=='KNN':
-                steps = [("normalization", preprocessing.RobustScaler()),('feat', sklearn.feature_selection.SelectKBest(k=10)),
-                 (model_name, clf)]
-            else:
+            # clf.set_params(**params)
+            # if hasattr(clf, 'n_jobs'):
+            #         clf.set_params(n_jobs=-1)
+            # # folds_completed = 0
+            # print(clf)
+            # if model_name=='KNN':
+            #     steps = [("normalization", preprocessing.RobustScaler()),('feat', sklearn.feature_selection.SelectKBest(k=10)),
+            #      (model_name, clf)]
+            # else:
+            #     steps = [(model_name, clf)]
+
+            # pipeline = sklearn.pipeline.Pipeline(steps)
+            # print("pipeline:", [name for name, _ in pipeline.steps])
+
+            # auc_scores = []
+            for over_sampler in OVER_SAMPLERS.keys():
+                print("### STARTING ###")
+
+                clf = CLFS[model_name]
+                clf.set_params(**params)
+                if hasattr(clf, 'n_jobs'):
+                        clf.set_params(n_jobs=-1)
+
+                print(clf)
+                print(over_sampler)
+                print("######")
                 steps = [(model_name, clf)]
 
-            pipeline = sklearn.pipeline.Pipeline(steps)
-            print("pipeline:", [name for name, _ in pipeline.steps])
+                pipeline = sklearn.pipeline.Pipeline(steps)
+                print("pipeline:", [name for name, _ in pipeline.steps])
 
-            auc_scores = []
-            for over_sampler in OVER_SAMPLERS.keys():
+                auc_scores = []
+                print("Resetting AUC")
                 folds_completed = 0
 
                 os_object = OVER_SAMPLERS[over_sampler]
                 print("Oversampler: {}".format(over_sampler))
+
                 for i in range(len(train_split)):
                     '''
                     Cross Validation
@@ -312,11 +340,10 @@ if __name__ == "__main__":
                     for x in range(len(train_split[i])-1):
                         if x == 0:
                             train_df=chunks[train_split[i][x]]
-
                         train_df = pd.concat(
                             [train_df, chunks[train_split[i][x+1]]])
-                    X_train = train_df.drop(label, axis=1)
 
+                    X_train = train_df.drop(label, axis=1)
                     y_train = train_df[label]
                     test_df = chunks[test_split[i]]
                     X_test = test_df.drop(label, axis=1)
@@ -354,6 +381,7 @@ if __name__ == "__main__":
                     '''
                     Evaluation Statistics
                     '''
+                    print()
                     print("Evaluation Statistics")
                     if model_name=='KNN':
                         print("Getting feature support")
@@ -361,7 +389,7 @@ if __name__ == "__main__":
                         print(X_train.columns[features.transform(np.arange(
                             len(X_train.columns)))])
 
-                    print()
+
                     auc_score = metrics.roc_auc_score(y_test, predicted)
                     precision, recall, thresholds = metrics.precision_recall_curve(
                         y_test, predicted_prob)
@@ -390,6 +418,7 @@ if __name__ == "__main__":
                         print(df_best_estimators.head(5))
 
                     folds_completed += 1
+                    print("Completed {} fold".format(folds_completed))
 
                     with open('results.csv', 'a') as csvfile:
                         spamwriter = csv.writer(csvfile)
@@ -414,12 +443,13 @@ if __name__ == "__main__":
                     pickle.dump( data, open(file_name, "wb" ) )
 
                 print("### Cross Validation Statistics ###")
-                print(params)
+                print(clf)
                 print(over_sampler)
                 precision, recall, thresholds = metrics.precision_recall_curve(
                     overall_actual, overall_predictions)
+                print("Length of AUC SCORES: {}".format(len(auc_scores)))
                 average_auc = sum(auc_scores) / len(auc_scores)
-                print("Average AUC: %0.3f" % auc_score)
+                print("Average AUC: %0.3f" % average_auc)
                 print("Confusion Matrix")
                 overall_binary_predictions = convert_to_binary(overall_predictions)
                 confusion = metrics.confusion_matrix(
@@ -432,7 +462,7 @@ if __name__ == "__main__":
                         stage,
                         dem_label,
                         label,
-                        model_name, 
+                        model_name,
                         params,
                         over_sampler,
                         folds_completed,

@@ -23,6 +23,10 @@ import matplotlib.pyplot as plt
 matplotlib.style.use('ggplot')
 from pydoc import locate
 from argparse import ArgumentParser
+from unbalanced_dataset.over_sampling import RandomOverSampler
+from unbalanced_dataset.over_sampling import SMOTE
+from unbalanced_dataset.combine import SMOTETomek
+from unbalanced_dataset.combine import SMOTEENN
 
 #Own modules
 import evaluation
@@ -40,7 +44,7 @@ TRAIN_SPLITS_WINDOW =[[0,1],[1,2],[2,3]]
 TEST_SPLITS_WINDOW = [2,3,4]
 TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
-TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0', '']
+TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0']
 FILL_WITH_MEAN = ['officers_age', 'transit_time', 'car_time']
 
 #estimators
@@ -51,6 +55,11 @@ CLFS = {
                     max_depth=6,
                     n_estimators=10)
         }
+
+SVM_ARGS={'class_weight': 'auto'}
+OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
+                'SMOTE': SMOTE(ratio='auto', verbose=False, kind='regular'),
+                'None': None}
 
 
 if __name__ == "__main__":
@@ -72,10 +81,7 @@ if __name__ == "__main__":
     dem_label = 'with_demo' if args.demographic else 'non-demo'
     stage = 'stage-1'
 
-    if args.tack_one_on:
-        train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
-    else:
-        train_split, test_split = TRAIN_SPLITS_WINDOW, TEST_SPLITS_WINDOW
+    train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
 
     to_try = args.to_try
     df = pd.read_csv(args.csv)
@@ -116,147 +122,185 @@ if __name__ == "__main__":
         Iterating Through Model
         '''
         print("### STARTING {} ###".format(model_name))
-        clf = CLFS[model_name]
+        # clf = CLFS[model_name]
         grid = grid_from_class(model_name)
+        print(grid)
 
         for i, params in enumerate(grid):
             '''
             Iterating Through Parameters
             '''
             print("### TRYING PARAMS ###")
-            clf.set_params(**params)
-            if hasattr(clf, 'n_jobs'):
-                    clf.set_params(n_jobs=-1)
+            # clf.set_params(**params)
+            # if hasattr(clf, 'n_jobs'):
+            #         clf.set_params(n_jobs=-1)
+            #
+            # folds_completed = 0
+            # print(clf)
+            #
+            # steps = [(model_name, clf)]
+            # pipeline = sklearn.pipeline.Pipeline(steps)
+            # print("pipeline:", [name for name, _ in pipeline.steps])
+            #
+            # auc_scores = []
+            for over_sampler in OVER_SAMPLERS.keys():
+                print("### STARTING ###")
 
-            folds_completed = 0
-            print(clf)
+                clf = CLFS[model_name]
+                clf.set_params(**params)
+                if hasattr(clf, 'n_jobs'):
+                        clf.set_params(n_jobs=-1)
 
-            steps = [(model_name, clf)]
-            pipeline = sklearn.pipeline.Pipeline(steps)
-            print("pipeline:", [name for name, _ in pipeline.steps])
+                print(clf)
+                print(over_sampler)
+                print("######")
+                steps = [(model_name, clf)]
 
-            auc_scores = []
+                pipeline = sklearn.pipeline.Pipeline(steps)
+                print("pipeline:", [name for name, _ in pipeline.steps])
 
-            for i in range(len(train_split)):
-                '''
-                Cross Validation
-                '''
-                print("Training sets are: {}".format(train_split[i]))
-                print("Testing sets are: {}".format(test_split[i]))
-                for x in range(len(train_split[i])-1):
-                    if x == 0:
-                        train_df=chunks[train_split[i][x]]
+                auc_scores = []
+                print("Resetting AUC")
+                folds_completed = 0
 
-                    train_df = pd.concat(
-                        [train_df, chunks[train_split[i][x+1]]])
+                os_object = OVER_SAMPLERS[over_sampler]
+                print("Oversampler: {}".format(over_sampler))
 
-                X_train = train_df.drop(label, axis=1)
-                y_train = train_df[label]
-                test_df = chunks[test_split[i]]
-                X_test = test_df.drop(label, axis=1)
-                y_test = test_df[label]
+                for i in range(len(train_split)):
+                    '''
+                    Cross Validation
+                    '''
+                    print("Training sets are: {}".format(train_split[i]))
+                    print("Testing sets are: {}".format(test_split[i]))
+                    for x in range(len(train_split[i])-1):
+                        if x == 0:
+                            train_df=chunks[train_split[i][x]]
+                        train_df = pd.concat(
+                            [train_df, chunks[train_split[i][x+1]]])
 
-                t0 = time.clock()
-                pipeline.fit(X_train, y_train)
-                time_to_fit = (time.clock() - t0)
-                print("done fitting in {}".format(time_to_fit))
+                    X_train = train_df.drop(label, axis=1)
+                    y_train = train_df[label]
+                    test_df = chunks[test_split[i]]
+                    X_test = test_df.drop(label, axis=1)
+                    y_test = test_df[label]
 
-                '''
-                Predictions
-                '''
-                predicted = pipeline.predict(X_test)
+                    if over_sampler != "None":
+                        X_resampled = np.array(X_train)
+                        y_resampled = np.array(y_train)
+                        X_resampled, y_resampled = os_object.fit_transform(X_resampled,y_resampled)
 
-                try:
-                    predicted_prob = pipeline.predict_proba(X_test)
-                    predicted_prob = predicted_prob[:, 1]  # probability that label is 1
+                    else:
+                        X_resampled = X_train
+                        y_resampled = y_train
 
-                except:
-                    print("Model has no predict_proba method")
-                # output_evaluation_statistics(y_test, predicted_prob)
+                    t0 = time.clock()
+                    pipeline.fit(X_resampled, y_resampled)
+                    time_to_fit = (time.clock() - t0)
+                    print("done fitting in {}".format(time_to_fit))
 
-                '''
-                Evaluation Statistics
-                '''
-                print("Evaluation Statistics")
-                if model_name=='KNN':
-                    print("Getting feature support")
-                    features = pipeline.named_steps['feat']
-                    print(X_train.columns[features.transform(np.arange(
-                        len(X_train.columns)))])
+                    '''
+                    Predictions
+                    '''
+                    predicted = pipeline.predict(X_test)
 
-                print()
-                auc_score = metrics.roc_auc_score(y_test, predicted)
+                    try:
+                        predicted_prob = pipeline.predict_proba(X_test)
+                        predicted_prob = predicted_prob[:, 1]  # probability that label is 1
+
+                    except:
+                        print("Model has no predict_proba method")
+                    # output_evaluation_statistics(y_test, predicted_prob)
+
+                    '''
+                    Evaluation Statistics
+                    '''
+                    print()
+                    print("Evaluation Statistics")
+                    if model_name=='KNN':
+                        print("Getting feature support")
+                        features = pipeline.named_steps['feat']
+                        print(X_train.columns[features.transform(np.arange(
+                            len(X_train.columns)))])
+
+                    print()
+                    auc_score = metrics.roc_auc_score(y_test, predicted)
+                    precision, recall, thresholds = metrics.precision_recall_curve(
+                        y_test, predicted_prob)
+                    auc_scores.append(auc_score)
+                    print("AUC score: %0.3f" % auc_score)
+
+                    # save predcited/actual to calculate precision/recall
+                    if folds_completed==0:
+                        overall_predictions = pd.DataFrame(predicted_prob)
+                        overall_actual = y_test
+                    else:
+                        overall_predictions = pd.concat(
+                            [overall_predictions, pd.DataFrame(predicted_prob)])
+                        overall_actual = pd.concat([overall_actual, y_test])
+
+                    '''
+                    Important Features
+                    '''
+                    print("Feature Importance")
+                    feature_importances = get_feature_importances(
+                        pipeline.named_steps[model_name])
+                    if feature_importances != None:
+                        df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp/Coef"], index = X_train.columns).sort_values(by='Imp/Coef', ascending = False)
+                        # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
+                        # plot_feature_importances(df_best_estimators, filename)
+                        print(df_best_estimators.head(5))
+
+                    folds_completed += 1
+                    print("Completed {} fold".format(folds_completed))
+
+                    with open('Results/results.csv', 'a') as csvfile:
+                        spamwriter = csv.writer(csvfile)
+                        spamwriter.writerow(
+                            [stage,
+                            dem_label,
+                            label,
+                            model_name,
+                            params,
+                            over_sampler,
+                            folds_completed,
+                            auc_score,
+                            precision,
+                            recall,
+                            thresholds])
+
+                    file_name = (
+                        "Results/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
+                        TIMESTAMP, stage, model_name, i, folds_completed, dem_label)
+                        )
+
+                    data = [clf, pipeline, predicted, params]
+                    pickle.dump( data, open(file_name, "wb" ) )
+
+                print("### Cross Validation Statistics ###")
+                print(clf)
+                print(over_sampler)
                 precision, recall, thresholds = metrics.precision_recall_curve(
-                    y_test, predicted_prob)
-                auc_scores.append(auc_score)
-                print("AUC score: %0.3f" % auc_score)
+                    overall_actual, overall_predictions)
+                average_auc = sum(auc_scores) / len(auc_scores)
+                print("Length of AUC SCORES: {}".format(len(auc_scores)))
+                print("Average AUC: %0.3f" % average_auc)
+                print("Confusion Matrix")
+                overall_binary_predictions = convert_to_binary(overall_predictions)
+                confusion = metrics.confusion_matrix(
+                    overall_actual, overall_binary_predictions)
+                print(confusion)
 
-                # save predcited/actual to calculate precision/recall
-                if folds_completed==0:
-                    overall_predictions = pd.DataFrame(predicted_prob)
-                    overall_actual = y_test
-                else:
-                    overall_predictions = pd.concat(
-                        [overall_predictions, pd.DataFrame(predicted_prob)])
-                    overall_actual = pd.concat([overall_actual, y_test])
-
-                '''
-                Important Features
-                '''
-                print("Feature Importance")
-                feature_importances = get_feature_importances(
-                    pipeline.named_steps[model_name])
-                if feature_importances != None:
-                    df_best_estimators = pd.DataFrame(feature_importances, columns = ["Imp/Coef"], index = X_train.columns).sort_values(by='Imp/Coef', ascending = False)
-                    # filename = "plots/ftrs_"+estimator_name+"_"+time.strftime("%d-%m-%Y-%H-%M-%S"+".png")
-                    # plot_feature_importances(df_best_estimators, filename)
-                    print(df_best_estimators.head(5))
-
-                folds_completed += 1
-
-                with open('Results/results.csv', 'a') as csvfile:
+                with open('Results/final_results.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
-                    spamwriter.writerow(
-                        [stage,
+                    spamwriter.writerow([
+                        stage,
                         dem_label,
                         label,
                         model_name,
                         params,
+                        over_sampler,
                         folds_completed,
-                        auc_score,
                         precision,
                         recall,
-                        thresholds])
-
-                file_name = (
-                    "Results/pickles/{0}_{1}_{2}_paramset:{3}_fold:{4}_{5}.p".format(
-                    TIMESTAMP, stage, model_name, i, folds_completed, dem_label)
-                    )
-
-                data = [clf, pipeline, predicted, params]
-                pickle.dump( data, open(file_name, "wb" ) )
-
-            print("### Cross Validation Statistics ###")
-            precision, recall, thresholds = metrics.precision_recall_curve(
-                overall_actual, overall_predictions)
-            average_auc = sum(auc_scores) / len(auc_scores)
-            print("Average AUC: %0.3f" % auc_score)
-            print("Confusion Matrix")
-            overall_binary_predictions = convert_to_binary(overall_predictions)
-            confusion = metrics.confusion_matrix(
-                overall_actual, overall_binary_predictions)
-            print(confusion)
-
-            with open('Results/final_results.csv', 'a') as csvfile:
-                spamwriter = csv.writer(csvfile)
-                spamwriter.writerow([
-                    stage,
-                    dem_label,
-                    label,
-                    model_name,
-                    params,
-                    folds_completed,
-                    precision,
-                    recall,
-                    thresholds,
-                    average_auc])
+                        thresholds,
+                        average_auc])
