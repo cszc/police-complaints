@@ -29,3 +29,6 @@ The original dataset was obtained through the Freedom of Information Act (FOIA) 
 - scipy
 - pydoc
 - [UnbalancedDataset](https://github.com/fmfn/UnbalancedDataset)
+
+## Credit
+Thanks to the [DSSG Cincinnati team](https://github.com/dssg/cincinnati) for providing some useful code snippets for our pipeline and to the Invisible Institute for providing additional background and context for the data
