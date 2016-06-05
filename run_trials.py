@@ -60,7 +60,7 @@ CLFS = {
 
         }
 
-GRID={'GB': {'learning_rate': [0.05], 'subsample': [0.1], 'max_depth': [1], 'n_estimators': [1000]},
+GRID={'GB': {'n_estimators': [10], 'subsample': [0.1], 'learning_rate': [0.001], 'max_depth': [5]}},
     'test': {
                 'criterion': ['gini'],
                 'max_depth': [1,5],
