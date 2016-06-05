@@ -80,7 +80,7 @@ def make_hist(df, title, num_bins = 8, code_percentile=.99):
     plt.close()
 
 
-def make_bar():
+def make_bar(df, title, num_bins = 8, code_percentile=.99):
     df = pd.DataFrame(data={"age": randint(10, 50, 1000),
                         "response": [choice(['Yes', 'No']) for i in range(1000)]})
 
