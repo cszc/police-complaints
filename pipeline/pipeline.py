@@ -232,7 +232,7 @@ if __name__ == "__main__":
     parser.add_argument('csv', help='csv filename')
     parser.add_argument('label', help='label of dependent variable')
     parser.add_argument('to_try', nargs='+', default=['DT'], help='list of model abbreviations')
-    # parser.add_argument('-t', action="store_true", default=False,help='use tack one on window validation')
+    parser.add_argument('-t', action="store_true", default=False,help='use tack one on window validation')
     parser.add_argument('-d', action="store_true", default=False,help='using demographic info')
     args = parser.parse_args()
     print(args)
@@ -240,16 +240,19 @@ if __name__ == "__main__":
     Labels for Documenting
     '''
     label = args.label #y, predicted variable
-    train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
-    # if args.t:
-    #     train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
-    # else:
-    #     train_split, test_split = TRAIN_SPLITS_WINDOW, TEST_SPLITS_WINDOW
+    # train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
+    if args.t:
+        train_split, test_split = TRAIN_SPLITS_TACK, TEST_SPLITS_TACK
+        split_label = "Tack on "
+    else:
+        train_split, test_split = TRAIN_SPLITS_WINDOW, TEST_SPLITS_WINDOW
+        split_label = "Move window"
+    print("Split: {}".format(split_label))
     if args.d:
         dem_label = 'with_demo'
     else:
         dem_label = 'non-demo'
-    stage = 'stage-1'
+    stage = 'stage-2'
     to_try = args.to_try
     # if '-t' in to_try:
     #     to_try = to_try.remove('-t')
@@ -486,4 +489,5 @@ if __name__ == "__main__":
                         precision,
                         recall,
                         thresholds,
-                        average_auc])
+                        average_auc,
+                        split_label])
