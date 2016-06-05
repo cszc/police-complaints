@@ -60,6 +60,17 @@ def snake_columns(df):
     return df
 
 
+def make_count(series, title):
+    '''
+    Takes pd series, title.
+    Outputs a barplot of counts
+    '''
+    title = title.title()
+    sns_plot = sns.countplot(x=series, palette = "RdBu")
+    plt.title('Count of ' + title.replace("_", " "))
+    plt.savefig('Count_' + title + '.png', format='png')
+    plt.close()
+
 def make_hist(df, title, num_bins = 8, code_percentile=.99):
     '''
     Takes data, title, number of bins (max 10), and percentile.
@@ -121,6 +132,7 @@ def summarize_data(df, html = True):
         column_data = df[name]
         column_title = name
         make_hist(column_data, column_title)
+        make_count(column_data, column_title)
 
     #Make Histograms of Numeric Column Types
     nonnumeric_df = df.select_dtypes(include=[object])
