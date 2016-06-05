@@ -19,7 +19,9 @@ import pandas as pd
 import numpy as np
 import pylab as pl
 from scipy import optimize
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
 matplotlib.style.use('ggplot')
 from pydoc import locate
 from argparse import ArgumentParser
