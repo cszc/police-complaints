@@ -48,7 +48,7 @@ TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
 # CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
 # FILL_WITH_MEAN = ['agesqrd','officers_age', 'complainant_age']
-TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0', '']
+TO_DROP = ['crid', 'officer_id', 'index', 'Unnamed: 0', 'no_affidavit']
 FILL_WITH_MEAN = ['officers_age', 'transit_time', 'car_time','agesqrd','complainant_age']
 
 #estimators
@@ -85,8 +85,16 @@ GRID = {
         'AB': {
                 'algorithm': ['SAMME', 'SAMME.R'],
                 'n_estimators': [5,10,100,1000],
-                'base_estimator':[DecisionTreeClassifier(max_depth=1),DecisionTreeClassifier(max_depth=5),DecisionTreeClassifier(max_depth=10)],
-                'learning_rate' : [0.001,0.01,0.05,0.1,0.5]
+                'base_estimator':[DecisionTreeClassifier(max_depth=50,min_samples_split=20),
+                    DecisionTreeClassifier(max_depth=5,min_samples_split=20),
+                    DecisionTreeClassifier(max_depth=10,min_samples_split=20),
+                    DecisionTreeClassifier(max_depth=50,min_samples_split=50),
+                    DecisionTreeClassifier(max_depth=5,min_samples_split=50),
+                    DecisionTreeClassifier(max_depth=10,min_samples_split=50),
+                    DecisionTreeClassifier(max_depth=50,min_samples_split=10),
+                    DecisionTreeClassifier(max_depth=5,min_samples_split=10),
+                    DecisionTreeClassifier(max_depth=10,min_samples_split=10),],
+                'learning_rate' : [0.001,0.01,0.1]
                 },
         'GB': {
                 'n_estimators': [1,10,100,1000],
@@ -100,7 +108,7 @@ GRID = {
                 'max_depth': [5,10,20,50,100],
                 'max_features': ['sqrt','log2'],
                 'min_samples_split': [2,5,10],
-                'class_weight': ['balanced',None]
+                'class_weight': ['balanced', None]
                 },
         'test': {
                 'criterion': ['gini'],
@@ -118,6 +126,17 @@ GRID = {
                 'algorithm': ['auto','ball_tree','kd_tree']
                 }
        }
+
+SVM_ARGS={'class_weight': 'auto'}
+OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
+                'SMOTE': SMOTE(ratio='auto', verbose=False, kind='regular'),
+                # 'SMOTE borderline 1': SMOTE(ratio='auto', verbose=False, kind='borderline1'),
+                # 'SMOTE borderline 2': SMOTE(ratio='auto', verbose=False, kind='borderline2'),
+                # # 'SMOTE SVM': SMOTE(ratio='auto', verbose=False, kind='svm', **SVM_ARGS),
+                # 'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
+                # 'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
+                'None': None
+                }
 
 def temporal_split_data(df):
     df_sorted = df.sort_values(by='dateobj')
@@ -211,15 +230,7 @@ def convert_to_binary(predictions):
     predictions_binary[predictions_binary < cutoff] = int(0)
 
     return predictions_binary
-SVM_ARGS={'class_weight': 'auto'}
-OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
-                'SMOTE': SMOTE(ratio='auto', verbose=False, kind='regular'),
-                # 'SMOTE borderline 1': SMOTE(ratio='auto', verbose=False, kind='borderline1'),
-                # 'SMOTE borderline 2': SMOTE(ratio='auto', verbose=False, kind='borderline2'),
-                # # 'SMOTE SVM': SMOTE(ratio='auto', verbose=False, kind='svm', **SVM_ARGS),
-                # 'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
-                # 'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
-                'None': None}
+
 
 if __name__ == "__main__":
     '''
@@ -423,7 +434,7 @@ if __name__ == "__main__":
                     folds_completed += 1
                     print("Completed {} fold".format(folds_completed))
 
-                    with open('results.csv', 'a') as csvfile:
+                    with open('stage2_results.csv', 'a') as csvfile:
                         spamwriter = csv.writer(csvfile)
                         spamwriter.writerow(
                             [stage,
@@ -459,7 +470,7 @@ if __name__ == "__main__":
                     overall_actual, overall_binary_predictions)
                 print(confusion)
 
-                with open('Results/final_results.csv', 'a') as csvfile:
+                with open('stage2_final_results.csv', 'a') as csvfile:
                     spamwriter = csv.writer(csvfile)
                     spamwriter.writerow([
                         stage,

@@ -46,7 +46,7 @@ TRAIN_SPLITS_TACK =[[0,1],[0,1,2],[0,1,2,3]]
 TEST_SPLITS_TACK = [2,3,4]
 # CATEGORICAL = ['officer_id', 'investigator_id', 'beat', 'officer_gender','officer_race', 'rank', 'complainant_gender', 'complainant_race']
 # FILL_WITH_MEAN = ['agesqrd','officers_age', 'complainant_age']
-TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0', '']
+TO_DROP = ['crid', 'officer_id', 'agesqrd', 'index', 'Unnamed: 0', 'Category nan','physical:nan']
 FILL_WITH_MEAN = ['officers_age', 'transit_time', 'car_time','agesqrd','complainant_age']
 
 #estimators
@@ -72,18 +72,29 @@ CLFS = {
 GRID = {
         'AB': {
                 'algorithm': ['SAMME', 'SAMME.R'],
-                'n_estimators': [5,10,100,500],
+                'n_estimators': [10,100,500,1000],
                 'base_estimator':[],
-                'learning_rate' : [0.1]
+                'learning_rate' : [0.001,0.01,0.1]
                 },
         'DT': {
                 'criterion': ['gini', 'entropy'],
-                'max_depth': [5,10,20,50],
+                'max_depth': [5,10,50],
                 'max_features': ['sqrt','log2'],
                 'min_samples_split': [10,50,100,200],
-                'class_weight': ['balanced',None]
+                'class_weight': ['balanced', None]
                 }
        }
+
+SVM_ARGS={'class_weight': 'auto'}
+OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
+                'SMOTE': SMOTE(ratio='auto', verbose=False, kind='regular'),
+                # 'SMOTE borderline 1': SMOTE(ratio='auto', verbose=False, kind='borderline1'),
+                # 'SMOTE borderline 2': SMOTE(ratio='auto', verbose=False, kind='borderline2'),
+                # # 'SMOTE SVM': SMOTE(ratio='auto', verbose=False, kind='svm', **SVM_ARGS),
+                'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
+                # 'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
+                # 'None': None
+                }
 
 def temporal_split_data(df):
     df_sorted = df.sort_values(by='dateobj')
@@ -144,15 +155,7 @@ def convert_to_binary(predictions):
     predictions_binary[predictions_binary < cutoff] = int(0)
 
     return predictions_binary
-SVM_ARGS={'class_weight': 'auto'}
-OVER_SAMPLERS = {'ROS': RandomOverSampler(ratio='auto', verbose=False),
-                'SMOTE': SMOTE(ratio='auto', verbose=False, kind='regular'),
-                # 'SMOTE borderline 1': SMOTE(ratio='auto', verbose=False, kind='borderline1'),
-                # 'SMOTE borderline 2': SMOTE(ratio='auto', verbose=False, kind='borderline2'),
-                # # 'SMOTE SVM': SMOTE(ratio='auto', verbose=False, kind='svm', **SVM_ARGS),
-                'SMOTETomek': SMOTETomek(ratio='auto', verbose=False),
-                # 'SMOTEEEN': SMOTEENN(ratio='auto', verbose=False),
-                'None': None}
+
 
 if __name__ == "__main__":
     '''
