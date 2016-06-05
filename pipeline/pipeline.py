@@ -297,6 +297,7 @@ if __name__ == "__main__":
         '''
         # clf = CLFS[model_name]
         grid = grid_from_class(model_name)
+        print(grid)
 
         for i, params in enumerate(grid):
             '''
@@ -325,15 +326,11 @@ if __name__ == "__main__":
                 clf.set_params(**params)
                 if hasattr(clf, 'n_jobs'):
                         clf.set_params(n_jobs=-1)
-                # folds_completed = 0
+
                 print(clf)
                 print(over_sampler)
                 print("######")
-                if model_name=='KNN':
-                    steps = [("normalization", preprocessing.RobustScaler()),('feat', sklearn.feature_selection.SelectKBest(k=10)),
-                     (model_name, clf)]
-                else:
-                    steps = [(model_name, clf)]
+                steps = [(model_name, clf)]
 
                 pipeline = sklearn.pipeline.Pipeline(steps)
                 print("pipeline:", [name for name, _ in pipeline.steps])
@@ -344,6 +341,7 @@ if __name__ == "__main__":
 
                 os_object = OVER_SAMPLERS[over_sampler]
                 print("Oversampler: {}".format(over_sampler))
+
                 for i in range(len(train_split)):
                     '''
                     Cross Validation
@@ -353,11 +351,10 @@ if __name__ == "__main__":
                     for x in range(len(train_split[i])-1):
                         if x == 0:
                             train_df=chunks[train_split[i][x]]
-
                         train_df = pd.concat(
                             [train_df, chunks[train_split[i][x+1]]])
-                    X_train = train_df.drop(label, axis=1)
 
+                    X_train = train_df.drop(label, axis=1)
                     y_train = train_df[label]
                     test_df = chunks[test_split[i]]
                     X_test = test_df.drop(label, axis=1)
@@ -476,7 +473,7 @@ if __name__ == "__main__":
                         stage,
                         dem_label,
                         label,
-                        model_name, 
+                        model_name,
                         params,
                         over_sampler,
                         folds_completed,

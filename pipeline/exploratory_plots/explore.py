@@ -71,13 +71,14 @@ def make_hist(df, title, num_bins = 8, code_percentile=.99):
     distinct_vals = len(set(data_list))
     num_bins = min(distinct_vals, num_bins)
 
-    plt.style.use('ggplot')
-    df.hist(bins = np.linspace(0, top_code_val, num_bins + 1), normed=True)
-    plt.xlabel(title)
-    plt.title('Histogram of ' + title.replace("_", " "))
-    plt.tight_layout()
-    plt.savefig('Histogram_' + title + '.png', format='png')
-    plt.close()
+    # plt.style.use('ggplot')
+    # df.hist(bins = np.linspace(0, top_code_val, num_bins + 1), normed=True)
+    # plt.xlabel(title)
+    # plt.title('Histogram of ' + title.replace("_", " "))
+    # plt.tight_layout()
+    # plt.savefig('Histogram_' + title + '.png', format='png')
+    # plt.close()
+    sns.displot(df)
 
 
 def make_bar():
