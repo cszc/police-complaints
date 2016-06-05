@@ -287,7 +287,7 @@ if __name__ == "__main__":
         # clf = CLFS[model_name]
         grid = grid_from_class(model_name)
         print(grid)
-        break
+
         for i, params in enumerate(grid):
             '''
             Iterating Through Parameters
@@ -315,15 +315,11 @@ if __name__ == "__main__":
                 clf.set_params(**params)
                 if hasattr(clf, 'n_jobs'):
                         clf.set_params(n_jobs=-1)
-                # folds_completed = 0
+
                 print(clf)
                 print(over_sampler)
                 print("######")
-                if model_name=='KNN':
-                    steps = [("normalization", preprocessing.RobustScaler()),('feat', sklearn.feature_selection.SelectKBest(k=10)),
-                     (model_name, clf)]
-                else:
-                    steps = [(model_name, clf)]
+                steps = [(model_name, clf)]
 
                 pipeline = sklearn.pipeline.Pipeline(steps)
                 print("pipeline:", [name for name, _ in pipeline.steps])
@@ -466,7 +462,7 @@ if __name__ == "__main__":
                         stage,
                         dem_label,
                         label,
-                        model_name, 
+                        model_name,
                         params,
                         over_sampler,
                         folds_completed,
